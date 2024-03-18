@@ -1,0 +1,15 @@
+::ng-deep .p-toolbar {
+    padding: 0.5rem;
+}
+
+.button-margin {
+    margin-right: 1rem;
+}
+
+::ng-deep .p-button-label {
+    font-weight: 200;
+}
+
+::ng-deep .p-input-icon-left {
+    position: relative; /* Set position to relative */
+}

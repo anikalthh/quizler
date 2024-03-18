@@ -1,0 +1,52 @@
+body, html {
+    background-image: url('/assets/images/landing-page.png');
+    background-size: cover;
+    position: relative;
+    text-indent:50px;
+    margin: 0;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    background-attachment: fixed;
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
+.tagline {
+    position: relative;
+    top: 45vh;
+    display: inline-block;
+}
+
+button {
+    margin: 20px 20px 0px 0px;
+}
+
+.title {
+    border-right: 5px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+        typing 6s steps(36) infinite,
+        cursor .4s step-end infinite alternate;
+}
+
+::ng-deep .mat-typography h1 {
+    margin-bottom: 0;
+}
+
+/* Cursor blinking */
+@keyframes cursor {
+    50% { border-color: transparent }
+}
+
+@keyframes typing {
+    0%{
+        width: 0%;
+    }
+    50%, 100% {
+        width: 100%;
+    }
+    /* from { width: 10% }
+    to {width: 100%} */
+}

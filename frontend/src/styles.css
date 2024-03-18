@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+/* @import "primeng/resources/themes/lara-light-blue/theme.css"; */
+@import "primeng/resources/themes/viva-dark/theme.css";
+
+@font-face {
+    font-family: 'Nokia';
+    src: url('/assets/fonts/nokiafc22.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Junicat';
+    src: url('/assets/fonts/Junicat.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.title {
+    font-size: 120px;
+    font-family: 'Nokia', sans-serif;
+}
+
+.mat-typography .title h1  {  
+    font-size: 30px; 
+    font-family: 'Nokia', sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center;
+    margin-top: 10%;
+}
+

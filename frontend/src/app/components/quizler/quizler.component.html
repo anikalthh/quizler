@@ -1,0 +1,11 @@
+<body>
+    <p>quizler works!</p>
+
+    <form [formGroup]="form">
+
+        <input type="text" placeholder="Enter Document Name" formControlName="title">
+
+        <p-fileUpload class="file-upload-container" name="documents[]" mode="advanced"
+            chooseStyleClass="p-button-rounded p-button-outlined" [customUpload]="true" (uploadHandler)="uploadFile($event)" #file></p-fileUpload>
+    </form>
+</body>

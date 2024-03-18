@@ -1,0 +1,49 @@
+.quiz-container {
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.title-container {
+    margin-top: 15px;
+}
+
+h1 {
+    font-family: 'Junicat'
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.card-wrapper {
+    flex: 0 0 55%; /* Set the desired width for each card wrapper */
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.card {
+    width: 100%;
+}
+
+.qns-answered {
+    position: fixed;
+    top: 12%;
+    right: 2%;
+    text-align: right;
+}
+
+/* ::ng-deep button:focus {
+    border: 3px solid white;
+} */
+
+::ng-deep .btn-selected {
+    border: 3px solid white;
+}

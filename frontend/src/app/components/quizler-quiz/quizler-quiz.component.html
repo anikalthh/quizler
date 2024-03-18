@@ -1,0 +1,25 @@
+<div class="quiz-container">
+    <div class="title-container container">
+        <h1>Quiz</h1>
+    </div>
+    <div class="qns-answered">
+        <p-card>
+            <p>Questions Answered</p>
+            <p>{{qnsAnswered}}/<span>{{totalNumOfQns}}</span></p>
+        </p-card>
+    </div>
+    <div class="container">
+        <div class="card-container">
+            <div *ngFor="let q of quiz.data; let i = index" class="card-wrapper">
+                <div class="flex flex-column align-items-center">
+                    <p-card header="{{i+1}}. {{q.question}}" class="card">
+                        <div *ngFor="let o of q.options; let j = index" class="field-checkbox {{q.id}}">
+                            <br>
+                            <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}" [ngClass]="[btnStyle]" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
+                        </div>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
