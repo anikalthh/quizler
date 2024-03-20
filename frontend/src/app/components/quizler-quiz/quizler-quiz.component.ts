@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
-import { QuestionsMCQ, QuestionsMCQArray } from '../../models';
+import { Answer, QuestionsMCQ, QuestionsMCQArray } from '../../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuizStore } from '../../services/quiz.store';
 import { take } from 'rxjs';
@@ -21,10 +21,9 @@ export class QuizlerQuizComponent implements OnInit {
   form !: FormGroup
   totalNumOfQns !: number
   qnsAnswered : number = 0
+  allAnswers !: Answer[]
 
   // HTML vars
-  // optionButton = document.getElementsByClassName('optionButton') as HTMLCollectionOf<HTMLElement>;
-  // currentQuestion = document.getElementsByClassName('card-wrapper') as HTMLCollectionOf<HTMLElement>;
   btnStyle!: string
 
   // lifecycle hooks
@@ -43,6 +42,7 @@ export class QuizlerQuizComponent implements OnInit {
     })
   }
 
+  // Order the answer options under each question
   getAlphabeticalOrder(index: number): string {
     // Assuming you want lowercase alphabets starting from 'a'
     return String.fromCharCode(97 + index);
@@ -53,10 +53,12 @@ export class QuizlerQuizComponent implements OnInit {
     let answerExists: boolean 
     let buttonOptions = document.getElementsByClassName(`${question.id}`) as HTMLCollectionOf<HTMLElement>
     
+    // Iterate through all the buttons under each question and reset the styling
     for (let i = 0; i < buttonOptions.length; i++) {
       let element = buttonOptions[i].children[1].children[0] as HTMLElement
       element.style.border="2px solid #9eade6"
     }
+    // Change the styling for the selected option
     let selectedButton = document.getElementById(`${question.id}-${optionIndex}`) as HTMLElement
     selectedButton.style.border="3px solid white"
 
@@ -96,8 +98,13 @@ export class QuizlerQuizComponent implements OnInit {
 
     this.quizStore.getAllAnswers.subscribe(
       (value) => {
-        console.log('all answers: ', value)
+        this.allAnswers = value
+        console.log('all answers: ', this.allAnswers)
       }
     )
+  }
+
+  submitAnswers() {
+    
   }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import quizler.backend.service.OpExamsAPI;
+import quizler.backend.service.QuizService;
 
 @RestController
 @RequestMapping("/api")
@@ -21,6 +22,9 @@ public class OpExamsController {
 
     @Autowired
     private OpExamsAPI api;
+
+    @Autowired
+    private QuizService quizSvc;
     
     // Post Mapping to get generated questions and save them
     @PostMapping("/generate")
@@ -35,6 +39,10 @@ public class OpExamsController {
             quizinfo.getString("difficulty"),
             "testing123"
         );
+
+        // Save generated quiz
+        System.out.printf("---- SAVING QUIZ ----: %s\n\n", resp.get("data"));
+        quizSvc.saveQuiz("userId", "documentId", quizinfo, resp.get("data").asJsonArray());
 
         return ResponseEntity.ok().body(resp.toString());
     }

@@ -61,7 +61,8 @@ export class QuizlerGenerateComponent implements OnInit{
       extractedText: this.fb.control(this.extractedText, [ Validators.required ]),
       questionType: this.fb.control('', [ Validators.required ]),
       difficulty: this.fb.control('', [ Validators.required ]),
-      language: this.fb.control('', [ Validators.required ])
+      language: this.fb.control('', [ Validators.required ]),
+      type: this.fb.control('contentBased')
     })
   }
 

@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import quizler.backend.model.Quiz;
 
 @Service
 public class OpExamsAPI {

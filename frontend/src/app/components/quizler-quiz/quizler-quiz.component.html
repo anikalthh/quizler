@@ -15,11 +15,17 @@
                     <p-card header="{{i+1}}. {{q.question}}" class="card">
                         <div *ngFor="let o of q.options; let j = index" class="field-checkbox {{q.id}}">
                             <br>
-                            <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}" [ngClass]="[btnStyle]" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
+                            <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}"
+                                    [ngClass]="[btnStyle]" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
                         </div>
                     </p-card>
                 </div>
             </div>
+        </div>
+        <div class="buttons">
+            <p-button (onClick)="submitAnswers()" label="Submit" icon="pi pi-check"></p-button>
+            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }"></p-button>
         </div>
     </div>
 </div>

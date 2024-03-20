@@ -1,6 +1,7 @@
 export interface quizinfo {
     title: string
     extractedText: string
+    type: string
     questionType: string
     language: string
     difficulty: string

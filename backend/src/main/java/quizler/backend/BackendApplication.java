@@ -1,13 +1,13 @@
 package quizler.backend;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import quizler.backend.repo.MongoRepository;
 import quizler.backend.repo.S3Repository;
 import quizler.backend.service.OpExamsAPI;
 import quizler.backend.service.TextExtractionService;
@@ -24,6 +24,9 @@ public class BackendApplication implements CommandLineRunner {
 	@Autowired
 	private OpExamsAPI api;
 
+	@Autowired
+	private MongoRepository mongoRepo;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
@@ -37,6 +40,8 @@ public class BackendApplication implements CommandLineRunner {
 		// ------ testing out API ------
 		// api.generateQuestions(text, "MCQ", "English", "easy", "testing123");
 		System.out.printf("APP IS RUNNING");
+
+		mongoRepo.getQuiz("65face61e1cd3d3f79906dbe", "documentId");
 	}
 
 }

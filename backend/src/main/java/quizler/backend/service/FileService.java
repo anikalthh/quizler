@@ -6,14 +6,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import quizler.backend.repo.FileRepository;
+import quizler.backend.repo.MongoRepository;
 import quizler.backend.repo.S3Repository;
 
 @Service
 public class FileService {
 
     @Autowired
-    private FileRepository fRepo;
+    private MongoRepository fRepo;
 
     @Autowired
     private S3Repository s3;
@@ -23,7 +23,7 @@ public class FileService {
         String s3Id = s3.saveToS3(username, is, contentType, length);
 
         // save in Mongo 
-        fRepo.save(username, title, s3Id);
+        fRepo.saveDocument(username, title, s3Id);
 
         // fRepo.save(fileId, is, contentType);
         return s3Id;

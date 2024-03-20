@@ -40,10 +40,10 @@ h1 {
     text-align: right;
 }
 
-/* ::ng-deep button:focus {
-    border: 3px solid white;
-} */
-
 ::ng-deep .btn-selected {
     border: 3px solid white;
+}
+
+.buttons {
+    margin-bottom: 25px;
 }

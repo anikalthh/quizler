@@ -21,7 +21,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 public class S3Repository {
     
     @Autowired
-    private FileRepository fRepo;
+    private MongoRepository fRepo;
 
     @Autowired
     private AmazonS3 s3;
