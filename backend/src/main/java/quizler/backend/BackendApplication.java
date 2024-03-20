@@ -36,7 +36,7 @@ public class BackendApplication implements CommandLineRunner {
 		
 		// ------ testing out API ------
 		// api.generateQuestions(text, "MCQ", "English", "easy", "testing123");
-		
+		System.out.printf("APP IS RUNNING");
 	}
 
 }
