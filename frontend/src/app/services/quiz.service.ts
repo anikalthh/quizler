@@ -24,6 +24,11 @@ export class QuizService {
     console.log('>>> in svc: ', this.generatedQuiz)
   }
 
+  // Get generated quiz
+  getGeneratedQuiz(quizId: string) {
+    return firstValueFrom(this.http.get<GeneratedQuiz>(`http://localhost:8080/api/quiz/${quizId}`))
+  }
+
   // Post user's answers data to SpringBoot
   submitAnswersSvc(quizAttempt: QuizAttempt) {
     return firstValueFrom(this.http.post('http://localhost:8080/api/submitquiz', quizAttempt))

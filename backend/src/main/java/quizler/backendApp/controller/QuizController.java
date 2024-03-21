@@ -5,6 +5,8 @@ import java.io.StringReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,5 +39,11 @@ public class QuizController {
                 .build();
 
         return ResponseEntity.ok().body(resp.toString());
+    }
+
+    // Get Mapping to retrieve generated quiz
+    @GetMapping("/quiz/{quizId}")
+    public ResponseEntity<String> getQuiz(@PathVariable("quizId") String quizId) {
+        return ResponseEntity.ok().body(quizSvc.getQuiz(quizId).toString());
     }
 }

@@ -33,7 +33,7 @@ h1 {
     width: 100%;
 }
 
-.qns-answered {
+.qns-answered-score {
     position: fixed;
     top: 12%;
     right: 2%;
@@ -49,7 +49,8 @@ h1 {
 }
 
 .wrong-answer {
-    color: #8B0000;
+    color: red;
+    /* color: #8B0000; */
 }
 
 .correct-answer {

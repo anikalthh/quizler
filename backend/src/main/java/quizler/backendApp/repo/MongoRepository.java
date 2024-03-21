@@ -36,15 +36,15 @@ public class MongoRepository {
         return insertedDoc.getObjectId("_id").toString();
     }
 
-    public Document getQuiz(String quizId, String documentId) {
-        MatchOperation matchOps = Aggregation.match(Criteria.where("_id").is(quizId).andOperator(Criteria.where("documentId").is(documentId)));
+    public Document getQuiz(String quizId) {
+        MatchOperation matchOps = Aggregation.match(Criteria.where("_id").is(quizId));
 
         Aggregation pipeline = Aggregation.newAggregation(matchOps);
 
         AggregationResults<Document> results = mt.aggregate(pipeline, "quiz", Document.class);
         System.out.printf("RETRIEVE QUIZ FROM MONGO: %s\n\n", results.getRawResults());
 
-        return results.getRawResults();
+        return results.getMappedResults().getFirst();
     }
 
     // SCORES DATA: "scores"

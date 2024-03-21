@@ -5,7 +5,9 @@ import java.util.LinkedList;
 
 import org.bson.Document;
 
+import jakarta.json.Json;
 import jakarta.json.JsonArray;
+import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonValue;
 
@@ -37,7 +39,8 @@ public class Utils {
 
             List<String> optionsList = new LinkedList<>();
             for (JsonValue option : options) {
-                optionsList.add(option.toString());
+                String optionStr = option.toString();
+                optionsList.add(optionStr.substring(1, (optionStr.length()-1)));
             }
             qnDoc.put("options", optionsList);
             dataFormatted.add(qnDoc);
@@ -84,5 +87,56 @@ public class Utils {
         doc.put("answers", answers);
 
         return doc;
+    }
+
+    // Convert Document to Json
+    // 1. Quiz
+    public static JsonObject quizToJson(Document quizDoc) {
+        String userId = quizDoc.getString("userId");
+        System.out.printf("OBJECT ID?? %s\n\n", quizDoc);
+        String quizId = quizDoc.getObjectId("_id").toString();
+        String documentId = quizDoc.getString("documentId");
+        String difficulty = quizDoc.getString("difficulty");
+        String type = quizDoc.getString("type");
+        String questionType = quizDoc.getString("questionType");
+        String language = quizDoc.getString("language");
+        List<Document> dataFormatted = quizDoc.getList("data", Document.class);
+
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (Document qn : dataFormatted) {
+            String qnId = qn.getString("id");
+            String question = qn.getString("question");
+            String answer = qn.getString("answer");
+            List<String> options = qn.getList("options", String.class);
+
+            JsonArrayBuilder optionsJsonArrBuilder = Json.createArrayBuilder();
+            for (String option : options) {
+                optionsJsonArrBuilder.add(Json.createValue(option));
+            }
+            JsonArray optionsJsonArr = optionsJsonArrBuilder.build();
+
+            JsonObject qnJson = Json.createObjectBuilder()
+                .add("id", qnId)
+                .add("question", question)
+                .add("answer", answer)
+                .add("options", optionsJsonArr)
+                .build();
+
+            jsonArrayBuilder.add(qnJson);
+        }
+
+        JsonArray data = jsonArrayBuilder.build();
+        JsonObject quizJson = Json.createObjectBuilder()
+            .add("userId", userId)
+            .add("quizId", quizId)
+            .add("documentId", documentId)
+            .add("difficulty", difficulty)
+            .add("type", type)
+            .add("questionType", questionType)
+            .add("language", language)
+            .add("data", data)
+            .build();
+
+        return quizJson;
     }
 }

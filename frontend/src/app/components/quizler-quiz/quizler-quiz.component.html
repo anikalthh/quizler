@@ -2,10 +2,14 @@
     <div class="title-container container">
         <h1>Quiz</h1>
     </div>
-    <div class="qns-answered">
-        <p-card>
+    <div class="qns-answered-score">
+        <p-card *ngIf="!submitted">
             <p>Questions Answered</p>
             <p>{{qnsAnswered}}/<span>{{totalNumOfQns}}</span></p>
+        </p-card>
+        <p-card *ngIf="submitted">
+            <p>Your Score</p>
+            <p>{{score}}/<span>{{totalNumOfQns}}</span></p>
         </p-card>
     </div>
     <div class="container">
@@ -18,10 +22,10 @@
                             <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}"
                                     [ngClass]="[btnStyle]" [disabled]="submitted" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
                         </div>
-                        <br>
-                        <br>
+                        <br *ngIf="submitted">
+                        <br *ngIf="submitted">
                         <div *ngIf="submitted">
-                            <p class="wrong-answer" *ngIf="!allAnswers.at(i)?.isCorrect">Your selected answer is wrong •ᴖ• <br>Don't give up, let's try again!</p>
+                            <p class="wrong-answer" *ngIf="!allAnswers.at(i)?.isCorrect">Your selected answer is wrong (っ- ᴖ - ς)<br>Don't give up, let's try again!</p>
                             <!-- <p *ngIf="!allAnswers.at(i)?.isCorrect">{{allAnswers.at(i)?.correctAnswer}}</p> -->
                             <p class="correct-answer" *ngIf="allAnswers.at(i)?.isCorrect">You got this question correct! Good work! ദ്ദി(・ᴗ・)✧</p>
                         </div>

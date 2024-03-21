@@ -81,7 +81,7 @@ export class QuizlerGenerateComponent implements OnInit{
       (quizQuestions: GeneratedQuiz) => {
         console.log('>>> generated: ', quizQuestions)
         this.qSvc.updateQuizQuestions(quizQuestions)
-        this.router.navigate(['/quiz', '123'])
+        this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
       }
     )
   }

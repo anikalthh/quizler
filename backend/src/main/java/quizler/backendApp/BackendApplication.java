@@ -41,7 +41,7 @@ public class BackendApplication implements CommandLineRunner {
 		// api.generateQuestions(text, "MCQ", "English", "easy", "testing123");
 		System.out.printf("APP IS RUNNING");
 
-		mongoRepo.getQuiz("65face61e1cd3d3f79906dbe", "documentId");
+		mongoRepo.getQuiz("65face61e1cd3d3f79906dbe");
 	}
 
 }
