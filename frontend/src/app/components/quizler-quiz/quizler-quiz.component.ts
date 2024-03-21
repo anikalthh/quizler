@@ -24,6 +24,7 @@ export class QuizlerQuizComponent implements OnInit {
   qnsAnswered : number = 0
   allAnswers !: Answer[]
   allAnswered : boolean = false
+  submitted : boolean = false
 
   // HTML vars
   btnStyle!: string
@@ -123,6 +124,7 @@ export class QuizlerQuizComponent implements OnInit {
     this.quizSvc.submitAnswersSvc(quizAttempt).then(
       (quizAttemptId) => {
         console.log('QUIZ ATTEMPT ID: ', quizAttemptId)
+        this.submitted = true
       }
     )
   }

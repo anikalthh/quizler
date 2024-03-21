@@ -47,3 +47,11 @@ h1 {
 .buttons {
     margin-bottom: 25px;
 }
+
+.wrong-answer {
+    color: #8B0000;
+}
+
+.correct-answer {
+    color: green;
+}

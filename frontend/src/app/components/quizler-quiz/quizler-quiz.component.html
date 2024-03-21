@@ -16,13 +16,20 @@
                         <div *ngFor="let o of q.options; let j = index" class="field-checkbox {{q.id}}">
                             <br>
                             <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}"
-                                    [ngClass]="[btnStyle]" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
+                                    [ngClass]="[btnStyle]" [disabled]="submitted" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
+                        </div>
+                        <br>
+                        <br>
+                        <div *ngIf="submitted">
+                            <p class="wrong-answer" *ngIf="!allAnswers.at(i)?.isCorrect">Your selected answer is wrong •ᴖ• <br>Don't give up, let's try again!</p>
+                            <!-- <p *ngIf="!allAnswers.at(i)?.isCorrect">{{allAnswers.at(i)?.correctAnswer}}</p> -->
+                            <p class="correct-answer" *ngIf="allAnswers.at(i)?.isCorrect">You got this question correct! Good work! ദ്ദി(・ᴗ・)✧</p>
                         </div>
                     </p-card>
                 </div>
             </div>
         </div>
-        <div class="buttons">
+        <div class="buttons" *ngIf="!submitted">
             <p-button (onClick)="submitAnswers()" [disabled]="!allAnswered" label="Submit" icon="pi pi-check"></p-button>
             <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
                 [style]="{ 'margin-left': '.5em' }"></p-button>
