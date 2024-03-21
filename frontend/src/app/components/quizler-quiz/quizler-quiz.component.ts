@@ -32,6 +32,7 @@ export class QuizlerQuizComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.createForm()
     this.quizJson = this.quizSvc.generatedQuiz
+    console.log('quizJSON: ', this.quizJson)
     this.quiz = this.quizJson.data
     this.totalNumOfQns = this.quiz.length
     console.log('CAN SEE QUIZ OR NOTTT: ', typeof (this.quizSvc.generatedQuiz))
@@ -119,6 +120,10 @@ export class QuizlerQuizComponent implements OnInit {
       quizId: this.quizJson.quizId,
       answers: this.allAnswers
     }
-    this.quizSvc.submitAnswersSvc(quizAttempt)
+    this.quizSvc.submitAnswersSvc(quizAttempt).then(
+      (quizAttemptId) => {
+        console.log('QUIZ ATTEMPT ID: ', quizAttemptId)
+      }
+    )
   }
 }

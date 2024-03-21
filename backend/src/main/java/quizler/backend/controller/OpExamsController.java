@@ -44,12 +44,12 @@ public class OpExamsController {
         // Create JSON Response Body for Angular (generated quiz from the API and the
         // QuizId generated in Mongo)
         JsonObject jsonResponse = Json.createObjectBuilder()
-                .add("document_id", quizinfo.getString("documentId"))
-                .add("quiz_id", quizId)
+                .add("documentId", quizinfo.getString("documentId"))
+                .add("quizId", quizId)
                 .add("data", resp.get("data"))
                 .build();
 
         System.out.printf("---- SENDING THIS TO ANGULAR AFTER SAVING INTO MONGO ----: %s\n\n", jsonResponse);
-        return ResponseEntity.ok().body(resp.toString());
+        return ResponseEntity.ok().body(jsonResponse.toString());
     }
 }
