@@ -1,21 +1,13 @@
 package quizler.backend.repo;
 
-import java.io.InputStream;
-
 import org.bson.Document;
-import org.bson.json.JsonObject;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationPipeline;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.redis.connection.zset.Aggregate;
 import org.springframework.stereotype.Repository;
-
-import quizler.backend.model.Quiz;
 
 @Repository
 public class MongoRepository {
