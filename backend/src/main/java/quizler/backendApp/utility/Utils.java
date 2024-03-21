@@ -1,4 +1,4 @@
-package quizler.backend.utility;
+package quizler.backendApp.utility;
 
 import java.util.List;
 import java.util.LinkedList;

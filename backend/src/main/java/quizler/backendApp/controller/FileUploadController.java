@@ -1,4 +1,4 @@
-package quizler.backend.controller;
+package quizler.backendApp.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
-import quizler.backend.service.FileService;
-import quizler.backend.service.TextExtractionService;
+import quizler.backendApp.service.FileService;
+import quizler.backendApp.service.TextExtractionService;
 
 @RestController
 @RequestMapping("/api")

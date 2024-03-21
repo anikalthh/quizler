@@ -1,4 +1,4 @@
-package quizler.backend.service;
+package quizler.backendApp.service;
 
 import java.io.File;
 import java.io.IOException;

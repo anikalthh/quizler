@@ -1,4 +1,4 @@
-package quizler.backend.service;
+package quizler.backendApp.service;
 
 import java.io.InputStream;
 import java.util.UUID;
@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import quizler.backend.repo.MongoRepository;
-import quizler.backend.repo.S3Repository;
+import quizler.backendApp.repo.MongoRepository;
+import quizler.backendApp.repo.S3Repository;
 
 @Service
 public class FileService {

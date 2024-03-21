@@ -1,4 +1,4 @@
-package quizler.backend.service;
+package quizler.backendApp.service;
 
 import java.io.StringReader;
 
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
-import quizler.backend.model.Quiz;
+import quizler.backendApp.model.Quiz;
 
 @Service
 public class OpExamsAPI {

@@ -1,4 +1,4 @@
-package quizler.backend.repo;
+package quizler.backendApp.repo;
 
 import java.io.InputStream;
 import java.util.HashMap;

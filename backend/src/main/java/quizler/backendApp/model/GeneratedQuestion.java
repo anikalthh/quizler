@@ -1,4 +1,4 @@
-package quizler.backend.model;
+package quizler.backendApp.model;
 
 import java.util.List;
 

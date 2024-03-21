@@ -1,4 +1,4 @@
-package quizler.backend.controller;
+package quizler.backendApp.controller;
 
 import java.io.StringReader;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
-import quizler.backend.service.OpExamsAPI;
-import quizler.backend.service.QuizService;
+import quizler.backendApp.service.OpExamsAPI;
+import quizler.backendApp.service.QuizService;
 
 @RestController
 @RequestMapping("/api")

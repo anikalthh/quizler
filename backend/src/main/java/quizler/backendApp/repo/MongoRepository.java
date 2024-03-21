@@ -1,4 +1,4 @@
-package quizler.backend.repo;
+package quizler.backendApp.repo;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;

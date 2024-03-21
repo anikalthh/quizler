@@ -1,4 +1,4 @@
-package quizler.backend.service;
+package quizler.backendApp.service;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
-import quizler.backend.model.Quiz;
-import quizler.backend.repo.MongoRepository;
-import quizler.backend.utility.Utils;
+import quizler.backendApp.model.Quiz;
+import quizler.backendApp.repo.MongoRepository;
+import quizler.backendApp.utility.Utils;
 
 @Service
 public class QuizService {

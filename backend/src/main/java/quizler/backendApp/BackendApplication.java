@@ -1,4 +1,4 @@
-package quizler.backend;
+package quizler.backendApp;
 
 import java.io.IOException;
 
@@ -7,10 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import quizler.backend.repo.MongoRepository;
-import quizler.backend.repo.S3Repository;
-import quizler.backend.service.OpExamsAPI;
-import quizler.backend.service.TextExtractionService;
+import quizler.backendApp.repo.MongoRepository;
+import quizler.backendApp.repo.S3Repository;
+import quizler.backendApp.service.OpExamsAPI;
+import quizler.backendApp.service.TextExtractionService;
 
 @SpringBootApplication
 public class BackendApplication implements CommandLineRunner {
