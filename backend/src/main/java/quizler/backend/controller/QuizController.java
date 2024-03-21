@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonArray;
 
 @RestController
 @RequestMapping("/api")
@@ -18,12 +19,13 @@ import jakarta.json.JsonObject;
 public class QuizController {
     
     // Post Mapping New Quiz Data
-    @PostMapping("/quiz/new")
-    public ResponseEntity<String> processNewQuiz(@RequestBody String payload) {
+    @PostMapping("/submitquiz")
+    public ResponseEntity<String> processQuizSubmission(@RequestBody String payload) {
 
-        JsonObject quizJson = Json.createReader(new StringReader(payload)).readObject();
+        JsonArray quizJson = Json.createReader(new StringReader(payload)).readArray();
 
-        System.out.printf("QUIZ JSON from processNewQuiz() Post Mapping: %s\n\n", quizJson);
+        System.out.printf("ANSWERS JSON from processQuizSubmission() Post Mapping: %s\n\n", quizJson);
+
         JsonObject resp = Json.createObjectBuilder()
             .add("message", "quiz created")
             .build();

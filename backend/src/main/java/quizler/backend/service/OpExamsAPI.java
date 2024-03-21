@@ -22,8 +22,7 @@ public class OpExamsAPI {
 
     private String baseUrl = "https://api.opexams.com/questions-generator";
 
-    public JsonObject generateQuestions(String extractedText, String qnType, String language, String difficulty,
-            String quizId) {
+    public JsonObject generateQuestions(String extractedText, String qnType, String language, String difficulty) {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("api-key", apiKey);
@@ -36,7 +35,7 @@ public class OpExamsAPI {
                 .add("questionType", qnType)
                 .add("language", language)
                 .add("difficulty", difficulty)
-                .add("requestId", quizId)
+                // .add("requestId", quizId)
                 .build();
 
         RequestEntity<String> requestEntity = RequestEntity

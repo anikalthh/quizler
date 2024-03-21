@@ -1,10 +1,17 @@
 export interface quizinfo {
     title: string
     extractedText: string
+    documentId: string
     type: string
     questionType: string
     language: string
     difficulty: string
+}
+
+export interface GeneratedQuiz {
+    documentId: string
+    quizId: string
+    data: QuestionsMCQ[]
 }
 
 export interface QuestionsMCQ {
@@ -14,8 +21,10 @@ export interface QuestionsMCQ {
     options: string[]
 }
 
-export interface QuestionsMCQArray {
-    data: QuestionsMCQ[]
+export interface QuizAttempt {
+    documentId: string
+    quizId: string
+    answers: Answer[]
 }
 
 // COMPONENT STORE

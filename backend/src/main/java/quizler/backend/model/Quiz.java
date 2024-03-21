@@ -38,8 +38,9 @@ public class Quiz {
 
     // Methods
 
-    public static Document fromJsonToDocument(String userId, String documentId, JsonObject quizinfo, JsonArray qnJson) {
+    public static Document fromJsonToDocument(String userId, JsonObject quizinfo, JsonArray qnJson) {
 
+        String documentId = quizinfo.getString("documentId");
         String difficulty = quizinfo.getString("difficulty");
         String type = quizinfo.getString("type");
         String questionType = quizinfo.getString("questionType");

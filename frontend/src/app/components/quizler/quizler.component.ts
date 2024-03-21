@@ -46,6 +46,7 @@ export class QuizlerComponent implements OnInit {
     let docId = ''
     this.uploadSvc.uploadDocument(formData).then(
       (value) => {
+        // Get documentId from SpringBoot
         docId = value['docId']
         console.log('>>> docId: ', docId)
         this.router.navigate(['/generate', docId]);

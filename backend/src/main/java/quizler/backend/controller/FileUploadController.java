@@ -58,7 +58,10 @@ public class FileUploadController {
 
         System.out.printf("EXTRACT TEXT IN getExtractedText Controller: %s\n\n", extractedText);
 
-        JsonObject jsonObj = Json.createObjectBuilder().add("text", extractedText).build();
+        JsonObject jsonObj = Json.createObjectBuilder()
+            .add("text", extractedText)
+            .add("document_id", docId)
+            .build();
         return ResponseEntity.ok().body(jsonObj.toString());
     }
 }

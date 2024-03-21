@@ -15,10 +15,11 @@ public class QuizService {
     @Autowired
     private MongoRepository mongoRepo;
     
-    // QUIZ DATA
-    public void saveQuiz(String userId, String documentId, JsonObject quizinfo, JsonArray qnsJson) {
-        Document quizDoc = Quiz.fromJsonToDocument(userId, documentId, quizinfo, qnsJson);
-        mongoRepo.saveQuiz(quizDoc);
+    // QUIZ DATA 
+    // Returns Quiz ID generated in Mongo DB
+    public String saveQuiz(String userId, JsonObject quizinfo, JsonArray qnsJson) {
+        Document quizDoc = Quiz.fromJsonToDocument(userId, quizinfo, qnsJson);
+        return mongoRepo.saveQuiz(quizDoc);
     }
 
     // SCORES DATA

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { quizinfo, QuestionsMCQ, QuestionsMCQArray } from '../../models';
+import { quizinfo, QuestionsMCQ, GeneratedQuiz } from '../../models';
 import { FileUploadService } from '../../services/file-upload.service';
 import { QuizService } from '../../services/quiz.service';
 
@@ -22,6 +22,7 @@ export class QuizlerGenerateComponent implements OnInit{
   form !: FormGroup
   extractedText!: string
   difficulty!: string
+  docId !: string
 
   // Option Vars
   difficultyOptions : any[] = [
@@ -48,7 +49,13 @@ export class QuizlerGenerateComponent implements OnInit{
     this.fSvc.getExtractedText(docId).then(
       (text) => {
         console.log('>>> text: ', text)
+
+        // Get Extracted Text from SpringBoot
         this.extractedText = text['text']
+
+        // Get Document ID from SpringBoot
+        this.docId = text['document_id']
+
         this.form = this.createForm()
       }
     )
@@ -59,6 +66,7 @@ export class QuizlerGenerateComponent implements OnInit{
     return this.fb.group({
       title: this.fb.control('', [ Validators.required ]),
       extractedText: this.fb.control(this.extractedText, [ Validators.required ]),
+      documentId: this.fb.control(this.docId),
       questionType: this.fb.control('', [ Validators.required ]),
       difficulty: this.fb.control('', [ Validators.required ]),
       language: this.fb.control('', [ Validators.required ]),
@@ -70,8 +78,8 @@ export class QuizlerGenerateComponent implements OnInit{
     const info = this.form.value as quizinfo
     console.log('>>> button clicked: ', info)
     this.qSvc.generateQuiz(info).then(
-      (quizQuestions: QuestionsMCQArray) => {
-        console.log('>>> generated: ', typeof(quizQuestions))
+      (quizQuestions: GeneratedQuiz) => {
+        console.log('>>> generated: ', quizQuestions)
         this.qSvc.updateQuizQuestions(quizQuestions)
         this.router.navigate(['/quiz', '123'])
       }

@@ -25,7 +25,7 @@ public class OpExamsController {
 
     @Autowired
     private QuizService quizSvc;
-    
+
     // Post Mapping to get generated questions and save them
     @PostMapping("/generate")
     public ResponseEntity<String> generateQuestions(@RequestBody() String payload) {
@@ -33,17 +33,23 @@ public class OpExamsController {
         System.out.printf("\n\n>>>> JSON OBJECT PASSED OVER INTO SB: %s\n\n", quizinfo);
 
         JsonObject resp = api.generateQuestions(
-            quizinfo.getString("extractedText"),
-            quizinfo.getString("questionType"),
-            quizinfo.getString("language"),
-            quizinfo.getString("difficulty"),
-            "testing123"
-        );
+                quizinfo.getString("extractedText"),
+                quizinfo.getString("questionType"),
+                quizinfo.getString("language"),
+                quizinfo.getString("difficulty"));
 
         // Save generated quiz
-        System.out.printf("---- SAVING QUIZ ----: %s\n\n", resp.get("data"));
-        quizSvc.saveQuiz("userId", "documentId", quizinfo, resp.get("data").asJsonArray());
+        String quizId = quizSvc.saveQuiz("userId", quizinfo, resp.get("data").asJsonArray());
 
+        // Create JSON Response Body for Angular (generated quiz from the API and the
+        // QuizId generated in Mongo)
+        JsonObject jsonResponse = Json.createObjectBuilder()
+                .add("document_id", quizinfo.getString("documentId"))
+                .add("quiz_id", quizId)
+                .add("data", resp.get("data"))
+                .build();
+
+        System.out.printf("---- SENDING THIS TO ANGULAR AFTER SAVING INTO MONGO ----: %s\n\n", jsonResponse);
         return ResponseEntity.ok().body(resp.toString());
     }
 }

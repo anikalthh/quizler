@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
-import { Answer, QuestionsMCQ, QuestionsMCQArray } from '../../models';
+import { Answer, GeneratedQuiz, QuestionsMCQ } from '../../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuizStore } from '../../services/quiz.store';
 import { take } from 'rxjs';
@@ -12,16 +12,18 @@ import { take } from 'rxjs';
 })
 export class QuizlerQuizComponent implements OnInit {
   // dependencies
-  private qSvc = inject(QuizService)
+  private quizSvc = inject(QuizService)
   private fb = inject(FormBuilder)
   private quizStore = inject(QuizStore)
 
   // vars
-  quiz !: QuestionsMCQArray
+  quizJson !: GeneratedQuiz
+  quiz !: QuestionsMCQ[]
   form !: FormGroup
   totalNumOfQns !: number
   qnsAnswered : number = 0
   allAnswers !: Answer[]
+  allAnswered : boolean = false
 
   // HTML vars
   btnStyle!: string
@@ -29,9 +31,10 @@ export class QuizlerQuizComponent implements OnInit {
   // lifecycle hooks
   ngOnInit(): void {
     this.form = this.createForm()
-    this.quiz = this.qSvc.generatedQuiz
-    this.totalNumOfQns = this.quiz.data.length
-    console.log('CAN SEE QUIZ OR NOTTT: ', typeof (this.qSvc.generatedQuiz))
+    this.quizJson = this.quizSvc.generatedQuiz
+    this.quiz = this.quizJson.data
+    this.totalNumOfQns = this.quiz.length
+    console.log('CAN SEE QUIZ OR NOTTT: ', typeof (this.quizSvc.generatedQuiz))
     this.btnStyle = 'btn-unselected'
   }
 
@@ -93,6 +96,10 @@ export class QuizlerQuizComponent implements OnInit {
     this.quizStore.getNumberOfAnswers.subscribe(
       (num) => {
         this.qnsAnswered = num
+        if (this.qnsAnswered === this.totalNumOfQns) {
+          this.allAnswered = true
+          console.log('ALL ANSWERED: ', this.allAnswered)
+        }
       }
     )
 
@@ -105,6 +112,13 @@ export class QuizlerQuizComponent implements OnInit {
   }
 
   submitAnswers() {
-    
+    this.allAnswers.sort((a, b) => a.index - b.index);
+    console.log('submitAnswers() SORTED: ', this.allAnswers)
+    const quizAttempt = {
+      documentId: this.quizJson.documentId,
+      quizId: this.quizJson.quizId,
+      answers: this.allAnswers
+    }
+    this.quizSvc.submitAnswersSvc(quizAttempt)
   }
 }
