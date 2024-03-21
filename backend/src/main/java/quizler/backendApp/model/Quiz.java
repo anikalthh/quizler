@@ -1,14 +1,8 @@
 package quizler.backendApp.model;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 
-import org.bson.Document;
-
 import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonValue;
 import lombok.Data;
 
 @Data

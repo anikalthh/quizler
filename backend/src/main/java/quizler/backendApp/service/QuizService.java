@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
-import quizler.backendApp.model.Quiz;
 import quizler.backendApp.repo.MongoRepository;
 import quizler.backendApp.utility.Utils;
 

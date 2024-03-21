@@ -1,7 +1,6 @@
 package quizler.backendApp.service;
 
 import java.io.InputStream;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
