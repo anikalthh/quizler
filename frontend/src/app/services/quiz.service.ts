@@ -33,4 +33,9 @@ export class QuizService {
   submitAnswersSvc(quizAttempt: QuizAttempt) {
     return firstValueFrom(this.http.post('http://localhost:8080/api/submitquiz', quizAttempt))
   }
+
+  // Get all documents uploaded by a user
+  getAllDocuments(userId: string) {
+    return firstValueFrom(this.http.get('http://localhost:8080/api/'))
+  }
 }

@@ -1,5 +1,7 @@
 package quizler.backendApp.repo;
 
+import java.util.List;
+
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -18,13 +20,22 @@ public class MongoRepository {
     // USER DATA: "users"
 
     // DOCUMENT/ S3 FILES DATA: "s3files"
-    public void saveDocument(String username, String title, String s3Id) {
+    public void saveDocument(String userId, String title, String s3Id) {
         Document doc = new Document();
-        doc.put("username", username);
+        doc.put("userId", userId);
         doc.put("title", title);
         doc.put("S3Id", s3Id);
 
         mt.insert(doc, "s3files");
+    }
+
+    public List<Document> getAllDocuments(String userId) {
+        MatchOperation matchOps = Aggregation.match(Criteria.where("userId").is(userId));
+        Aggregation pipeline = Aggregation.newAggregation(matchOps);
+        AggregationResults<Document> results = mt.aggregate(pipeline, "s3files", Document.class);
+        System.out.printf("GET ALL DOCUMENTS RESULTS: %s\n\n", results);
+
+        return results.getMappedResults();
     }
 
     // QUIZ DATA: "quiz"
@@ -53,4 +64,6 @@ public class MongoRepository {
         Document insertedDoc = mt.insert(quizAttemptDoc, "attempts");
         return insertedDoc.getObjectId("_id").toString();
     }
+
+
 }

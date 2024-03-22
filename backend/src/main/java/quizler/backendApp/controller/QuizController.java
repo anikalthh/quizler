@@ -46,4 +46,6 @@ public class QuizController {
     public ResponseEntity<String> getQuiz(@PathVariable("quizId") String quizId) {
         return ResponseEntity.ok().body(quizSvc.getQuiz(quizId).toString());
     }
+
+    
 }

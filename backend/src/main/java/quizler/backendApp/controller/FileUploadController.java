@@ -50,7 +50,7 @@ public class FileUploadController {
     }
 
     // Get Mapping to retrieve extracted text
-    @GetMapping(path = "file/extracted/{docId}")
+    @GetMapping(path = "/file/extracted/{docId}")
     public ResponseEntity<String> getExtractedText(@PathVariable("docId") String docId) throws IOException {
 
         InputStream is = fSvc.getFileInputStreamFromS3(docId);
@@ -63,5 +63,12 @@ public class FileUploadController {
             .add("document_id", docId)
             .build();
         return ResponseEntity.ok().body(jsonObj.toString());
+    }
+
+    // Get all documents uploaded by a user
+    @GetMapping(path = "/documents/{userId}")
+    public ResponseEntity<String> getAllDocuments(@PathVariable("userId") String userId) {
+        
+        return ResponseEntity.ok().body(fSvc.getAllDocuments(userId).toString());
     }
 }

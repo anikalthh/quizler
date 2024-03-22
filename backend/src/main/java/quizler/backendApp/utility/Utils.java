@@ -13,8 +13,8 @@ import jakarta.json.JsonValue;
 
 public class Utils {
     
-    // Convert Json to Document
-    // 1. Quiz
+    // 1. Convert Json to Document
+    // 1a. Quiz
     public static Document quizToDocument(String userId, JsonObject quizinfo, JsonArray qnJson) {
 
         String documentId = quizinfo.getString("documentId");
@@ -59,7 +59,7 @@ public class Utils {
         return quizDoc;
     }
 
-    // 2. QuizAttempt
+    // 1b. QuizAttempt
     public static Document quizAttemptToDocument(JsonObject quizAttempt) {
 
         JsonArray answersArray = quizAttempt.getJsonArray("answers");
@@ -89,8 +89,8 @@ public class Utils {
         return doc;
     }
 
-    // Convert Document to Json
-    // 1. Quiz
+    // 2. Convert Document to Json
+    // 2a. Quiz
     public static JsonObject quizToJson(Document quizDoc) {
         String userId = quizDoc.getString("userId");
         System.out.printf("OBJECT ID?? %s\n\n", quizDoc);
@@ -138,5 +138,20 @@ public class Utils {
             .build();
 
         return quizJson;
+    }
+
+    // 2b. Document (s3 files data in mongo)
+    public static JsonObject s3dataToJson(Document s3data) {
+        String userId = s3data.getString("userId");
+        String title = s3data.getString("title");
+        String s3Id = s3data.getString("s3Id");
+
+        JsonObject s3dataJson = Json.createObjectBuilder()
+            .add("userId", userId)
+            .add("title", title)
+            .add("s3Id", s3Id)
+            .build();
+
+        return s3dataJson;
     }
 }

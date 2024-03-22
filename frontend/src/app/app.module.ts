@@ -47,6 +47,7 @@ import { QuizlerComponent } from './components/quizler/quizler.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { QuizlerGenerateComponent } from './components/quizler-generate/quizler-generate.component';
 import { QuizlerQuizComponent } from './components/quizler-quiz/quizler-quiz.component';
+import { QuizlerDocsComponent } from './components/quizler-docs/quizler-docs.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { QuizlerQuizComponent } from './components/quizler-quiz/quizler-quiz.com
     QuizlerComponent,
     ToolbarComponent,
     QuizlerGenerateComponent,
-    QuizlerQuizComponent
+    QuizlerQuizComponent,
+    QuizlerDocsComponent
   ],
   imports: [
     CommonModule,
