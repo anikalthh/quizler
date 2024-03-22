@@ -8,6 +8,7 @@ import { LandingpageComponent } from './components/landingpage/landingpage.compo
 import { QuizlerComponent } from './components/quizler/quizler.component';
 import { QuizlerGenerateComponent } from './components/quizler-generate/quizler-generate.component';
 import { QuizlerQuizComponent } from './components/quizler-quiz/quizler-quiz.component';
+import { QuizlerDocsComponent } from './components/quizler-docs/quizler-docs.component';
 
 const routes: Routes = [
   {path: '', component: LandingpageComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'home', component: HomepageComponent},
   {path: 'quiz', component: QuizlerComponent},
+  {path: 'uploads', component:QuizlerDocsComponent},
   {path: 'generate/:docId', component: QuizlerGenerateComponent},
   {path: 'quiz/:quizId', component: QuizlerQuizComponent},
   {path: 'videocall', component: VideocallComponent},

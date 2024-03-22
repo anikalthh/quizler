@@ -6,6 +6,7 @@ export interface quizinfo {
     questionType: string
     language: string
     difficulty: string
+    data: QuestionsMCQ[]
 }
 
 export interface GeneratedQuiz {
@@ -25,6 +26,12 @@ export interface QuizAttempt {
     documentId: string
     quizId: string
     answers: Answer[]
+}
+
+export interface S3Data {
+    userId: string
+    title: string
+    S3Id: string
 }
 
 // COMPONENT STORE

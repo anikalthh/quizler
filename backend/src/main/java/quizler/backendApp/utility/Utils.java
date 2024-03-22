@@ -18,6 +18,7 @@ public class Utils {
     public static Document quizToDocument(String userId, JsonObject quizinfo, JsonArray qnJson) {
 
         String documentId = quizinfo.getString("documentId");
+        String extractedText = quizinfo.getString("extractedText");
         String difficulty = quizinfo.getString("difficulty");
         String type = quizinfo.getString("type");
         String questionType = quizinfo.getString("questionType");
@@ -50,6 +51,7 @@ public class Utils {
         Document quizDoc = new Document();
         quizDoc.put("userId", userId);
         quizDoc.put("documentId", documentId);
+        quizDoc.put("extractedText", extractedText);
         quizDoc.put("difficulty", difficulty);
         quizDoc.put("type", type);
         quizDoc.put("questionType", questionType);
@@ -96,6 +98,7 @@ public class Utils {
         System.out.printf("OBJECT ID?? %s\n\n", quizDoc);
         String quizId = quizDoc.getObjectId("_id").toString();
         String documentId = quizDoc.getString("documentId");
+        String extractedText = quizDoc.getString("extractedText");
         String difficulty = quizDoc.getString("difficulty");
         String type = quizDoc.getString("type");
         String questionType = quizDoc.getString("questionType");
@@ -130,6 +133,7 @@ public class Utils {
             .add("userId", userId)
             .add("quizId", quizId)
             .add("documentId", documentId)
+            .add("extractedText", extractedText)
             .add("difficulty", difficulty)
             .add("type", type)
             .add("questionType", questionType)
@@ -143,13 +147,14 @@ public class Utils {
     // 2b. Document (s3 files data in mongo)
     public static JsonObject s3dataToJson(Document s3data) {
         String userId = s3data.getString("userId");
-        String title = s3data.getString("title");
-        String s3Id = s3data.getString("s3Id");
+        String title = (s3data.getString("title") == null) ? "Untitled Document" : s3data.getString("title");
+        System.out.printf("null or not: %s\n\n", title);
+        String s3Id = s3data.getString("S3Id");
 
         JsonObject s3dataJson = Json.createObjectBuilder()
             .add("userId", userId)
             .add("title", title)
-            .add("s3Id", s3Id)
+            .add("S3Id", s3Id)
             .build();
 
         return s3dataJson;

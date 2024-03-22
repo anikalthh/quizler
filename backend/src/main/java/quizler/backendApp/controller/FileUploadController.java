@@ -43,7 +43,7 @@ public class FileUploadController {
 
         System.out.println("SAVING OBJECT");
 
-        String s3Id = fSvc.save("placeholder username", title, is, size, mediaType);
+        String s3Id = fSvc.save("123", title, is, size, mediaType);
 
         JsonObject jsonObj = Json.createObjectBuilder().add("docId", s3Id).build();
         return ResponseEntity.ok().body(jsonObj.toString());

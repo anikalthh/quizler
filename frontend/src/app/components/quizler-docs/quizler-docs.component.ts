@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
+import { S3Data } from '../../models';
 
 @Component({
   selector: 'app-quizler-docs',
@@ -11,9 +12,17 @@ export class QuizlerDocsComponent implements OnInit {
   private quizSvc = inject(QuizService)
 
   // vars
+  allDocuments$!: S3Data[]
+  userId!: string
 
   // lifecycle hooks
   ngOnInit(): void {
-    
+    this.userId = '123'
+    this.quizSvc.getAllDocuments(this.userId).then(
+      (S3Data) => {
+        this.allDocuments$ = S3Data
+        console.log('>>> DOCUMENTS: ', this.allDocuments$)
+      }
+    )
   }
 }

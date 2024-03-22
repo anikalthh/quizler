@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { Answer, GeneratedQuiz, QuizAttempt, quizinfo } from '../models';
+import { Answer, GeneratedQuiz, QuizAttempt, S3Data, quizinfo } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,6 @@ export class QuizService {
 
   // Get all documents uploaded by a user
   getAllDocuments(userId: string) {
-    return firstValueFrom(this.http.get('http://localhost:8080/api/'))
+    return firstValueFrom(this.http.get<S3Data[]>(`http://localhost:8080/api/documents/${userId}`))
   }
 }

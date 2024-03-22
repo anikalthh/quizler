@@ -1,7 +1,10 @@
 <div class="docs-container">
     <div class="container">
-        <div *ngFor="">
-
-        </div>
+        <!-- <div *ngIf="allDocuments$ | async as docs"> -->
+            <div *ngFor="let d of allDocuments$">
+                <p>S3ID</p>
+                <p>{{d.title}}</p>
+            </div>
+        <!-- </div> -->
     </div>
 </div>
