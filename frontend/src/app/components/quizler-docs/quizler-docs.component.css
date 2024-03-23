@@ -8,3 +8,16 @@
     justify-content: center;
     margin-top: 0;
 }
+
+.title-container {
+    margin-top: 15px;
+}
+
+.card-wrapper {
+    flex: 0 0 55%; /* Set the desired width for each card wrapper */
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.card {
+    width: 100%;
+}

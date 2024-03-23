@@ -12,17 +12,21 @@ export class QuizlerDocsComponent implements OnInit {
   private quizSvc = inject(QuizService)
 
   // vars
-  allDocuments$!: S3Data[]
+  // allDocuments!: S3Data[]
+  allDocuments$!: Promise<S3Data[]>
+
   userId!: string
 
   // lifecycle hooks
   ngOnInit(): void {
     this.userId = '123'
-    this.quizSvc.getAllDocuments(this.userId).then(
-      (S3Data) => {
-        this.allDocuments$ = S3Data
-        console.log('>>> DOCUMENTS: ', this.allDocuments$)
-      }
-    )
+    // this.quizSvc.getAllDocuments(this.userId).then(
+    //   (S3Data) => {
+    //     this.allDocuments$ = S3Data
+    //     console.log('>>> DOCUMENTS: ', this.allDocuments$)
+    //   }
+    // )
+
+    this.allDocuments$ = this.quizSvc.getAllDocuments(this.userId)
   }
 }

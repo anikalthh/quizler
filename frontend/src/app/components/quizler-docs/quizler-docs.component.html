@@ -1,10 +1,17 @@
 <div class="docs-container">
-    <div class="container">
-        <!-- <div *ngIf="allDocuments$ | async as docs"> -->
-            <div *ngFor="let d of allDocuments$">
-                <p>S3ID</p>
-                <p>{{d.title}}</p>
-            </div>
-        <!-- </div> -->
+    <div class="title-container container">
+        <h1>Your Uploaded Documents</h1>
     </div>
+    <div class="container">
+        <div *ngIf="allDocuments$ | async as docs; else loading">
+            <div *ngFor="let d of docs" class="card-wrapper">
+                <p-card header="{{d.title}}" class="card">
+                    <p>Document ID: {{d.S3Id}}</p>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <ng-template #loading>
+        <p>Loading...</p>
+    </ng-template>
 </div>
