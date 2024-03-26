@@ -4,7 +4,6 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.qos.logback.classic.pattern.Util;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import quizler.backendApp.repo.MongoRepository;
