@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { VideocallComponent } from './components/videocall/videocall.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './user-auth-components/login/login.component';
 import { LandingpageComponent } from './components/landingpage/landingpage.component';
 import { QuizlerComponent } from './components/quizler/quizler.component';
 import { QuizlerGenerateComponent } from './components/quizler-generate/quizler-generate.component';

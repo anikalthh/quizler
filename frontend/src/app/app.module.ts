@@ -38,7 +38,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './user-auth-components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { CallService } from './services/call.service';
 import { TrendingComponent } from './components/trending/trending.component';
@@ -48,6 +48,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { QuizlerGenerateComponent } from './components/quizler-generate/quizler-generate.component';
 import { QuizlerQuizComponent } from './components/quizler-quiz/quizler-quiz.component';
 import { QuizlerDocsComponent } from './components/quizler-docs/quizler-docs.component';
+import { RegistrationComponent } from './user-auth-components/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { QuizlerDocsComponent } from './components/quizler-docs/quizler-docs.com
     ToolbarComponent,
     QuizlerGenerateComponent,
     QuizlerQuizComponent,
-    QuizlerDocsComponent
+    QuizlerDocsComponent,
+    RegistrationComponent
   ],
   imports: [
     CommonModule,

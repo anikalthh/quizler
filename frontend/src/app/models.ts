@@ -45,3 +45,17 @@ export interface Answer {
 export interface AnswersSlice {
     answers: Answer[]
 }
+
+// USER AUTHENTICATION VIA JWT
+export interface registration {
+    username: string
+    firstname: string
+    lastname: string
+    email: string
+    password: string
+}
+
+export interface login {
+    username: string
+    password: string
+}
