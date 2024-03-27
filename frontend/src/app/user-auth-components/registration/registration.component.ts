@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, inject } from '@angular/core';
+import { EventEmitter, Component, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EventEmitter } from 'stream';
 import { registration } from '../../models';
 
 @Component({
