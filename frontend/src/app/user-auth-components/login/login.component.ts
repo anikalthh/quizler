@@ -11,11 +11,12 @@ export class LoginComponent implements OnInit{
   private fb = inject(FormBuilder)
 
   // vars
-  form !: FormGroup
+  loginForm !: FormGroup
+  value: string | undefined;
 
   // lifecycle hooks
   ngOnInit(): void {
-    this.form
+    this.loginForm = this.createForm()
   }
 
   // methods
@@ -24,5 +25,9 @@ export class LoginComponent implements OnInit{
       username: this.fb.control('', [ Validators.required ]),
       password: this.fb.control('', [ Validators.required ])
     })
+  }
+
+  loginUser() {
+
   }
 }
