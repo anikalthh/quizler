@@ -20,8 +20,13 @@
 <div>
     <div class="card flex justify-content-center">
         <p-floatLabel>
-            <input id="username" type="text" pInputText [(ngModel)]="value" />
+            <p-input id="username" type="text" pInputText [(ngModel)]="value" />
             <label for="username">Username</label>
         </p-floatLabel>
     </div>
 </div>
+
+<span class="p-float-label">
+    <textarea pInputTextArea id="float-input" rows="5" cols="30" pInputTextarea></textarea>
+    <label for="float-input">Summary</label>
+</span>
