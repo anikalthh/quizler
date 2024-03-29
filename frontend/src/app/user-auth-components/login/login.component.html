@@ -1,32 +1,31 @@
-<div class="container">
-    <form [formGroup]="loginForm">
+<div class="login-container">
+    <div class="container">
         <p-card header="Login" [style]="{ width: '360px' }">
-            <div>
-                <label for="username">Username</label>
-            </div>
-            <div>
-                <input pInputText type="text" name="username" class="w-full" placeholder="Enter Username" formControlName="username">
-            </div>
-            <div>
-                <p-floatLabel>
-                    <input id="username" type="text" pInputText formControlName="username">
+            <form [formGroup]="loginForm" (submit)="onSubmitLogin()">
+                <div>
                     <label for="username">Username</label>
-                </p-floatLabel>
-            </div>
+                </div>
+                <br>
+                <div>
+                    <input pInputText type="text" name="username" placeholder="Enter Username"
+                        formControlName="username">
+                </div>
+                <br>
+                <div>
+                    <label for="username">Password</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText type="text" name="password" placeholder="Enter Password"
+                        formControlName="password">
+                </div>
+                <br>
+                <br>
+                <p-button type="submit" label="Login" icon="pi pi-sign-in"></p-button>
+                <p-button label="Go Back" icon="pi pi-times" styleClass="p-button-secondary"
+                    [style]="{ 'margin-left': '.5em' }"></p-button>
+            </form>
         </p-card>
-    </form>
-</div>
 
-<div>
-    <div class="card flex justify-content-center">
-        <p-floatLabel>
-            <p-input id="username" type="text" pInputText [(ngModel)]="value" />
-            <label for="username">Username</label>
-        </p-floatLabel>
     </div>
 </div>
-
-<span class="p-float-label">
-    <textarea pInputTextArea id="float-input" rows="5" cols="30" pInputTextarea></textarea>
-    <label for="float-input">Summary</label>
-</span>

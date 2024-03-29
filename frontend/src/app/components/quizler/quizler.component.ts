@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileUploadService } from '../../services/file-upload.service';
 import { Router } from '@angular/router';
+import { AxiosService } from '../../services/axios.service';
 
 @Component({
   selector: 'app-quizler',
@@ -16,6 +17,7 @@ export class QuizlerComponent implements OnInit {
   private fb = inject(FormBuilder)
   private uploadSvc = inject(FileUploadService)
   private router = inject(Router)
+  private axiosSvc = inject(AxiosService)
 
   // vars
   form !: FormGroup
@@ -40,6 +42,9 @@ export class QuizlerComponent implements OnInit {
 
       formData.set('title', this.form.get('title')?.value)
       formData.set('file', file)
+      formData.set('userId', this.axiosSvc.getUserId() as unknown as string)
+      console.log('GET USER ID: FULL FORM DATA => ', formData)
+
     }
 
     // service method HTTP POST

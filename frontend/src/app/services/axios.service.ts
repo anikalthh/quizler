@@ -1,10 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AxiosService {
+
+  // behavior subject
+  public loggedIn = new BehaviorSubject<boolean>(false)
+
+  isLoggedIn() {
+    return this.loggedIn.asObservable()
+  }
+
+  // dependencies
+  private router = inject(Router)
+
+  // vars
+  userId : string = ''
 
   constructor() {
     axios.defaults.baseURL = "http://localhost:8080";
@@ -20,6 +36,32 @@ export class AxiosService {
       window.localStorage.setItem("auth_token", token);
     } else {
       window.localStorage.removeItem("auth_token");
+    }
+  }
+
+  isAuthenticatedUser() {
+    if (window.localStorage.getItem("auth_token") !== null) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  getUserId() {
+    if (this.isAuthenticatedUser()) {
+      const token = this.getAuthToken()
+      if (token !== null) {
+        const decodeToken: any = jwtDecode(token)
+        this.userId = decodeToken.userid
+        console.log('get user id: ', this.userId)
+        return this.userId
+      } else {
+        this.router.navigate(['/login'])
+        return null
+      }
+    } else {
+      this.router.navigate(['/login'])
+      return null
     }
   }
 

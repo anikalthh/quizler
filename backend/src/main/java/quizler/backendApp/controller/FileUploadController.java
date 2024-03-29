@@ -3,6 +3,7 @@ package quizler.backendApp.controller;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.codec.language.bm.Rule.RPattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,17 +34,17 @@ public class FileUploadController {
     
     // Post Mapping to retrieve and save file uploaded
     @PostMapping(path = "/file/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> saveFile(@RequestPart(required = false) MultipartFile file, @RequestPart(required = false) String title) throws IOException {
+    public ResponseEntity<String> saveFile(@RequestPart(required = false) MultipartFile file, @RequestPart(required = false) String title, @RequestPart String userId) throws IOException {
         System.out.printf(">>>> ENTERING POSTMAPPING saveFile():\ntitle: %s\n\n", title);
         String mediaType = file.getContentType();
         InputStream is = file.getInputStream();
         long size = file.getSize();
 
-        System.out.printf(">>>>> FILE DEETS:\nmedia type -- %s\nis == %s\nsize -- %s\n\n", mediaType, is, size);
+        System.out.printf(">>>>> FILE DEETS:\nmedia type -- %s\nis == %s\nsize -- %s\n\nUSERID: %s\n\n", mediaType, is, size, userId);
 
         System.out.println("SAVING OBJECT");
 
-        String s3Id = fSvc.save("123", title, is, size, mediaType);
+        String s3Id = fSvc.save(userId, title, is, size, mediaType);
 
         JsonObject jsonObj = Json.createObjectBuilder().add("docId", s3Id).build();
         return ResponseEntity.ok().body(jsonObj.toString());

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuizStore } from '../../services/quiz.store';
 import { take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { AxiosService } from '../../services/axios.service';
 
 @Component({
   selector: 'app-quizler-quiz',
@@ -17,6 +18,7 @@ export class QuizlerQuizComponent implements OnInit {
   private fb = inject(FormBuilder)
   private quizStore = inject(QuizStore)
   private activatedRouter = inject(ActivatedRoute)
+  private axiosSvc = inject(AxiosService)
 
   // vars
   quizId !: string
@@ -125,15 +127,14 @@ export class QuizlerQuizComponent implements OnInit {
         this.score += 1
       }
     })
-    console.log('SCORE: ', this.score)
     const quizAttempt = {
+      userId: this.axiosSvc.getUserId(),
       documentId: this.quizJson.documentId,
       quizId: this.quizJson.quizId,
       answers: this.allAnswers
     }
     this.quizSvc.submitAnswersSvc(quizAttempt).then(
       (quizAttemptId) => {
-        console.log('QUIZ ATTEMPT ID: ', quizAttemptId)
         this.submitted = true
       }
     )

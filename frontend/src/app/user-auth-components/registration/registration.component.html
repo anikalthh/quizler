@@ -1,39 +1,60 @@
-<div class="container">
-  <p-card header="a step closer to your new favourite study tool!">
-      <div class="field">
-          <form [formGroup]="registerForm">
-              <div>
-                  <label for="username">Username</label>
-              </div>
-              <div>
-                  <input pInputText id="username" type="text" formControlName="username">
-              </div>
-              <br>
-              <div>
-                  <label for="email">Email</label>
-              </div>
-              <div>
-                  <input pInputText id="email" type="text" formControlName="email">
-              </div>
-              <br>
-              <div>
-                  <label for="password">Password</label>
-              </div>
-              <div>
-                  <input pInputText id="password" type="text" formControlName="password">
-              </div>
-              <br>
-              <div>
-                  <label for="confirmPassword">Confirm Password</label>
-              </div>
-              <div>
-                  <input pInputText id="confirmPassword" type="text" formControlName="confirmPassword">
-              </div>
-              <br>
-              <div>
-                  <p-button>Sign Up</p-button>
-              </div>
-          </form>
+<div class="register-container">
+    <div class="container">
+        <p-card header="Sign up" [style]="{ width: '500px' }">
+                <form [formGroup]="registerForm" (submit)="onSubmitRegister()">
+                    <div>
+                        <label for="username">Username</label>
+                    </div>
+                    <br>
+                    <div>
+                        <input pInputText id="username" type="text" formControlName="username">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="firstname">First Name</label>
+                    </div>
+                    <br>
+                    <div>
+                        <input pInputText id="firstname" type="text" formControlName="firstname">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="lastname">Last Name</label>
+                    </div>
+                    <br>
+                    <div>
+                        <input pInputText id="lastname" type="text" formControlName="lastname">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="email">Email</label>
+                    </div>
+                    <br>
+                    <div>
+                        <input pInputText id="email" type="text" formControlName="email">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="password">Password</label>
+                    </div>
+                    <br>
+                    <div>
+                        <input pInputText id="password" type="text" formControlName="password">
+                    </div>
+                    <!-- <br>
+                    <div>
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+                    <br>
+                    <div>
+                        <input pInputText id="confirmPassword" type="text" formControlName="confirmPassword">
+                    </div> -->
+                    <br>
+                    <br>
+                    <div>
+                        <p-button type="submit">Sign Up</p-button>
+                    </div>
+                </form>
+        </p-card>
       </div>
-  </p-card>
 </div>

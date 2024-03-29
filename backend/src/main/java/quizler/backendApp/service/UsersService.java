@@ -31,7 +31,7 @@ public class UsersService {
     public UserMapper userMapper;
 
     public UserDto login(CredentialsDto credentialsDto) {
-        System.out.printf("LOGIN -- CREDENTIALS DTO: %s\n\n", credentialsDto);
+        System.out.printf("LOGIN -- CREDENTIALS DTO in UsersService: %s\n\n", credentialsDto);
         User user = userRepo.findByUsername(credentialsDto.username())
             .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 

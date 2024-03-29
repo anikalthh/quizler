@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { quizinfo, QuestionsMCQ, GeneratedQuiz } from '../../models';
 import { FileUploadService } from '../../services/file-upload.service';
 import { QuizService } from '../../services/quiz.service';
+import { AxiosService } from '../../services/axios.service';
 
 @Component({
   selector: 'app-quizler-generate',
@@ -17,6 +18,7 @@ export class QuizlerGenerateComponent implements OnInit{
   private fb = inject(FormBuilder)
   private qSvc = inject(QuizService)
   private router = inject(Router)
+  private axiosSvc = inject(AxiosService)
 
   // vars
   form !: FormGroup
@@ -70,7 +72,8 @@ export class QuizlerGenerateComponent implements OnInit{
       questionType: this.fb.control('', [ Validators.required ]),
       difficulty: this.fb.control('', [ Validators.required ]),
       language: this.fb.control('', [ Validators.required ]),
-      type: this.fb.control('contentBased')
+      type: this.fb.control('contentBased'),
+      userId: this.fb.control(this.axiosSvc.getUserId())
     })
   }
 

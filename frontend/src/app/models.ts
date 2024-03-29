@@ -1,4 +1,5 @@
 export interface quizinfo {
+    userId: string
     title: string
     extractedText: string
     documentId: string
@@ -23,6 +24,7 @@ export interface QuestionsMCQ {
 }
 
 export interface QuizAttempt {
+    userId: string | null
     documentId: string
     quizId: string
     answers: Answer[]

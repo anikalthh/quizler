@@ -39,7 +39,7 @@ public class OpExamsController {
                 quizinfo.getString("difficulty"));
 
         // Save generated quiz
-        String quizId = quizSvc.saveQuiz("userId", quizinfo, resp.get("data").asJsonArray());
+        String quizId = quizSvc.saveQuiz(quizinfo.getString("userId"), quizinfo, resp.get("data").asJsonArray());
 
         // Create JSON Response Body for Angular (generated quiz from the API and the
         // QuizId generated in Mongo)
