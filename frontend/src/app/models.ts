@@ -1,6 +1,6 @@
 export interface quizinfo {
     userId: string
-    title: string
+    quizTitle: string
     extractedText: string
     documentId: string
     type: string
@@ -36,6 +36,18 @@ export interface S3Data {
     S3Id: string
 }
 
+export interface FullMCQQuizData {
+    userId: string
+    quizId: string
+    documentId: string
+    extractedText: string
+    difficulty: string
+    type: string
+    questionType: string
+    language: string
+    data: QuestionsMCQ[]
+}
+
 // COMPONENT STORE
 export interface Answer {
     index: number
@@ -44,6 +56,7 @@ export interface Answer {
     correctAnswer: string
     isCorrect: boolean
 }
+
 export interface AnswersSlice {
     answers: Answer[]
 }

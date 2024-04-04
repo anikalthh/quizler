@@ -31,7 +31,6 @@ public class UsersService {
     public UserMapper userMapper;
 
     public UserDto login(CredentialsDto credentialsDto) {
-        System.out.printf("LOGIN -- CREDENTIALS DTO in UsersService: %s\n\n", credentialsDto);
         User user = userRepo.findByUsername(credentialsDto.username())
             .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
@@ -43,13 +42,11 @@ public class UsersService {
 
     public UserDto register(SignUpDto userDto) {
         Optional<User> optionalUser = userRepo.findByUsername(userDto.getUsername());
-        System.out.printf("LOGIN -- USER SIGN UP DTO: %s\n\n", userDto);
 
         if (optionalUser.isPresent()) {
             throw new AppException("Login already exists", HttpStatus.BAD_REQUEST);
         }
 
-        System.out.printf("\n\n----- USERDTO INPUT USERNAME -----\n %s\n\n", userDto);
 
         User user = userMapper.signUpToUser(userDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));

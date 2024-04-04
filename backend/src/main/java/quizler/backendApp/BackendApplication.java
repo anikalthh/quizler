@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import quizler.backendApp.repo.MongoRepository;
 import quizler.backendApp.repo.S3Repository;
 import quizler.backendApp.service.OpExamsAPI;
+import quizler.backendApp.service.QuizService;
 import quizler.backendApp.service.TextExtractionService;
 
 @SpringBootApplication
@@ -27,6 +28,9 @@ public class BackendApplication implements CommandLineRunner {
 	@Autowired
 	private MongoRepository mongoRepo;
 
+	@Autowired
+	private QuizService quizSvc;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
@@ -41,7 +45,8 @@ public class BackendApplication implements CommandLineRunner {
 		// api.generateQuestions(text, "MCQ", "English", "easy", "testing123");
 		System.out.printf("APP IS RUNNING (test git controls)");
 
-		// mongoRepo.getQuiz("65face61e1cd3d3f79906dbe");
+		
+		System.out.printf("GET QUIZ: %s", quizSvc.getAllQuizzes("2b3fe985"));
 
 	}
 

@@ -3,11 +3,11 @@
         <p-card header="Generate a new quiz!" class="card">
             <form [formGroup]="form" (submit)="generateQuiz()">
                 <div>
-                    <label for="title">Document Title</label>
+                    <label for="title">Quiz Title</label>
                 </div>
                 <br>
                 <div>
-                    <input pInputText type="text" id="title" formControlName="title">
+                    <input pInputText style="width:100%" type="text" id="title" placeholder="Enter New Quiz Title" formControlName="quizTitle">
                 </div>
                 <br>
                 <div>

@@ -8,11 +8,15 @@ p  {
     font-family: 'Lemonmilk-light', sans-serif;
 }
 
-.container {
-    margin: 5%;
-}
-
 .content-container {
     margin: 0 25px;
     position: relative;
+}
+
+.quiz-container {
+    margin-top: 25px;
+}
+
+.quiz-btns {
+    margin-right: 10px;
 }

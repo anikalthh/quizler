@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class AxiosService {
 
   // behavior subject
-  public loggedIn = new BehaviorSubject<boolean>(false)
+  public loggedIn = new BehaviorSubject<boolean>(this.isAuthenticatedUser())
 
   isLoggedIn() {
     return this.loggedIn.asObservable()
@@ -21,6 +21,7 @@ export class AxiosService {
 
   // vars
   userId : string = ''
+  username : string = ''
 
   constructor() {
     axios.defaults.baseURL = "http://localhost:8080";
@@ -55,6 +56,25 @@ export class AxiosService {
         this.userId = decodeToken.userid
         console.log('get user id: ', this.userId)
         return this.userId
+      } else {
+        this.router.navigate(['/login'])
+        return null
+      }
+    } else {
+      this.router.navigate(['/login'])
+      return null
+    }
+  }
+
+  getUsername() {
+    if (this.isAuthenticatedUser()) {
+      const token = this.getAuthToken()
+      if (token !== null) {
+        const decodeToken: any = jwtDecode(token)
+        console.log('decodedtoken: ', decodeToken)
+        this.username = decodeToken.sub
+        console.log('get username: ', this.username)
+        return this.username
       } else {
         this.router.navigate(['/login'])
         return null

@@ -30,7 +30,6 @@ public class OpExamsController {
     @PostMapping("/generate")
     public ResponseEntity<String> generateQuestions(@RequestBody() String payload) {
         JsonObject quizinfo = Json.createReader(new StringReader(payload)).readObject();
-        System.out.printf("\n\n>>>> JSON OBJECT PASSED OVER INTO SB: %s\n\n", quizinfo);
 
         JsonObject resp = api.generateQuestions(
                 quizinfo.getString("extractedText"),
@@ -49,7 +48,6 @@ public class OpExamsController {
                 .add("data", resp.get("data"))
                 .build();
 
-        System.out.printf("---- SENDING THIS TO ANGULAR AFTER SAVING INTO MONGO ----: %s\n\n", jsonResponse);
         return ResponseEntity.ok().body(jsonResponse.toString());
     }
 }

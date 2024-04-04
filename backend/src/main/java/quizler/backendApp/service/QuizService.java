@@ -1,10 +1,14 @@
 package quizler.backendApp.service;
 
+import java.util.List;
+
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.json.Json;
 import jakarta.json.JsonArray;
+import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import quizler.backendApp.repo.MongoRepository;
 import quizler.backendApp.utility.Utils;
@@ -26,6 +30,25 @@ public class QuizService {
     public JsonObject getQuiz(String quizId) {
         Document quizDoc = mongoRepo.getQuiz(quizId);
         return Utils.quizToJson(quizDoc);
+    }
+
+    // Delete Quiz
+    public long deleteQuiz(String quizId) {
+        return mongoRepo.deleteQuiz(quizId);
+    }
+
+    // Get all quizzes under a document
+    public JsonArray getAllQuizzes(String docId) {
+        List<Document> allDocumentsBSON = mongoRepo.getAllQuizzes(docId);
+
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (Document doc : allDocumentsBSON) {
+            JsonObject documentJson = Utils.quizToJson(doc);
+            jsonArrayBuilder.add(documentJson);
+        }
+        JsonArray jsonArray = jsonArrayBuilder.build();
+
+        return jsonArray;
     }
 
     // SCORES DATA -- Save quiz attempts

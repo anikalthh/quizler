@@ -36,7 +36,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
-        System.out.printf("in controller: %s\n\n", user);
         UserDto createdUser = userSvc.register(user);
         createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
         return ResponseEntity.created(URI.create("/users/" + createdUser.getUserid())).body(createdUser);

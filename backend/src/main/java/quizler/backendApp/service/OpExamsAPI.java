@@ -46,7 +46,6 @@ public class OpExamsAPI {
 
         ResponseEntity<String> resp = template.exchange(requestEntity, String.class);
 
-        System.out.printf("\n\n>>>>> QUIZ GENERATED FRM API: %s\n\n", resp);
 
         JsonObject qnsJson = Json.createReader(new StringReader(resp.getBody())).readObject();
 

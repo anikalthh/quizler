@@ -35,14 +35,11 @@ public class FileUploadController {
     // Post Mapping to retrieve and save file uploaded
     @PostMapping(path = "/file/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> saveFile(@RequestPart(required = false) MultipartFile file, @RequestPart(required = false) String title, @RequestPart String userId) throws IOException {
-        System.out.printf(">>>> ENTERING POSTMAPPING saveFile():\ntitle: %s\n\n", title);
         String mediaType = file.getContentType();
         InputStream is = file.getInputStream();
         long size = file.getSize();
 
-        System.out.printf(">>>>> FILE DEETS:\nmedia type -- %s\nis == %s\nsize -- %s\n\nUSERID: %s\n\n", mediaType, is, size, userId);
-
-        System.out.println("SAVING OBJECT");
+        // System.out.printf(">>>>> FILE DEETS:\nmedia type -- %s\nis == %s\nsize -- %s\n\nUSERID: %s\n\n", mediaType, is, size, userId);
 
         String s3Id = fSvc.save(userId, title, is, size, mediaType);
 
@@ -56,9 +53,6 @@ public class FileUploadController {
 
         InputStream is = fSvc.getFileInputStreamFromS3(docId);
         String extractedText = textExtractSvc.extractText(is);
-
-        System.out.printf("EXTRACT TEXT IN getExtractedText Controller: %s\n\n", extractedText);
-
         JsonObject jsonObj = Json.createObjectBuilder()
             .add("text", extractedText)
             .add("document_id", docId)

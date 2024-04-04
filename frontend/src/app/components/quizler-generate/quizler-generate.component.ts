@@ -66,7 +66,7 @@ export class QuizlerGenerateComponent implements OnInit{
   // methods
   createForm() : FormGroup {
     return this.fb.group({
-      title: this.fb.control('', [ Validators.required ]),
+      quizTitle: this.fb.control('', [ Validators.required ]),
       extractedText: this.fb.control(this.extractedText, [ Validators.required ]),
       documentId: this.fb.control(this.docId),
       questionType: this.fb.control('', [ Validators.required ]),

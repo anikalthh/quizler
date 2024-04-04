@@ -46,7 +46,6 @@ public class S3Repository {
 
         S3Object obj = s3.getObject(getReq);
         InputStream is = obj.getObjectContent();
-        System.out.printf("\n>>> getting input stream from s3: %s\n\n", is);
         return is;
     }
 

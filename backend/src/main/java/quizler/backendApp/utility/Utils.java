@@ -18,6 +18,7 @@ public class Utils {
     public static Document quizToDocument(String userId, JsonObject quizinfo, JsonArray qnJson) {
 
         String documentId = quizinfo.getString("documentId");
+        String quizTitle = quizinfo.getString("quizTitle");
         String extractedText = quizinfo.getString("extractedText");
         String difficulty = quizinfo.getString("difficulty");
         String type = quizinfo.getString("type");
@@ -51,6 +52,7 @@ public class Utils {
         Document quizDoc = new Document();
         quizDoc.put("userId", userId);
         quizDoc.put("documentId", documentId);
+        quizDoc.put("quizTitle", quizTitle);
         quizDoc.put("extractedText", extractedText);
         quizDoc.put("difficulty", difficulty);
         quizDoc.put("type", type);
@@ -95,7 +97,7 @@ public class Utils {
     // 2a. Quiz
     public static JsonObject quizToJson(Document quizDoc) {
         String userId = quizDoc.getString("userId");
-        System.out.printf("OBJECT ID?? %s\n\n", quizDoc);
+        
         String quizId = quizDoc.getObjectId("_id").toString();
         String documentId = quizDoc.getString("documentId");
         String extractedText = quizDoc.getString("extractedText");
@@ -141,6 +143,7 @@ public class Utils {
             .add("data", data)
             .build();
 
+        System.out.printf("\n\nQUIZ JSON: %s\n\n", quizJson);
         return quizJson;
     }
 
@@ -148,7 +151,6 @@ public class Utils {
     public static JsonObject s3dataToJson(Document s3data) {
         String userId = s3data.getString("userId");
         String title = (s3data.getString("title") == null) ? "Untitled Document" : s3data.getString("title");
-        System.out.printf("null or not: %s\n\n", title);
         String s3Id = s3data.getString("S3Id");
 
         JsonObject s3dataJson = Json.createObjectBuilder()

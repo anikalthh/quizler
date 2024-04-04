@@ -5,6 +5,7 @@ import java.io.StringReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 import quizler.backendApp.service.QuizService;
 
 @RestController
@@ -30,8 +32,6 @@ public class QuizController {
 
         JsonObject quizJson = Json.createReader(new StringReader(payload)).readObject();
 
-        System.out.printf("ANSWERS JSON from processQuizSubmission() Post Mapping: %s\n\n", quizJson);
-
         String quizAttemptId = quizSvc.saveQuizAttempt(quizJson);
 
         JsonObject resp = Json.createObjectBuilder()
@@ -47,5 +47,33 @@ public class QuizController {
         return ResponseEntity.ok().body(quizSvc.getQuiz(quizId).toString());
     }
 
+    @DeleteMapping("/quiz/{quizId}")
+    public ResponseEntity<String> deleteQuiz(@PathVariable("quizId") String quizId) {
+
+        long deleteCount = quizSvc.deleteQuiz(quizId);
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonObject resp;
+        if (deleteCount == 0l) {
+            resp = builder.add("quizId", "error")
+                .build();
+        } else {
+            resp = builder.add("quizId", quizId)
+            .build();
+        }
+
+        // JsonObject resp = Json.createObjectBuilder()
+        //         .add("quizAttemptId", "test")
+        //         .build();
+        
+        return ResponseEntity.ok().body(resp.toString());
+    }
+
+    // Get Mapping to get all quizzes generated under a particular document uploaded
+    @GetMapping("/{documentId}/quizzes")
+    public ResponseEntity<String> getAllQuizzes(@PathVariable("documentId") String docId) {
+        System.out.printf("\n\nGET ALL QUIZZES CONTROLLER: %s\n\n", quizSvc.getAllQuizzes(docId).toString());
+        return ResponseEntity.ok().body(quizSvc.getAllQuizzes(docId).toString());
+    }
     
 }

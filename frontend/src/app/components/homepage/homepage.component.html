@@ -1,1 +1,40 @@
-<app-trending></app-trending>
+<div>
+    <div class="container">
+        <div class="header">
+            <h1>Happy {{dayOfTheWeek | date: 'EEEE'}}, &#64;{{username}}!</h1>
+            <p>What would you like to do today?</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div>
+            <h3>Review Docs & Quizzes</h3>
+            <div class="review-container" *ngIf="docs$ | async as docs">
+                <p-dataView #dv [value]="docs" [paginator]="true" [rows]="9" filterBy="name" layout="grid" emptyMessage="No Documents Uploaded Yet!">
+        
+                    <ng-template let-docs pTemplate="gridItem">
+                        <div class="p-col-12 p-md-4">
+                            <div *ngFor="let d of docs">
+                                <p-card>
+                                    <h3>{{d.title}}</h3>
+
+                                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                                        <button pButton icon="pi pi-folder-open" class="md:align-self-end mb-2 p-button-rounded" size="small" label="View Quizzes" (click)="getQuizzes(d.S3Id)"></button>
+                                    </div>
+                                </p-card>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-dataView>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <div class="content-container">
+        <h3>Generate new</h3>
+    </div>
+
+   
+
+</div>

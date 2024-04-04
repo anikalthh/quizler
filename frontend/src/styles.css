@@ -11,8 +11,15 @@
 }
 
 @font-face {
-    font-family: 'Junicat';
-    src: url('/assets/fonts/Junicat.ttf') format('truetype');
+    font-family: 'Lemonmilk';
+    src: url('/assets/fonts/LEMONMILK-Regular.otf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lemonmilk-light';
+    src: url('/assets/fonts/LEMONMILK-LightItalic.otf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
 }

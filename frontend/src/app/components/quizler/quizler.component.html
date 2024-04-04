@@ -1,11 +1,24 @@
-<body>
-    <p>quizler works!</p>
-
-    <form [formGroup]="form">
-
-        <input type="text" placeholder="Enter Document Name" formControlName="title">
-
-        <p-fileUpload class="file-upload-container" name="documents[]" mode="advanced"
-            chooseStyleClass="p-button-rounded p-button-outlined" [customUpload]="true" (uploadHandler)="uploadFile($event)" #file></p-fileUpload>
-    </form>
-</body>
+<div class="file-upload-container">
+    <div class="container">
+        <p-card header="Upload">
+            <form [formGroup]="form">
+                <div>
+                    <label for="title">Document Title</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText style="width:100%" type="text" placeholder="Enter Document Title"
+                        formControlName="title">
+                </div>
+                <br>
+                <div>
+                    <label for="title">Upload your text documents</label>
+                </div>
+                <br>
+                <p-fileUpload class="file-upload-container" name="documents[]" mode="advanced"
+                    chooseStyleClass="p-button-rounded p-button-outlined" [customUpload]="true"
+                    (uploadHandler)="uploadFile($event)" #file></p-fileUpload>
+            </form>
+        </p-card>
+    </div>
+</div>
