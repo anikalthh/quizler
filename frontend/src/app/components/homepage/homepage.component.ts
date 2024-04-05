@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { AxiosService } from '../../services/axios.service';
 import { QuizService } from '../../services/quiz.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
-export class HomepageComponent {
+export class HomepageComponent implements OnInit {
 
   // dependencies
   private axiosSvc = inject(AxiosService)
@@ -20,6 +20,11 @@ export class HomepageComponent {
   dayOfTheWeek : Date = new Date()
   username = this.axiosSvc.getUsername()
   docs$ = this.quizSvc.getAllDocuments(this.userId)
+
+  // lifecycle hooks
+  ngOnInit(): void {
+
+  }
 
   // methods
   getQuizzes(S3Id: string) {

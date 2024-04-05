@@ -31,6 +31,7 @@ export class QuizlerQuizComponent implements OnInit {
   allAnswered: boolean = false
   submitted: boolean = false
   score: number = 0
+  showAnswers: boolean = false
 
   // HTML vars
   btnStyle!: string
@@ -89,7 +90,6 @@ export class QuizlerQuizComponent implements OnInit {
             "correctAnswer": question.answer,
             "isCorrect": question.answer === option
           })
-          console.log('ADD NEWWW')
         } else {
           this.quizStore.updateAnswer({
             "index": qnIndex, "update": {
@@ -97,7 +97,6 @@ export class QuizlerQuizComponent implements OnInit {
               "isCorrect": question.answer === option
             }
           })
-          console.log('UPDATEEEE')
         }
       }
     )
@@ -107,7 +106,6 @@ export class QuizlerQuizComponent implements OnInit {
         this.qnsAnswered = num
         if (this.qnsAnswered === this.totalNumOfQns) {
           this.allAnswered = true
-          console.log('ALL ANSWERED: ', this.allAnswered)
         }
       }
     )
@@ -115,7 +113,6 @@ export class QuizlerQuizComponent implements OnInit {
     this.quizStore.getAllAnswers.subscribe(
       (value) => {
         this.allAnswers = value
-        console.log('all answers: ', this.allAnswers)
       }
     )
   }
@@ -129,14 +126,27 @@ export class QuizlerQuizComponent implements OnInit {
     })
     const quizAttempt = {
       userId: this.axiosSvc.getUserId(),
+      attemptId: null,
       documentId: this.quizJson.documentId,
       quizId: this.quizJson.quizId,
+      datetime: Date.now(),
+      score: this.score,
       answers: this.allAnswers
     }
+    console.log('DATETIME FORMAT: ', Date.now())
     this.quizSvc.submitAnswersSvc(quizAttempt).then(
       (quizAttemptId) => {
         this.submitted = true
       }
     )
+  }
+
+  retryQuiz() {
+    // this.submitted = false
+    window.location.reload();
+  }
+
+  showAnswersBtn() {
+    this.showAnswers = true
   }
 }

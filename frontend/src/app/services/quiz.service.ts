@@ -47,8 +47,20 @@ export class QuizService {
     return firstValueFrom(this.http.get<S3Data[]>(`http://localhost:8080/api/documents/${userId}`))
   }
 
+  // Get specific document via Document ID
+  getDocument(docId: string) {
+    console.log('hello?')
+    return firstValueFrom(this.http.get<S3Data>(`http://localhost:8080/api/document/${docId}`))
+  }
+
   // Get all quizzes generated from a document
   getAllQuizzes(S3Id: string) : Promise<FullMCQQuizData[]> {
     return firstValueFrom(this.http.get<FullMCQQuizData[]>(`http://localhost:8080/api/${S3Id}/quizzes`))
+  }
+
+  // Get all quiz attempts of a generated quiz
+  getAllQuizAttempts(quizId: string) {
+    console.log('exists in svc? : ', quizId)
+    return firstValueFrom(this.http.get<QuizAttempt[]>(`http://localhost:8080/api/quiz/${quizId}/attempts`))
   }
 }

@@ -16,6 +16,7 @@ export class QuizlerListComponent implements OnInit {
 
   // vars
   S3Id !: string
+  documentTitle !: string
   quizzes$ !: Promise<FullMCQQuizData[]>
 
   // lifecycle hooks
@@ -23,6 +24,7 @@ export class QuizlerListComponent implements OnInit {
     this.S3Id = this.activatedRoute.snapshot.params['docId']
     console.log('route: ', this.S3Id)
     this.loadQuizzes()
+    this.getDocumentTitle(this.S3Id)
   }
 
   // methods
@@ -38,6 +40,14 @@ export class QuizlerListComponent implements OnInit {
     )
   }
 
+  getDocumentTitle(docId: string) {
+    this.quizSvc.getDocument(docId).then(
+      (val) => {
+        this.documentTitle = val.title
+      }
+    )
+  }
+
   deleteQuiz(quizId: string) {
     this.quizSvc.deleteQuiz(quizId).then(
       (val) => {
@@ -45,6 +55,10 @@ export class QuizlerListComponent implements OnInit {
         this.loadQuizzes()
       }
     )
+  }
+
+  viewPreviousAttempts(quizId: string) {
+    this.quizSvc.getAllQuizAttempts(quizId)
   }
 
 }

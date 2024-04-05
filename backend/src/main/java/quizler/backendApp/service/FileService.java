@@ -1,6 +1,8 @@
 package quizler.backendApp.service;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.List;
 
 import org.bson.Document;
@@ -24,13 +26,19 @@ public class FileService {
     @Autowired
     private S3Repository s3;
 
+    @Autowired
+    private TextExtractionService textExtractSvc;
+
     // Save Document upload
-    public String save(String userId, String title, InputStream is, long length, String contentType) {
+    public String save(String userId, String title, InputStream is, long length, String contentType) throws IOException {
         // save to S3
         String s3Id = s3.saveToS3(userId, is, contentType, length);
 
         // save in Mongo 
-        mongoRepo.saveDocument(userId, title, s3Id);
+        InputStream inputStreamToSave = getFileInputStreamFromS3(s3Id);
+
+        String extractedText = textExtractSvc.extractText(inputStreamToSave);
+        mongoRepo.saveDocument(userId, title, s3Id, extractedText);
 
         // fRepo.save(fileId, is, contentType);
         return s3Id;
@@ -53,5 +61,13 @@ public class FileService {
         JsonArray jsonArray = jsonArrayBuilder.build();
 
         return jsonArray;
+    }
+
+    // Get a specific document by Document ID
+    public String getDocument(String docId) {
+        Document documentBSON = mongoRepo.getDocument(docId);
+
+        // JsonObject jsonObj = Json.createReader(new StringReader(documentBSON.toJson())).readObject();
+        return documentBSON.toJson();
     }
 }

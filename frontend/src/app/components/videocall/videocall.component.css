@@ -1,0 +1,9 @@
+/* video {
+    position: relative;
+    width: fit-content;
+} */
+
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+}

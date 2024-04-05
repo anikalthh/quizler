@@ -1,0 +1,21 @@
+h1, h3 {  
+    font-family: 'Lemonmilk', sans-serif;
+}
+
+p  {  
+    font-size: 12px; 
+    font-family: 'Lemonmilk-light', sans-serif;
+}
+
+.content-container {
+    margin: 0 25px;
+    position: relative;
+}
+
+.attempts-container {
+    margin-top: 25px;
+}
+
+.quiz-btns {
+    margin-right: 10px;
+}

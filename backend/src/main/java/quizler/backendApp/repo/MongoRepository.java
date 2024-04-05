@@ -24,11 +24,12 @@ public class MongoRepository {
     // USER DATA: "users"
 
     // DOCUMENT/ S3 FILES DATA: "s3files"
-    public void saveDocument(String userId, String title, String s3Id) {
+    public void saveDocument(String userId, String title, String s3Id, String extractedText) {
         Document doc = new Document();
         doc.put("userId", userId);
         doc.put("title", title);
         doc.put("S3Id", s3Id);
+        doc.put("extractedText", extractedText);
 
         mt.insert(doc, "s3files");
     }
@@ -37,10 +38,16 @@ public class MongoRepository {
         MatchOperation matchOps = Aggregation.match(Criteria.where("userId").is(userId));
         Aggregation pipeline = Aggregation.newAggregation(matchOps);
         AggregationResults<Document> results = mt.aggregate(pipeline, "s3files", Document.class);
-        System.out.println(userId);
-        System.out.printf("GET ALL DOCUMENTS RESULTS: %s\n\n", results.getMappedResults());
 
         return results.getMappedResults();
+    }
+
+    public Document getDocument(String docId) {
+        MatchOperation matchOps = Aggregation.match(Criteria.where("S3Id").is(docId));
+        Aggregation pipeline = Aggregation.newAggregation(matchOps);
+        AggregationResults<Document> results = mt.aggregate(pipeline, "s3files", Document.class);
+
+        return results.getMappedResults().getFirst();
     }
 
     // QUIZ DATA: "quiz"
@@ -85,5 +92,12 @@ public class MongoRepository {
         return insertedDoc.getObjectId("_id").toString();
     }
 
+    // Retrives Quiz Attempts
+    public List<Document> getAllAttempts(String quizId) {
+        MatchOperation matchOps = Aggregation.match(Criteria.where("quizId").is(quizId));
+        Aggregation pipeline = Aggregation.newAggregation(matchOps);
+        AggregationResults<Document> results = mt.aggregate(pipeline, "attempts", Document.class);
 
+        return results.getMappedResults();
+    }
 }

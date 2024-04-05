@@ -13,6 +13,7 @@ export interface quizinfo {
 export interface GeneratedQuiz {
     documentId: string
     quizId: string
+    quizTitle: string
     data: QuestionsMCQ[]
 }
 
@@ -24,9 +25,12 @@ export interface QuestionsMCQ {
 }
 
 export interface QuizAttempt {
+    attemptId: string | null
     userId: string | null
     documentId: string
     quizId: string
+    score: number
+    datetime: number
     answers: Answer[]
 }
 
@@ -34,11 +38,13 @@ export interface S3Data {
     userId: string
     title: string
     S3Id: string
+    extractedText: string
 }
 
 export interface FullMCQQuizData {
     userId: string
     quizId: string
+    quizTitle: string
     documentId: string
     extractedText: string
     difficulty: string

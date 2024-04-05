@@ -19,6 +19,9 @@ export class CallService {
   private isCallStartedBs = new Subject<boolean>();
   public isCallStarted$ = this.isCallStartedBs.asObservable();
 
+  private hasPeerJoinedBs = new Subject<boolean>();
+  public hasPeerJoined$ = this.hasPeerJoinedBs.asObservable();
+
   constructor(private snackBar: MatSnackBar) { }
 
   public initPeer(): any {
@@ -67,6 +70,7 @@ export class CallService {
       this.localStreamBs.next(stream);
       console.log('iscallstarted2:', this.isCallStarted$)
       this.isCallStartedBs.next(true);
+      this.hasPeerJoinedBs.next(true);
 
       this.mediaCall.on('stream',
         (remoteStream: MediaStream) => {
@@ -88,7 +92,7 @@ export class CallService {
 
   public async enableCallAnswer() {
     console.log('call.service -- enableCallAnswer()')
-
+    this.isCallStartedBs.next(true);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       this.localStreamBs.next(stream);
@@ -96,7 +100,7 @@ export class CallService {
 
         this.mediaCall = call;
         console.log('iscallstarted1: ', this.isCallStarted$)
-        this.isCallStartedBs.next(false);
+        this.isCallStartedBs.next(true);
 
         this.mediaCall.answer(stream);
         this.mediaCall.on('stream', (remoteStream: MediaStream) => {
@@ -140,7 +144,7 @@ export class CallService {
     if (!this.mediaCall) {
       this.onCallClose()
     }
-    this.isCallStartedBs.next(true);
+    this.isCallStartedBs.next(false);
   }
 
   public destroyPeer() {

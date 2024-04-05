@@ -12,6 +12,7 @@ import { QuizlerDocsComponent } from './components/quizler-docs/quizler-docs.com
 import { RegistrationComponent } from './user-auth-components/registration/registration.component';
 import { canAccess } from './auth.guard';
 import { QuizlerListComponent } from './components/quizler-list/quizler-list.component';
+import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-attempts.component';
 
 const routes: Routes = [
   {path: '', component: LandingpageComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
       {path: 'uploads', component:QuizlerDocsComponent},
       {path: ':docId/quizzes', component: QuizlerListComponent},
       {path: 'generate/:docId', component: QuizlerGenerateComponent},
+      {path: 'quiz/:quizId/attempts', component: QuizlerAttemptsComponent},
       {path: 'quiz/:quizId', component: QuizlerQuizComponent},
       {path: 'videocall', component: VideocallComponent}
   ]},

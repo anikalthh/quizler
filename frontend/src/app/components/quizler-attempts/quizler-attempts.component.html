@@ -1,0 +1,26 @@
+<div class="attempts-container">
+    <div class="content-container">
+        <h3>Attempts of Quiz: {{quizTitle}} <span><button style="float: right;" pButton icon="pi pi-pencil" label="Attempt Quiz" [routerLink]="['/quiz', quizId]"></button></span></h3>
+        <br>
+        <div class="review-container" *ngIf="attempts$ | async as attempts">
+            <p-dataView #dv [value]="attempts" [paginator]="true" [rows]="9" layout="grid" emptyMessage="You have not attempted this quiz yet!">
+    
+                <ng-template let-docs pTemplate="gridItem">
+                    <div class="p-col-12 p-md-4">
+                        <div *ngFor="let a of attempts; let j = index">
+                            <p-card>
+                                <h3>Attempt #{{j+1}}</h3>
+                                <p>Your Score : {{a.score}}/{{a.answers.length}}</p>
+                                <p>Submitted On : {{a.datetime | date: 'medium'}}</p>
+                                <!-- <div *ngFor="let ans of a.answers">
+                                    <p>{{ans.index}}</p>
+                                    <p>{{ans.question}}</p>
+                                </div> -->
+                            </p-card>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+    </div>
+</div>

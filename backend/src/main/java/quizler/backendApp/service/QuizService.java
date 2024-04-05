@@ -57,4 +57,18 @@ public class QuizService {
         return mongoRepo.saveQuizAttempt(quizAttemptDoc);
     }
 
+    // Retrieves quiz attempts
+    public JsonArray getAllAttempts(String quizId) {
+        List<Document> allDocumentsBSON = mongoRepo.getAllAttempts(quizId);
+
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (Document doc : allDocumentsBSON) {
+            JsonObject documentJson = Utils.quizAttemptToJson(doc);
+            jsonArrayBuilder.add(documentJson);
+        }
+        JsonArray jsonArray = jsonArrayBuilder.build();
+
+        return jsonArray;
+    }
+
 }

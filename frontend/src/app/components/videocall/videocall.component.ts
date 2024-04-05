@@ -13,6 +13,7 @@ import MediaStream from 'peerjs';
 })
 export class VideocallComponent implements OnInit, OnDestroy {
   isCallStarted!: boolean;
+  hasPeerJoined: boolean = false
   private peerId: string;
 
   @ViewChild('localVideo')
@@ -24,6 +25,14 @@ export class VideocallComponent implements OnInit, OnDestroy {
     this.callService.isCallStarted$.subscribe(
       (booleanVal) => this.isCallStarted = booleanVal
     );
+
+    this.callService.hasPeerJoined$.subscribe(
+      (booleanVal) => {
+        this.hasPeerJoined = booleanVal
+        console.log('has peer joined: ', booleanVal)
+      }
+    );
+
     this.peerId = this.callService.initPeer();
   }
   
@@ -36,8 +45,6 @@ export class VideocallComponent implements OnInit, OnDestroy {
       .pipe(filter(res => !!res))
       .subscribe(stream => this.remoteVideo.nativeElement.srcObject = stream)
   }
-  
-
   
   ngOnDestroy(): void {
     this.callService.destroyPeer();
@@ -62,7 +69,7 @@ export class VideocallComponent implements OnInit, OnDestroy {
   }
 
   public endCall() {
-    console.log('videocall.component -- endCall()')
+    console.log('videocall.component -- endCall() ')
 
     this.callService.closeMediaCall();
   }

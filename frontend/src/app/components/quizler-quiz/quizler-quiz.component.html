@@ -20,6 +20,7 @@
                             <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}"
                                     [ngClass]="[btnStyle]" [disabled]="submitted" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
                         </div>
+                        <!-- SCORES -->
                         <br *ngIf="submitted">
                         <br *ngIf="submitted">
                         <div *ngIf="submitted">
@@ -27,14 +28,24 @@
                             <!-- <p *ngIf="!allAnswers.at(i)?.isCorrect">{{allAnswers.at(i)?.correctAnswer}}</p> -->
                             <p class="correct-answer" *ngIf="allAnswers.at(i)?.isCorrect">You got this question correct! Good work! ദ്ദി(・ᴗ・)✧</p>
                         </div>
+                        <!-- SHOW ANSWERS -->
+                        <br *ngIf="showAnswers">
+                        <div *ngIf="showAnswers">
+                            <p>The correct answer is: {{allAnswers.at(i)?.correctAnswer}}</p>
+                        </div>
                     </p-card>
                 </div>
             </div>
         </div>
         <div class="buttons" *ngIf="!submitted">
             <p-button (onClick)="submitAnswers()" [disabled]="!allAnswered" label="Submit" icon="pi pi-check"></p-button>
-            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+            <p-button [routerLink]="['/home']" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
                 [style]="{ 'margin-left': '.5em' }"></p-button>
+        </div>
+        <div class="buttons" *ngIf="submitted">
+            <p-button (onClick)="retryQuiz()" label="Retry" icon="pi pi-check"></p-button>
+            <p-button *ngIf="!showAnswers" (onClick)="showAnswersBtn()" icon="pi pi-eye" label="Show Answers" [style]="{ 'margin-left': '.5em' }"></p-button>
+            <p-button *ngIf="showAnswers" [routerLink]="['/quiz', quizId, 'attempts']" icon="pi pi-eye" label="View All Attempts" [style]="{ 'margin-left': '.5em' }"></p-button>
         </div>
     </div>
 </div>

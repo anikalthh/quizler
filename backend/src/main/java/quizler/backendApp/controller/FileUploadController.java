@@ -66,4 +66,10 @@ public class FileUploadController {
         
         return ResponseEntity.ok().body(fSvc.getAllDocuments(userId).toString());
     }
+
+    // Get Specific Document Data
+    @GetMapping(path = "/document/{docId}")
+    public ResponseEntity<String> getDocument(@PathVariable("docId") String docId) {
+        return ResponseEntity.ok().body(fSvc.getDocument(docId));
+    }
 }

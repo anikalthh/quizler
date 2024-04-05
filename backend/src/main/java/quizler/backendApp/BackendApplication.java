@@ -46,7 +46,6 @@ public class BackendApplication implements CommandLineRunner {
 		System.out.printf("APP IS RUNNING (test git controls)");
 
 		
-		System.out.printf("GET QUIZ: %s", quizSvc.getAllQuizzes("2b3fe985"));
 
 	}
 
