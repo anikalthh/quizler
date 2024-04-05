@@ -1,0 +1,58 @@
+<div class="questions-container">
+    <div class="container">
+        <p-card header="Generate a new quiz!" class="card">
+            <form [formGroup]="form" (submit)="generateQuiz()">
+                <div>
+                    <label for="title">Quiz Title</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText style="width:100%" type="text" id="title" placeholder="Enter New Quiz Title" formControlName="quizTitle">
+                </div>
+                <br>
+
+                <div>
+                    <label for="topic">Chosen Topic</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText style="width:100%" type="text" id="topic" formControlName="topic">
+                </div>
+                <br>
+
+                <div>
+                    <label for="difficulty">Question Type</label>
+                </div>
+                <br>
+                <div>
+                    <p-selectButton [options]="qnTypeOptions" formControlName="value" optionLabel="name"
+                        optionValue="value" formControlName="questionType"></p-selectButton>
+                </div>
+                <br>
+
+                <div>
+                    <label for="difficulty">Difficulty Level</label>
+                </div>
+                <br>
+                <div>
+                    <p-selectButton [options]="difficultyOptions" formControlName="value" optionLabel="name"
+                        optionValue="value" formControlName="difficulty"></p-selectButton>
+                </div>
+                <br>
+
+                <div>
+                    <label for="difficulty">Language</label>
+                </div>
+                <br>
+                <div>
+                    <p-dropdown formControlName="language" [options]="languageOptions" optionLabel="name"
+                        optionValue="value" placeholder="Select a Language"></p-dropdown>
+                </div>
+                <br>
+                <p-button type="submit" label="Generate Quiz" icon="pi pi-check"></p-button>
+                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+                    [style]="{ 'margin-left': '.5em' }"></p-button>
+            </form>
+        </p-card>
+    </div>
+</div>

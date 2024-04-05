@@ -25,6 +25,7 @@ export class QuizlerGenerateComponent implements OnInit{
   extractedText!: string
   difficulty!: string
   docId !: string
+  typeBased = 'contextBased'
 
   // Option Vars
   difficultyOptions : any[] = [
@@ -80,12 +81,14 @@ export class QuizlerGenerateComponent implements OnInit{
   generateQuiz() {
     const info = this.form.value as quizinfo
     console.log('>>> button clicked: ', info)
-    this.qSvc.generateQuiz(info).then(
-      (quizQuestions: GeneratedQuiz) => {
-        console.log('>>> generated: ', quizQuestions)
-        this.qSvc.updateQuizQuestions(quizQuestions)
-        this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
-      }
-    )
+
+    this.qSvc.generateQuizContextBased(info).then(
+        (quizQuestions: GeneratedQuiz) => {
+          console.log('>>> generated: ', quizQuestions)
+          this.qSvc.updateQuizQuestions(quizQuestions)
+          this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
+        }
+      )
+    
   }
 }

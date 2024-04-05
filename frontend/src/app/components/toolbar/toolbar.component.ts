@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AxiosService } from '../../services/axios.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,8 +10,19 @@ import { AxiosService } from '../../services/axios.service';
 })
 export class ToolbarComponent {
 
+  // dependencies
   private router = inject(Router)
   private axiosSvc = inject(AxiosService)
+
+  // vars
+  items: MenuItem[];
+
+  constructor() {
+    this.items = [
+      { label: 'Content-Based', icon: 'pi pi-pencil', routerLink: ['/quiz'], queryParams: {type: 'contentBased'} },
+      { label: 'Topic-Based', icon: 'pi pi-pencil', routerLink: ['/quiz'], queryParams: {type: 'topicBased'} }
+    ]
+  }
 
   logout() {
     window.localStorage.removeItem("auth_token");

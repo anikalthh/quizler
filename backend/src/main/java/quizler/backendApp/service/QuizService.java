@@ -1,5 +1,6 @@
 package quizler.backendApp.service;
 
+import java.io.StringReader;
 import java.util.List;
 
 import org.bson.Document;
@@ -18,17 +19,28 @@ public class QuizService {
 
     @Autowired
     private MongoRepository mongoRepo;
-    
-    // QUIZ DATA 
-    // Returns Quiz ID generated in Mongo DB
+
+    // QUIZ DATA
+    // Returns Quiz ID generated in Mongo DB (Content-based)
     public String saveQuiz(String userId, JsonObject quizinfo, JsonArray qnsJson) {
         Document quizDoc = Utils.quizToDocument(userId, quizinfo, qnsJson);
         return mongoRepo.saveQuiz(quizDoc);
     }
 
+    // Returns Quiz ID generated in Mongo DB (Topic-based)
+    // public String saveTopicBasedQuiz(String userId, JsonObject quizinfo, JsonArray qnsJson) {
+    //     Document quizDoc = Utils.topicBasedQuizToDocument(userId, quizinfo, qnsJson);
+    //     return mongoRepo.saveTopicBasedQuiz(quizDoc);
+    // }
+
     // Get Quiz
-    public JsonObject getQuiz(String quizId) {
-        Document quizDoc = mongoRepo.getQuiz(quizId);
+    public String getQuiz(String quizId, String typeBase) {
+        Document quizDoc = mongoRepo.getQuiz(quizId, typeBase);
+        // if (typeBase == "contextBased") {
+        //     return Utils.quizToJson(quizDoc);
+        // } else {
+        //     return Utils.topicBasedQuizToJson(quizDoc);
+        // }
         return Utils.quizToJson(quizDoc);
     }
 
@@ -43,7 +55,21 @@ public class QuizService {
 
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (Document doc : allDocumentsBSON) {
-            JsonObject documentJson = Utils.quizToJson(doc);
+            JsonObject documentJson = Json.createReader(new StringReader(Utils.quizToJson(doc))).readObject();
+            jsonArrayBuilder.add(documentJson);
+        }
+        JsonArray jsonArray = jsonArrayBuilder.build();
+
+        return jsonArray;
+    }
+
+    // Get all topic-generated quizzes
+    public JsonArray getAllTopicGeneratedQuizzes(String userId) {
+        List<Document> allDocumentsBSON = mongoRepo.getAllTopicGeneratedQuizzes(userId);
+
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (Document doc : allDocumentsBSON) {
+            JsonObject documentJson = Json.createReader(new StringReader(doc.toJson())).readObject();
             jsonArrayBuilder.add(documentJson);
         }
         JsonArray jsonArray = jsonArrayBuilder.build();
@@ -52,20 +78,45 @@ public class QuizService {
     }
 
     // SCORES DATA -- Save quiz attempts
-    public String saveQuizAttempt(JsonObject jsonQuizAttempt) {
+    public String saveQuizAttempt(JsonObject jsonQuizAttempt, String typeBased) {
+
+        // if (typeBased == "contextBased") {
+        //     Document quizAttemptDoc = Utils.quizAttemptToDocument(jsonQuizAttempt);
+        //     return mongoRepo.saveQuizAttempt(quizAttemptDoc);
+        // } else {
+        //     Document quizAttemptDoc = Utils.topicBasedQuizAttemptToDocument(jsonQuizAttempt);
+        //     return mongoRepo.saveTopicBasedQuizAttempt(quizAttemptDoc);
+        // }
+
         Document quizAttemptDoc = Utils.quizAttemptToDocument(jsonQuizAttempt);
         return mongoRepo.saveQuizAttempt(quizAttemptDoc);
+
     }
 
     // Retrieves quiz attempts
-    public JsonArray getAllAttempts(String quizId) {
+    public JsonArray getAllAttempts(String quizId, String typeBased) {
+
         List<Document> allDocumentsBSON = mongoRepo.getAllAttempts(quizId);
 
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+
+        // if (typeBased == "contextBased") {
+        //     for (Document doc : allDocumentsBSON) {
+        //         JsonObject documentJson = Utils.quizAttemptToJson(doc);
+        //         jsonArrayBuilder.add(documentJson);
+        //     }
+        // } else {
+        //     for (Document doc : allDocumentsBSON) {
+        //         JsonObject documentJson = Json.createReader(new StringReader(doc.toJson())).readObject();
+        //         jsonArrayBuilder.add(documentJson);
+        //     }
+        // }
+
         for (Document doc : allDocumentsBSON) {
-            JsonObject documentJson = Utils.quizAttemptToJson(doc);
+            JsonObject documentJson = Json.createReader(new StringReader(doc.toJson())).readObject();
             jsonArrayBuilder.add(documentJson);
         }
+        
         JsonArray jsonArray = jsonArrayBuilder.build();
 
         return jsonArray;

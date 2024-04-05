@@ -2,8 +2,6 @@ package quizler.backendApp.controller;
 
 import java.io.StringReader;
 
-import javax.swing.RepaintManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
-import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import quizler.backendApp.service.QuizService;
@@ -30,9 +27,9 @@ public class QuizController {
     private QuizService quizSvc;
 
     // Get Mapping to retrieve generated quiz
-    @GetMapping("/quiz/{quizId}")
-    public ResponseEntity<String> getQuiz(@PathVariable("quizId") String quizId) {
-        return ResponseEntity.ok().body(quizSvc.getQuiz(quizId).toString());
+    @GetMapping("/quiz/{quizId}/{typeBased}")
+    public ResponseEntity<String> getQuiz(@PathVariable("quizId") String quizId, @PathVariable("typeBased") String typeBased) {
+        return ResponseEntity.ok().body(quizSvc.getQuiz(quizId, typeBased).toString());
     }
 
     @DeleteMapping("/quiz/{quizId}")
@@ -59,18 +56,24 @@ public class QuizController {
 
     // Get Mapping to get all quizzes generated under a particular document uploaded
     @GetMapping("/{documentId}/quizzes")
-    public ResponseEntity<String> getAllQuizzes(@PathVariable("documentId") String docId) {
+    public ResponseEntity<String> getAllQuizzesContextBased(@PathVariable("documentId") String docId) {
         return ResponseEntity.ok().body(quizSvc.getAllQuizzes(docId).toString());
+    }
+
+    // Get Mapping to get all topic-generated quizzes
+    @GetMapping("/topic/quizzes/{userId}")
+    public ResponseEntity<String> getAllTopicGeneratedQuizzes(@PathVariable("userId") String userId) {
+        return ResponseEntity.ok().body(quizSvc.getAllTopicGeneratedQuizzes(userId).toString());
     }
 
     // QUIZ ATTEMPTS
     // Post Mapping New Quiz Data
-    @PostMapping("/submitquiz")
-    public ResponseEntity<String> processQuizSubmission(@RequestBody String payload) {
+    @PostMapping("/submitquiz/{typeBased}")
+    public ResponseEntity<String> processQuizSubmission(@RequestBody String payload, @PathVariable("typeBased") String typeBased) {
 
         JsonObject quizJson = Json.createReader(new StringReader(payload)).readObject();
 
-        String quizAttemptId = quizSvc.saveQuizAttempt(quizJson);
+        String quizAttemptId = quizSvc.saveQuizAttempt(quizJson, typeBased);
 
         JsonObject resp = Json.createObjectBuilder()
                 .add("quizAttemptId", quizAttemptId)
@@ -79,9 +82,9 @@ public class QuizController {
         return ResponseEntity.ok().body(resp.toString());
     }
 
-    @GetMapping("/quiz/{quizId}/attempts")
-    public ResponseEntity<String> getAllQuizAttempts(@PathVariable("quizId") String quizId) {
+    @GetMapping("/{typeBased}/{quizId}/attempts")
+    public ResponseEntity<String> getAllQuizAttempts(@PathVariable("quizId") String quizId, @PathVariable("typeBased") String typeBased) {
         // JsonArray quizAttemptsJsonArray = quizSvc.getAllAttempts(quizId);
-        return ResponseEntity.ok().body(quizSvc.getAllAttempts(quizId).toString());
+        return ResponseEntity.ok().body(quizSvc.getAllAttempts(quizId, typeBased).toString());
     }
 }

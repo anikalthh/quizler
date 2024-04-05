@@ -20,6 +20,7 @@ export class HomepageComponent implements OnInit {
   dayOfTheWeek : Date = new Date()
   username = this.axiosSvc.getUsername()
   docs$ = this.quizSvc.getAllDocuments(this.userId)
+  topicQuizzes$ = this.quizSvc.getAllTopicGeneratedQuizzes(this.userId)
 
   // lifecycle hooks
   ngOnInit(): void {
@@ -29,6 +30,10 @@ export class HomepageComponent implements OnInit {
   // methods
   getQuizzes(S3Id: string) {
     this.router.navigate([S3Id, 'quizzes'])
+  }
+
+  getAttempts(quizId: string) {
+    this.router.navigate([])
   }
 
 }

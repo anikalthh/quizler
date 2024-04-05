@@ -45,7 +45,8 @@ export interface FullMCQQuizData {
     userId: string
     quizId: string
     quizTitle: string
-    documentId: string
+    topic: string | null
+    documentId: string | null
     extractedText: string
     difficulty: string
     type: string

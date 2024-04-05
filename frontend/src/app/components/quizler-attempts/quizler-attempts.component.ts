@@ -19,12 +19,13 @@ export class QuizlerAttemptsComponent implements OnInit{
   quizTitle !: string
   attempts$ !: Promise<QuizAttempt[]>
   score !: number
+  typeBased = this.activatedRoute.snapshot.queryParams['type']
 
   // lifecycle hooks
   ngOnInit(): void {
     this.quizId = this.activatedRoute.snapshot.params['quizId']
-    this.attempts$ = this.quizSvc.getAllQuizAttempts(this.quizId)
-    this.quizSvc.getGeneratedQuiz(this.quizId).then(
+    this.attempts$ = this.quizSvc.getAllQuizAttempts(this.quizId, this.typeBased)
+    this.quizSvc.getGeneratedQuiz(this.quizId, this.typeBased).then(
       (quiz) => {
         this.quizTitle = quiz.quizTitle
       }

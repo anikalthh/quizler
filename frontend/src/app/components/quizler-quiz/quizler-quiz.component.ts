@@ -32,6 +32,7 @@ export class QuizlerQuizComponent implements OnInit {
   submitted: boolean = false
   score: number = 0
   showAnswers: boolean = false
+  typeBased = this.activatedRouter.snapshot.queryParams['type']
 
   // HTML vars
   btnStyle!: string
@@ -41,7 +42,7 @@ export class QuizlerQuizComponent implements OnInit {
     this.quizId = this.activatedRouter.snapshot.params['quizId']
     console.log('QUIZ IDDD: ', this.quizId)
     // this.quizJson = this.quizSvc.generatedQuiz
-    this.quizSvc.getGeneratedQuiz(this.quizId).then(
+    this.quizSvc.getGeneratedQuiz(this.quizId, this.typeBased).then(
       (generatedQuiz: GeneratedQuiz) => {
         this.quizJson = generatedQuiz
         console.log("quiz", this.quizJson)
@@ -134,7 +135,7 @@ export class QuizlerQuizComponent implements OnInit {
       answers: this.allAnswers
     }
     console.log('DATETIME FORMAT: ', Date.now())
-    this.quizSvc.submitAnswersSvc(quizAttempt).then(
+    this.quizSvc.submitAnswersSvc(quizAttempt, this.typeBased).then(
       (quizAttemptId) => {
         this.submitted = true
       }

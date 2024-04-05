@@ -1,5 +1,7 @@
 <div class="file-upload-container">
-    <div class="container">
+
+    <!-- TOPIC BASED -->
+    <div class="container" *ngIf="!isTopicBased">
         <p-card header="Upload">
             <form [formGroup]="form">
                 <div>
@@ -18,6 +20,24 @@
                 <p-fileUpload class="file-upload-container" name="documents[]" mode="advanced"
                     chooseStyleClass="p-button-rounded p-button-outlined" [customUpload]="true"
                     (uploadHandler)="uploadFile($event)" #file></p-fileUpload>
+            </form>
+        </p-card>
+    </div>
+
+    <!-- CONTENT BASED -->
+    <div class="container" *ngIf="isTopicBased">
+        <p-card header="Choose a topic">
+            <form [formGroup]="form" (submit)="generateTopicBasedQuiz()">
+                <div>
+                    <label for="topic">Topic</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText style="width:100%" type="text" placeholder="Enter Topic"
+                        formControlName="topic">
+                </div>
+                <br>
+                <button pButton type="submit">Next</button>
             </form>
         </p-card>
     </div>

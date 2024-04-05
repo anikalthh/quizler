@@ -27,6 +27,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -51,6 +52,7 @@ import { QuizlerDocsComponent } from './components/quizler-docs/quizler-docs.com
 import { RegistrationComponent } from './user-auth-components/registration/registration.component';
 import { QuizlerListComponent } from './components/quizler-list/quizler-list.component';
 import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-attempts.component';
+import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-
     QuizlerDocsComponent,
     RegistrationComponent,
     QuizlerListComponent,
-    QuizlerAttemptsComponent
+    QuizlerAttemptsComponent,
+    QuizlerTopicComponent
   ],
   imports: [
     CommonModule,
@@ -97,7 +100,8 @@ import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-
     InputTextareaModule,
     RadioButtonModule,
     SelectButtonModule,
-    DropdownModule
+    DropdownModule,
+    SplitButtonModule
   ],
   providers: [
     provideAnimationsAsync(),

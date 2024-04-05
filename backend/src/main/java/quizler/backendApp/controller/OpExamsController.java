@@ -26,12 +26,12 @@ public class OpExamsController {
     @Autowired
     private QuizService quizSvc;
 
-    // Post Mapping to get generated questions and save them
+    // Post Mapping to get generated questions and save them (Context-based)
     @PostMapping("/generate")
     public ResponseEntity<String> generateQuestions(@RequestBody() String payload) {
         JsonObject quizinfo = Json.createReader(new StringReader(payload)).readObject();
 
-        JsonObject resp = api.generateQuestions(
+        JsonObject resp = api.generateQuestionsByContext(
                 quizinfo.getString("extractedText"),
                 quizinfo.getString("questionType"),
                 quizinfo.getString("language"),
@@ -44,6 +44,30 @@ public class OpExamsController {
         // QuizId generated in Mongo)
         JsonObject jsonResponse = Json.createObjectBuilder()
                 .add("documentId", quizinfo.getString("documentId"))
+                .add("quizId", quizId)
+                .add("data", resp.get("data"))
+                .build();
+
+        return ResponseEntity.ok().body(jsonResponse.toString());
+    }
+
+    // Post Mapping to get generated questions and save them (Context-based)
+    @PostMapping("/generate/topic")
+    public ResponseEntity<String> generateQuestionsByTopic(@RequestBody() String payload) {
+        JsonObject quizinfo = Json.createReader(new StringReader(payload)).readObject();
+
+        JsonObject resp = api.generateQuestionsByTopic(
+                quizinfo.getString("topic"),
+                quizinfo.getString("questionType"),
+                quizinfo.getString("language"),
+                quizinfo.getString("difficulty"));
+
+        // Save generated quiz
+        String quizId = quizSvc.saveQuiz(quizinfo.getString("userId"), quizinfo, resp.get("data").asJsonArray());
+
+        // Create JSON Response Body for Angular (generated quiz from the API and the
+        // QuizId generated in Mongo)
+        JsonObject jsonResponse = Json.createObjectBuilder()
                 .add("quizId", quizId)
                 .add("data", resp.get("data"))
                 .build();

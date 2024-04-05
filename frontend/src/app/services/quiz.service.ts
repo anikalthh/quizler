@@ -14,8 +14,12 @@ export class QuizService {
   constructor(private http: HttpClient) { }
 
   // Post quiz requirements / info data to SpringBoot to call OpExams API
-  generateQuiz(info: quizinfo) {
+  generateQuizContextBased(info: quizinfo) {
     return firstValueFrom(this.http.post<GeneratedQuiz>('http://localhost:8080/api/generate', info))
+  }
+
+  generateQuizTopicBased(info: quizinfo) {
+    return firstValueFrom(this.http.post<GeneratedQuiz>('http://localhost:8080/api/generate/topic', info))
   }
 
   // Pass data between quizler components via service
@@ -25,8 +29,8 @@ export class QuizService {
   }
 
   // Get generated quiz
-  getGeneratedQuiz(quizId: string) {
-    return firstValueFrom(this.http.get<GeneratedQuiz>(`http://localhost:8080/api/quiz/${quizId}`))
+  getGeneratedQuiz(quizId: string, typeBased: string) {
+    return firstValueFrom(this.http.get<GeneratedQuiz>(`http://localhost:8080/api/quiz/${quizId}/${typeBased}`))
   }
 
   // Delete Quiz
@@ -35,8 +39,8 @@ export class QuizService {
   }
 
   // Post user's answers data to SpringBoot
-  submitAnswersSvc(quizAttempt: QuizAttempt) {
-    return firstValueFrom(this.http.post('http://localhost:8080/api/submitquiz', quizAttempt))
+  submitAnswersSvc(quizAttempt: QuizAttempt, typeBased: string) {
+    return firstValueFrom(this.http.post(`http://localhost:8080/api/submitquiz/${typeBased}`, quizAttempt))
   }
 
   // Get all documents uploaded by a user
@@ -54,13 +58,18 @@ export class QuizService {
   }
 
   // Get all quizzes generated from a document
-  getAllQuizzes(S3Id: string) : Promise<FullMCQQuizData[]> {
+  getAllQuizzesByDocId(S3Id: string) : Promise<FullMCQQuizData[]> {
     return firstValueFrom(this.http.get<FullMCQQuizData[]>(`http://localhost:8080/api/${S3Id}/quizzes`))
   }
 
+  // Get all quizzes generated from a topic
+  getAllTopicGeneratedQuizzes(userId: string | null) : Promise<FullMCQQuizData[]> {
+    return firstValueFrom(this.http.get<FullMCQQuizData[]>(`http://localhost:8080/api/topic/quizzes/${userId}`))
+  }
+
   // Get all quiz attempts of a generated quiz
-  getAllQuizAttempts(quizId: string) {
+  getAllQuizAttempts(quizId: string, typeBased: string) {
     console.log('exists in svc? : ', quizId)
-    return firstValueFrom(this.http.get<QuizAttempt[]>(`http://localhost:8080/api/quiz/${quizId}/attempts`))
+    return firstValueFrom(this.http.get<QuizAttempt[]>(`http://localhost:8080/api/${typeBased}/${quizId}/attempts`))
   }
 }

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileUploadService } from '../../services/file-upload.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AxiosService } from '../../services/axios.service';
 
 @Component({
@@ -17,21 +17,44 @@ export class QuizlerComponent implements OnInit {
   private fb = inject(FormBuilder)
   private uploadSvc = inject(FileUploadService)
   private router = inject(Router)
+  private activatedRoute = inject(ActivatedRoute)
   private axiosSvc = inject(AxiosService)
 
   // vars
   form !: FormGroup
+  baseType !: string
+  isTopicBased !: boolean
 
   // lifecycle hooks
   ngOnInit(): void {
-    this.form = this.createForm()
+    // check query params: topic-based or content-based
+    this.baseType = this.activatedRoute.snapshot.queryParams['type']
+    
+    if (this.baseType === 'topicBased') {
+      this.form = this.createFormTopicBased()
+      this.isTopicBased = true
+    } else if (this.baseType === 'contentBased') {
+      this.form = this.createFormContentBased()
+      this.isTopicBased = false
+    }
   }
 
   // methods
-  createForm(): FormGroup {
+  createFormContentBased(): FormGroup {
     return this.fb.group({
       title: this.fb.control('', [Validators.required])
     })
+  }
+
+  createFormTopicBased(): FormGroup {
+    return this.fb.group({
+      topic: this.fb.control('', [Validators.required])
+    })
+  }
+
+  generateTopicBasedQuiz() {
+    console.log('>>> TOPIC BASED next btn clicked', this.form.value['topic'])
+    this.router.navigate(['/generate'], { queryParams: { topic: this.form.value['topic'] }})
   }
 
   uploadFile(event: any) {

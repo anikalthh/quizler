@@ -55,7 +55,7 @@ public class FileService {
 
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         for (Document doc : allDocumentsBSON) {
-            JsonObject documentJson = Utils.s3dataToJson(doc);
+            JsonObject documentJson = Json.createReader(new StringReader(Utils.s3dataToJson(doc))).readObject();
             jsonArrayBuilder.add(documentJson);
         }
         JsonArray jsonArray = jsonArrayBuilder.build();

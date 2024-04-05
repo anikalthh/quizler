@@ -13,6 +13,11 @@ p  {
 }
 
 .content-container {
-    margin: 0 25px;
+    margin: 25px;
     position: relative;
+}
+
+.homepage-container {
+    margin: 25px;
+    padding-bottom: 35px;
 }

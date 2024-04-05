@@ -21,7 +21,7 @@ public class OpExamsAPI {
 
     private String baseUrl = "https://api.opexams.com/questions-generator";
 
-    public JsonObject generateQuestions(String extractedText, String qnType, String language, String difficulty) {
+    public JsonObject generateQuestionsByContext(String extractedText, String qnType, String language, String difficulty) {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("api-key", apiKey);
@@ -31,6 +31,37 @@ public class OpExamsAPI {
         JsonObject requestJson = Json.createObjectBuilder()
                 .add("type", "contextBased")
                 .add("context", extractedText)
+                .add("questionType", qnType)
+                .add("language", language)
+                .add("difficulty", difficulty)
+                // .add("requestId", quizId)
+                .build();
+
+        RequestEntity<String> requestEntity = RequestEntity
+            .post(baseUrl)
+            .headers(httpHeaders)
+            .body(requestJson.toString());
+
+        RestTemplate template = new RestTemplate();
+
+        ResponseEntity<String> resp = template.exchange(requestEntity, String.class);
+
+
+        JsonObject qnsJson = Json.createReader(new StringReader(resp.getBody())).readObject();
+
+        return qnsJson;
+    }
+
+    public JsonObject generateQuestionsByTopic(String topic, String qnType, String language, String difficulty) {
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("api-key", apiKey);
+        httpHeaders.add("request-type", "test");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JsonObject requestJson = Json.createObjectBuilder()
+                .add("type", "topicBased")
+                .add("topic", topic)
                 .add("questionType", qnType)
                 .add("language", language)
                 .add("difficulty", difficulty)

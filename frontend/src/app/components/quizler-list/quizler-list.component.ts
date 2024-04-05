@@ -29,9 +29,10 @@ export class QuizlerListComponent implements OnInit {
 
   // methods
   loadQuizzes() {
-    this.quizzes$ = this.quizSvc.getAllQuizzes(this.S3Id).then(
+    this.quizzes$ = this.quizSvc.getAllQuizzesByDocId(this.S3Id).then(
       (val) => {
         if (val) {
+          console.log('quizzes: ', val)
           return val
         } else {
           return []
@@ -58,7 +59,7 @@ export class QuizlerListComponent implements OnInit {
   }
 
   viewPreviousAttempts(quizId: string) {
-    this.quizSvc.getAllQuizAttempts(quizId)
+    this.quizSvc.getAllQuizAttempts(quizId, 'contextBased')
   }
 
 }
