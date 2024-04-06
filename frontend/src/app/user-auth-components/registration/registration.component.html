@@ -1,47 +1,47 @@
 <div class="register-container">
     <div class="container">
         <p-card header="Sign up" [style]="{ width: '500px' }">
-                <form [formGroup]="registerForm" (submit)="onSubmitRegister()">
-                    <div>
-                        <label for="username">Username</label>
-                    </div>
-                    <br>
-                    <div>
-                        <input pInputText id="username" type="text" formControlName="username">
-                    </div>
-                    <br>
-                    <div>
-                        <label for="firstname">First Name</label>
-                    </div>
-                    <br>
-                    <div>
-                        <input pInputText id="firstname" type="text" formControlName="firstname">
-                    </div>
-                    <br>
-                    <div>
-                        <label for="lastname">Last Name</label>
-                    </div>
-                    <br>
-                    <div>
-                        <input pInputText id="lastname" type="text" formControlName="lastname">
-                    </div>
-                    <br>
-                    <div>
-                        <label for="email">Email</label>
-                    </div>
-                    <br>
-                    <div>
-                        <input pInputText id="email" type="text" formControlName="email">
-                    </div>
-                    <br>
-                    <div>
-                        <label for="password">Password</label>
-                    </div>
-                    <br>
-                    <div>
-                        <input pInputText id="password" type="password" formControlName="password">
-                    </div>
-                    <!-- <br>
+            <form [formGroup]="registerForm" (submit)="onSubmitRegister()">
+                <div>
+                    <label for="username">Username</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText id="username" type="text" formControlName="username">
+                </div>
+                <br>
+                <div>
+                    <label for="firstname">First Name</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText id="firstname" type="text" formControlName="firstname">
+                </div>
+                <br>
+                <div>
+                    <label for="lastname">Last Name</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText id="lastname" type="text" formControlName="lastname">
+                </div>
+                <br>
+                <div>
+                    <label for="email">Email</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText id="email" type="text" formControlName="email">
+                </div>
+                <br>
+                <div>
+                    <label for="password">Password</label>
+                </div>
+                <br>
+                <div>
+                    <input pInputText id="password" type="password" formControlName="password">
+                </div>
+                <!-- <br>
                     <div>
                         <label for="confirmPassword">Confirm Password</label>
                     </div>
@@ -49,12 +49,15 @@
                     <div>
                         <input pInputText id="confirmPassword" type="text" formControlName="confirmPassword">
                     </div> -->
-                    <br>
-                    <br>
-                    <div>
-                        <p-button type="submit">Sign Up</p-button>
-                    </div>
-                </form>
+                <br>
+                <br>
+                <div>
+                    <p-button type="submit">Sign Up</p-button>
+                    <p-button label="Go Back" icon="pi pi-times" styleClass="p-button-secondary"
+                        [style]="{ 'margin-left': '.5em' }" [routerLink]="['/']"></p-button>
+                </div>
+
+            </form>
         </p-card>
-      </div>
+    </div>
 </div>
