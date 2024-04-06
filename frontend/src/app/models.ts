@@ -81,3 +81,12 @@ export interface login {
     username: string
     password: string
 }
+
+// GOOGLE CAL
+export interface StudySession {
+    meetingTitle: string
+    datetime: string 
+    duration: number
+    email: string
+    invitee: string
+}

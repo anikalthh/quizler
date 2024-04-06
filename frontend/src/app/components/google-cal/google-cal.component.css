@@ -1,0 +1,22 @@
+h1, h3 {  
+    font-family: 'Lemonmilk', sans-serif;
+}
+
+p  {  
+    font-size: 12px; 
+    font-family: 'Lemonmilk-light', sans-serif;
+}
+
+.container {
+    margin: 5%;
+}
+
+.content-container {
+    margin: 25px;
+    position: relative;
+}
+
+.cal-container {
+    margin: 25px;
+    padding-bottom: 35px;
+}

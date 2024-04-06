@@ -1,13 +1,5 @@
 package quizler.backendApp.config;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-import ch.qos.logback.core.subst.Token;
-
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
@@ -19,12 +11,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import quizler.backendApp.dto.CredentialsDto;
-import quizler.backendApp.dto.SignUpDto;
-import quizler.backendApp.dto.UserDto;
-import quizler.backendApp.service.UsersService;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import quizler.backendApp.dto.UserDto;
+import quizler.backendApp.service.UsersService;
 
 @RequiredArgsConstructor
 @Component

@@ -28,6 +28,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { CalendarModule } from 'primeng/calendar';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -53,6 +54,7 @@ import { RegistrationComponent } from './user-auth-components/registration/regis
 import { QuizlerListComponent } from './components/quizler-list/quizler-list.component';
 import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-attempts.component';
 import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.component';
+import { GoogleCalComponent } from './components/google-cal/google-cal.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.
     RegistrationComponent,
     QuizlerListComponent,
     QuizlerAttemptsComponent,
-    QuizlerTopicComponent
+    QuizlerTopicComponent,
+    GoogleCalComponent
   ],
   imports: [
     CommonModule,
@@ -101,7 +104,8 @@ import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.
     RadioButtonModule,
     SelectButtonModule,
     DropdownModule,
-    SplitButtonModule
+    SplitButtonModule,
+    CalendarModule
   ],
   providers: [
     provideAnimationsAsync(),
