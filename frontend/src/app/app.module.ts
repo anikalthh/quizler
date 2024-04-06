@@ -29,6 +29,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CalendarModule } from 'primeng/calendar';
+import { DividerModule } from 'primeng/divider';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -43,7 +44,6 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './user-auth-components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { CallService } from './services/call.service';
-import { TrendingComponent } from './components/trending/trending.component';
 import { LandingpageComponent } from './components/landingpage/landingpage.component';
 import { QuizlerComponent } from './components/quizler/quizler.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -64,7 +64,6 @@ import { GoogleCalComponent } from './components/google-cal/google-cal.component
     HomepageComponent,
     LoginComponent,
     SignupComponent,
-    TrendingComponent,
     LandingpageComponent,
     QuizlerComponent,
     ToolbarComponent,
@@ -105,7 +104,8 @@ import { GoogleCalComponent } from './components/google-cal/google-cal.component
     SelectButtonModule,
     DropdownModule,
     SplitButtonModule,
-    CalendarModule
+    CalendarModule,
+    DividerModule
   ],
   providers: [
     provideAnimationsAsync(),

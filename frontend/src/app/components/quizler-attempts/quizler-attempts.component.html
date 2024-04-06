@@ -12,15 +12,16 @@
                                 <h3>Attempt #{{j+1}}</h3>
                                 <p>Your Score : {{a.score}}/{{a.answers.length}}</p>
                                 <p>Submitted On : {{a.datetime | date: 'medium'}}</p>
-                                <!-- <div *ngFor="let ans of a.answers">
-                                    <p>{{ans.index}}</p>
-                                    <p>{{ans.question}}</p>
-                                </div> -->
                             </p-card>
                         </div>
                     </div>
                 </ng-template>
             </p-dataView>
+        </div>
+        <br>
+        <div>
+            <button *ngIf="!!docId" pButton label="Back" [routerLink]="['/', docId, 'quizzes']"></button>
+            <button *ngIf="!docId" pButton label="Back" [routerLink]="['/home']"></button>
         </div>
     </div>
 </div>

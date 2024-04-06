@@ -17,6 +17,10 @@ p  {
     position: relative;
 }
 
+.quiz-btns {
+    margin-right: 10px;
+}
+
 .homepage-container {
     margin: 25px;
     padding-bottom: 35px;

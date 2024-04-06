@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
+import quizler.backendApp.exception.DocumentDeletionException;
 import quizler.backendApp.service.FileService;
 import quizler.backendApp.service.TextExtractionService;
 
@@ -71,5 +74,23 @@ public class FileUploadController {
     @GetMapping(path = "/document/{docId}")
     public ResponseEntity<String> getDocument(@PathVariable("docId") String docId) {
         return ResponseEntity.ok().body(fSvc.getDocument(docId));
+    }
+
+    @DeleteMapping("/document/{docId}")
+    public ResponseEntity<String> deleteQuiz(@PathVariable("docId") String docId) throws DocumentDeletionException {
+
+        Boolean deleteSuccess = fSvc.deleteDocumentAndQuizzes(docId);
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonObject resp;
+        if (!deleteSuccess) {
+            resp = builder.add("docId", "error")
+                    .build();
+        } else {
+            resp = builder.add("quizId", docId)
+                    .build();
+        }
+
+        return ResponseEntity.ok().body(resp.toString());
     }
 }

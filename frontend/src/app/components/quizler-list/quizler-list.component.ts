@@ -53,13 +53,13 @@ export class QuizlerListComponent implements OnInit {
     this.quizSvc.deleteQuiz(quizId).then(
       (val) => {
         console.log('delete count: ', val)
-        this.loadQuizzes()
+        this.loadQuizzes() // reload after deletion
       }
     )
   }
 
-  viewPreviousAttempts(quizId: string) {
-    this.quizSvc.getAllQuizAttempts(quizId, 'contextBased')
-  }
+  // viewPreviousAttempts(quizId: string) {
+  //   this.quizSvc.getAllQuizAttempts(quizId, 'contextBased')
+  // }
 
 }

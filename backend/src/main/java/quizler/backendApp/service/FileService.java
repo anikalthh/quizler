@@ -8,11 +8,13 @@ import java.util.List;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
+import quizler.backendApp.exception.DocumentDeletionException;
 import quizler.backendApp.repo.MongoRepository;
 import quizler.backendApp.repo.S3Repository;
 import quizler.backendApp.utility.Utils;
@@ -69,5 +71,28 @@ public class FileService {
 
         // JsonObject jsonObj = Json.createReader(new StringReader(documentBSON.toJson())).readObject();
         return documentBSON.toJson();
+    }
+
+    // Delete document from digiOcean and document data from mongo
+    @Transactional(rollbackFor = DocumentDeletionException.class)
+    public Boolean deleteDocumentAndQuizzes(String docId) throws DocumentDeletionException {
+
+        // delete document from s3
+        s3.deleteFromS3(docId);
+
+        // delete document data from mongo
+        Boolean isDocumentDataDeleted = mongoRepo.deleteDocument(docId);
+
+        // delete quizzes under document
+        Boolean areQuizzesDeleted = mongoRepo.deleteQuizzesOfADocument(docId);
+
+        // delete quiz attempts under document
+        Boolean areQuizAttemptsDeleted = mongoRepo.deleteQuizAttempts(docId, "document");
+
+        if (!isDocumentDataDeleted || !areQuizzesDeleted || !areQuizAttemptsDeleted) {
+            throw new DocumentDeletionException();
+        } else {
+            return true;
+        }
     }
 }

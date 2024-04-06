@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
+import quizler.backendApp.exception.QuizDeletionException;
 import quizler.backendApp.service.QuizService;
 
 @RestController
@@ -33,13 +34,13 @@ public class QuizController {
     }
 
     @DeleteMapping("/quiz/{quizId}")
-    public ResponseEntity<String> deleteQuiz(@PathVariable("quizId") String quizId) {
+    public ResponseEntity<String> deleteQuiz(@PathVariable("quizId") String quizId) throws QuizDeletionException {
 
-        long deleteCount = quizSvc.deleteQuiz(quizId);
+        Boolean deleteSuccess = quizSvc.deleteQuiz(quizId);
 
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonObject resp;
-        if (deleteCount == 0l) {
+        if (!deleteSuccess) {
             resp = builder.add("quizId", "error")
                     .build();
         } else {
@@ -60,7 +61,7 @@ public class QuizController {
         return ResponseEntity.ok().body(quizSvc.getAllQuizzes(docId).toString());
     }
 
-    // Get Mapping to get all topic-generated quizzes
+    // Get Mapping to get all topic-generated quizzes 
     @GetMapping("/topic/quizzes/{userId}")
     public ResponseEntity<String> getAllTopicGeneratedQuizzes(@PathVariable("userId") String userId) {
         return ResponseEntity.ok().body(quizSvc.getAllTopicGeneratedQuizzes(userId).toString());

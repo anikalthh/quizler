@@ -5,6 +5,7 @@ import { quizinfo, QuestionsMCQ, GeneratedQuiz } from '../../models';
 import { FileUploadService } from '../../services/file-upload.service';
 import { QuizService } from '../../services/quiz.service';
 import { AxiosService } from '../../services/axios.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quizler-generate',
@@ -19,6 +20,7 @@ export class QuizlerGenerateComponent implements OnInit{
   private qSvc = inject(QuizService)
   private router = inject(Router)
   private axiosSvc = inject(AxiosService)
+  private _location = inject(Location)
 
   // vars
   form !: FormGroup
@@ -90,5 +92,9 @@ export class QuizlerGenerateComponent implements OnInit{
         }
       )
     
+  }
+
+  backButton() {
+    this._location.back()
   }
 }

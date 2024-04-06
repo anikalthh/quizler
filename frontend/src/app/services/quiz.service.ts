@@ -53,8 +53,12 @@ export class QuizService {
 
   // Get specific document via Document ID
   getDocument(docId: string) {
-    console.log('hello?')
     return firstValueFrom(this.http.get<S3Data>(`http://localhost:8080/api/document/${docId}`))
+  }
+
+  // Delete documents and all quizzes and attempts under it
+  deleteDocument(docId: string) {
+    return firstValueFrom(this.http.delete(`http://localhost:8080/api/document/${docId}`))
   }
 
   // Get all quizzes generated from a document

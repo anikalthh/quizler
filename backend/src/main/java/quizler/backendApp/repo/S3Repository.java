@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -47,6 +48,14 @@ public class S3Repository {
         S3Object obj = s3.getObject(getReq);
         InputStream is = obj.getObjectContent();
         return is;
+    }
+
+    public void deleteFromS3(String key) {
+
+        DeleteObjectRequest deleteReq = new DeleteObjectRequest("quizler", "files/%s".formatted(key));
+        
+        s3.deleteObject(deleteReq);
+        System.out.print("\n\n----DELETED----");
     }
 
 }

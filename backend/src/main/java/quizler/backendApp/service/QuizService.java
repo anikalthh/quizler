@@ -6,11 +6,13 @@ import java.util.List;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
+import quizler.backendApp.exception.QuizDeletionException;
 import quizler.backendApp.repo.MongoRepository;
 import quizler.backendApp.utility.Utils;
 
@@ -45,8 +47,18 @@ public class QuizService {
     }
 
     // Delete Quiz
-    public long deleteQuiz(String quizId) {
-        return mongoRepo.deleteQuiz(quizId);
+    @Transactional(rollbackFor = QuizDeletionException.class)
+    public Boolean deleteQuiz(String quizId) throws QuizDeletionException {
+        // delete quiz
+        Boolean isQuizDeleted = mongoRepo.deleteQuiz(quizId);
+        Boolean areAttemptsAllDeleted = mongoRepo.deleteQuizAttempts(quizId, "quiz");
+
+        // rollback
+        if (!isQuizDeleted || !areAttemptsAllDeleted) {
+            throw new QuizDeletionException();
+        } else {
+            return true;
+        }
     }
 
     // Get all quizzes under a document

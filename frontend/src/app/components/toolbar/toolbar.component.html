@@ -1,17 +1,10 @@
 <p-toolbar>
     <div class="p-toolbar-group-start">
         <button class="button-margin" pButton icon="pi pi-home" [routerLink]="['/home']"></button>
-        <button class="p-button-rounded p-button-outlined button-margin" pButton icon="pi pi-comments" label="Forum" [routerLink]="['/forum']"></button>
         <button class="p-button-rounded p-button-outlined button-margin" pButton icon="pi pi-video" label="Call" [routerLink]="['/videocall']"></button>
         <button class="p-button-rounded p-button-outlined button-margin" pButton icon="pi pi-calendar" label="Calendar" [routerLink]="['/calendar']"></button>
         <p-splitButton styleClass="p-button-rounded p-button-outlined" icon="pi pi-folder-open"  label="New Quiz" [model]="this.items"></p-splitButton>
     </div>
-    <!-- <div class="p-toolbar-group-center">
-        <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText placeholder="Search forum"/>
-        </span>
-    </div> -->
     <div class="p-toolbar-group-end">
         <p-button (onClick)="logout()" label="Logout" icon="pi pi-sign-out"></p-button>
     </div>

@@ -6,6 +6,7 @@ import { QuizStore } from '../../services/quiz.store';
 import { take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AxiosService } from '../../services/axios.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quizler-quiz',
@@ -19,6 +20,7 @@ export class QuizlerQuizComponent implements OnInit {
   private quizStore = inject(QuizStore)
   private activatedRouter = inject(ActivatedRoute)
   private axiosSvc = inject(AxiosService)
+  private _location = inject(Location)
 
   // vars
   quizId !: string
@@ -149,5 +151,9 @@ export class QuizlerQuizComponent implements OnInit {
 
   showAnswersBtn() {
     this.showAnswers = true
+  }
+
+  backButton() {
+    this._location.back()
   }
 }

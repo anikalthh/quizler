@@ -39,7 +39,7 @@
         </div>
         <div class="buttons" *ngIf="!submitted">
             <p-button (onClick)="submitAnswers()" [disabled]="!allAnswered" label="Submit" icon="pi pi-check"></p-button>
-            <p-button [routerLink]="['/home']" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+            <p-button (onClick)="backButton()" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
                 [style]="{ 'margin-left': '.5em' }"></p-button>
         </div>
         <div class="buttons" *ngIf="submitted">
