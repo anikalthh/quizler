@@ -88,5 +88,5 @@ export interface StudySession {
     datetime: string 
     duration: number
     email: string
-    invitee: string
+    attendee: string[]
 }

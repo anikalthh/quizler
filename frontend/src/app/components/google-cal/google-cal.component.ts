@@ -29,7 +29,7 @@ export class GoogleCalComponent implements OnInit {
   datetime !: string
   duration !: number
   email !: string
-  invitee !: string
+  attendee !: string[]
 
 
   // lifecycle hooks
@@ -42,9 +42,9 @@ export class GoogleCalComponent implements OnInit {
 
 
     // check if localstorage has prev form data
-    this.storedEventDetails = JSON.parse(window.localStorage.getItem('eventDetails') || '') as StudySession
+    this.storedEventDetails = JSON.parse(window.localStorage.getItem('eventDetails') || '{}') as StudySession
 
-    console.log('local storage: ', JSON.parse(window.localStorage.getItem('eventDetails') || '') as StudySession)
+    console.log('local storage: ', JSON.parse(window.localStorage.getItem('eventDetails') || '{}') as StudySession)
     // this.storedEventDetails = window.localStorage.getItem('eventDetails') 
     if (this.auth === 'Success' && this.storedEventDetails !== undefined) {
       console.log('auth success, sending details now')
@@ -52,7 +52,7 @@ export class GoogleCalComponent implements OnInit {
       this.datetime = this.storedEventDetails['datetime'] 
       this.duration = this.storedEventDetails['duration']
       this.email = this.storedEventDetails['email'] 
-      this.invitee = this.storedEventDetails['invitee'] 
+      this.attendee = this.storedEventDetails['attendee'] 
       this.form = this.createForm()
       this.gCalSvc.sendEventDetails(this.storedEventDetails)
 
@@ -61,7 +61,7 @@ export class GoogleCalComponent implements OnInit {
       this.datetime = ''
       this.duration = 1 // 1 hour
       this.email = ''
-      this.invitee = ''
+      this.attendee = []
       this.form = this.createForm()
     }
   }
@@ -73,7 +73,7 @@ export class GoogleCalComponent implements OnInit {
       datetime: this.fb.control(this.datetime, [Validators.required]),
       duration: this.fb.control(this.duration, [Validators.required, Validators.min(1)]),
       email: this.fb.control(this.email, [Validators.required, Validators.email]),
-      invitee: this.fb.control(this.invitee, [Validators.required, Validators.email])
+      attendee: this.fb.control(this.attendee, [Validators.required, Validators.email])
     })
   }
 

@@ -42,15 +42,14 @@
                 <br>
 
                 <div>
-                    <label for="topic">Invitee Email</label>
+                    <label for="topic">Attendee Email</label>
                 </div>
                 <br>
                 <div>
-                    <input pInputText style="width:100%" type="text" placeholder="Enter Your Invitee's Email"
-                        formControlName="invitee">
+                    <p-chips placeholder="Enter Your Attendees' Email(s)"
+                        formControlName="attendee"></p-chips>
                 </div>
                 <br>
-
                 <button pButton type="submit">Schedule</button>
             </form>
         </p-card>

@@ -40,7 +40,10 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonString;
+import jakarta.json.JsonValue;
 import quizler.backendApp.dto.UrlDto;
 
 @RestController
@@ -113,7 +116,8 @@ public class GoogleCalController {
         String dateTime = jsonObj.getString("datetime");
         int duration = jsonObj.getInt("duration");
         String email = jsonObj.getString("email");
-        String invitee = jsonObj.getString("invitee");
+        JsonArray attendees = jsonObj.getJsonArray("attendee");
+        System.out.printf("\n\n attendess json array: %s\n\n", attendees);
 
         // Format Datetime
         // Convert the string into a DateTime object
@@ -124,11 +128,13 @@ public class GoogleCalController {
                 .setDateTime(formattedDateTime);
 
         // attendees
-        EventAttendee eventAttendee = new EventAttendee();
-        eventAttendee.setEmail(invitee);
-
         List<EventAttendee> listOfAttendees = new LinkedList<>();
-        listOfAttendees.add(eventAttendee);
+
+        for (JsonValue attendee : attendees) {
+            EventAttendee eventAttendee = new EventAttendee();
+            eventAttendee.setEmail(((JsonString) attendee).getString()); // Have to cast to JsonString before getString() to remove additional quotation marks around the email
+            listOfAttendees.add(eventAttendee);
+        }
 
         Creator eventCreator = new Creator();
         eventCreator.setEmail(email);
@@ -140,7 +146,7 @@ public class GoogleCalController {
         googleEvent.setEnd(eventDateTime);
         googleEvent.setAttendees(listOfAttendees);
 
+        System.out.printf("GOOGLE EVENT CREATED: %s\n\n", googleEvent);
         gCalClient.events().insert("primary", googleEvent).execute();
-
     }
 }

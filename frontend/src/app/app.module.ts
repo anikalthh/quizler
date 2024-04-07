@@ -30,6 +30,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CalendarModule } from 'primeng/calendar';
 import { DividerModule } from 'primeng/divider';
+import { ChipsModule } from 'primeng/chips';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -105,7 +106,8 @@ import { GoogleCalComponent } from './components/google-cal/google-cal.component
     DropdownModule,
     SplitButtonModule,
     CalendarModule,
-    DividerModule
+    DividerModule,
+    ChipsModule
   ],
   providers: [
     provideAnimationsAsync(),
