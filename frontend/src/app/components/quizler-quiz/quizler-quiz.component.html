@@ -1,6 +1,6 @@
 <div class="quiz-container">
     <br>
-    <div class="qns-answered-score">
+    <div class="qns-answered-score" *ngIf="quiz">
         <p-card *ngIf="!submitted">
             <p>Questions Answered</p>
             <p>{{qnsAnswered}}/<span>{{totalNumOfQns}}</span></p>
@@ -10,7 +10,7 @@
             <p>{{score}}/<span>{{totalNumOfQns}}</span></p>
         </p-card>
     </div>
-    <div class="container">
+    <div class="container" *ngIf="quiz; else loading">
         <div class="card-container">
             <div *ngFor="let q of quiz; let i = index" class="card-wrapper">
                 <div class="flex flex-column align-items-center">
@@ -47,5 +47,17 @@
             <p-button *ngIf="!showAnswers" (onClick)="showAnswersBtn()" icon="pi pi-eye" label="Show Answers" [style]="{ 'margin-left': '.5em' }"></p-button>
             <p-button *ngIf="showAnswers" [routerLink]="['/quiz', quizId, 'attempts']" icon="pi pi-eye" label="View All Attempts" [style]="{ 'margin-left': '.5em' }"></p-button>
         </div>
+    </div>
+    
+</div>
+
+<div class="progress-container">
+    <div>
+        <ng-template #loading>
+            <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+            <div class="loading">
+                <h2 class="loading-words">Generating Your Quiz... Please Wait!  .𖥔 ݁ ˖</h2>
+            </div>
+        </ng-template>
     </div>
 </div>

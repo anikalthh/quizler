@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit{
   // vars
   loginForm !: FormGroup
   value: string | undefined;
+  loginError : boolean = false
+  failureMsg = [{ severity: 'error', summary: 'Unable to login', detail: 'Username or password is incorrect. Please try again!' }];
 
   // events
   @Output() onSubmitLoginEvent = new EventEmitter()
@@ -39,7 +41,6 @@ export class LoginComponent implements OnInit{
 
   onSubmitLogin() {
     console.log("LOGIN EVENT EMITTER: ", this.loginForm.value as login)
-    // this.onSubmitLoginEvent.emit(this.loginForm.value as login)
 
     this.axiosSvc.request(
       "POST",
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit{
 		    }).catch(
 		    error => {
 		        this.axiosSvc.setAuthToken(null);
+            this.loginError = true
 		    }
 		)
   }

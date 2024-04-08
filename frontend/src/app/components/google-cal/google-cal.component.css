@@ -21,6 +21,25 @@ p  {
     padding-bottom: 35px;
 }
 
+.inline-calendars {
+    display: inline-block;
+}
+
+.start-date-calendar {
+    margin-right: 35px;
+}
+
+.schedule-btn {
+    margin-top: 20px;
+    width: 100%;
+}
+
 ::ng-deep .p-chips {
     display: flow;
 }
+
+/* Fixes UI error by Prime */
+::ng-deep .p-hidden-accessible {
+    display: none;
+}
+

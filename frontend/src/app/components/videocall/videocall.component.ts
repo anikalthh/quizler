@@ -5,6 +5,7 @@ import { filter, switchMap } from 'rxjs/operators';
 import { CallService } from '../../services/call.service';
 import { CallinfoDialogComponent, DialogData } from '../callinfo-dialog/callinfo-dialog.component';
 import MediaStream from 'peerjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class VideocallComponent implements OnInit, OnDestroy {
   @ViewChild('remoteVideo')
   remoteVideo!: ElementRef<HTMLVideoElement>;
 
-  constructor(public dialog: MatDialog, private callService: CallService) {
+  constructor(public dialog: MatDialog, private callService: CallService, private messageService: MessageService) {
     this.callService.isCallStarted$.subscribe(
       (booleanVal) => this.isCallStarted = booleanVal
     );
@@ -35,7 +36,7 @@ export class VideocallComponent implements OnInit, OnDestroy {
 
     this.peerId = this.callService.initPeer();
   }
-  
+
   ngOnInit(): void {
     // isCallStarted$: Observable<boolean>;
     this.callService.localStream$
@@ -45,7 +46,7 @@ export class VideocallComponent implements OnInit, OnDestroy {
       .pipe(filter(res => !!res))
       .subscribe(stream => this.remoteVideo.nativeElement.srcObject = stream)
   }
-  
+
   ngOnDestroy(): void {
     this.callService.destroyPeer();
   }
@@ -55,22 +56,32 @@ export class VideocallComponent implements OnInit, OnDestroy {
 
     let dialogData: DialogData = joinCall ? ({ peerId: undefined, joinCall: true }) : ({ peerId: this.peerId, joinCall: false });
     const dialogRef = this.dialog.open(CallinfoDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: dialogData
     });
 
     dialogRef.afterClosed()
       .pipe(
-        switchMap(peerId => 
+        switchMap(peerId =>
           joinCall ? of(this.callService.establishMediaCall(peerId)) : of(this.callService.enableCallAnswer())
         ),
       )
-      .subscribe(_  => { });
+      .subscribe(_ => { });
   }
 
   public endCall() {
     console.log('videocall.component -- endCall() ')
-
+    
     this.callService.closeMediaCall();
+    this.messageService.add({ key: 'tc', severity: 'success', summary: 'Call Ended Successfully', detail: 'Hope it was a productive study session!' });
+  }
+
+  reload() {
+    window.location.reload()
+  }
+
+  // PrimeNG Toasts notifications
+  showTopCenter() {
+    this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Warn', detail: 'Message Content' });
   }
 }

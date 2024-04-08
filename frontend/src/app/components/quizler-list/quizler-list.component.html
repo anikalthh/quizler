@@ -1,3 +1,10 @@
+<div *ngIf="isQuizDeleted" class="content-container">
+    <p-messages [(value)]="successMsg" [enableService]="false"></p-messages>
+</div>
+<div *ngIf="errorDeletingQuiz" class="content-container">
+    <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
+</div>
+
 <div class="quiz-container">
     <div class="content-container">
         <h3>Quizzes generated from Document: {{documentTitle}} <span><button style="float: right;" pButton
@@ -41,7 +48,7 @@
         </div>
         <br>
         <div>
-            <button pButton label="Back" [routerLink]="['/home']"></button>
+            <button pButton label="Back" icon="pi pi-chevron-left" [routerLink]="['/home']"></button>
         </div>
     </div>
 </div>

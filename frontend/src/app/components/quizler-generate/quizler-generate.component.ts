@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
   templateUrl: './quizler-generate.component.html',
   styleUrl: './quizler-generate.component.css'
 })
-export class QuizlerGenerateComponent implements OnInit{
+export class QuizlerGenerateComponent implements OnInit {
   // dependencies
   private fSvc = inject(FileUploadService)
   private activateRoute = inject(ActivatedRoute)
@@ -28,23 +28,32 @@ export class QuizlerGenerateComponent implements OnInit{
   difficulty!: string
   docId !: string
   typeBased = 'contextBased'
+  isLoading: boolean = false;
+
+  // load() {
+  //   this.isLoading = true;
+
+  //   setTimeout(() => {
+  //     this.isLoading = false
+  //   }, 2000);
+  // }
 
   // Option Vars
-  difficultyOptions : any[] = [
-    {name: 'Easy', value: 'easy'},
-    {name: 'Medium', value: 'medium'},
-    {name: 'Hard', value: 'hard'}
+  difficultyOptions: any[] = [
+    { name: 'Easy', value: 'easy' },
+    { name: 'Medium', value: 'medium' },
+    { name: 'Hard', value: 'hard' }
   ]
 
   languageOptions: any[] = [
-    {name: 'English', value: 'English'},
-    {name: 'Auto-detect', value: 'Auto'}
+    { name: 'English', value: 'English' },
+    { name: 'Auto-detect', value: 'Auto' }
   ]
 
-  qnTypeOptions : any[] = [
-    {name: 'Multiple Choice Questions', value: 'MCQ'},
-    {name: 'True/False', value: 'TF'},
-    {name: 'Open-ended', value: 'open'}
+  qnTypeOptions: any[] = [
+    { name: 'Multiple Choice Questions', value: 'MCQ' },
+    { name: 'True/False', value: 'TF' },
+    { name: 'Open-ended', value: 'open' }
   ]
 
   // lifecycle hooks
@@ -67,31 +76,38 @@ export class QuizlerGenerateComponent implements OnInit{
   }
 
   // methods
-  createForm() : FormGroup {
+  createForm(): FormGroup {
     return this.fb.group({
-      quizTitle: this.fb.control('', [ Validators.required ]),
-      extractedText: this.fb.control(this.extractedText, [ Validators.required ]),
+      quizTitle: this.fb.control('', [Validators.required]),
+      extractedText: this.fb.control(this.extractedText, [Validators.required]),
       documentId: this.fb.control(this.docId),
-      questionType: this.fb.control('', [ Validators.required ]),
-      difficulty: this.fb.control('', [ Validators.required ]),
-      language: this.fb.control('', [ Validators.required ]),
-      type: this.fb.control('contentBased'),
+      questionType: this.fb.control('', [Validators.required]),
+      difficulty: this.fb.control('', [Validators.required]),
+      language: this.fb.control('', [Validators.required]),
+      type: this.fb.control('contextBased'),
       userId: this.fb.control(this.axiosSvc.getUserId())
     })
   }
 
   generateQuiz() {
+    this.isLoading = true;
+
+    // setTimeout(() => {
+    //   this.isLoading = false
+    // }, 2000);
+
     const info = this.form.value as quizinfo
     console.log('>>> button clicked: ', info)
 
     this.qSvc.generateQuizContextBased(info).then(
-        (quizQuestions: GeneratedQuiz) => {
-          console.log('>>> generated: ', quizQuestions)
-          this.qSvc.updateQuizQuestions(quizQuestions)
-          this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
-        }
-      )
-    
+      (quizQuestions: GeneratedQuiz) => {
+        console.log('>>> generated: ', quizQuestions)
+        this.isLoading = true
+        this.qSvc.updateQuizQuestions(quizQuestions)
+        this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
+      }
+    )
+
   }
 
   backButton() {

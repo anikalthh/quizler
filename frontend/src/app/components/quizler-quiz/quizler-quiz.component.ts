@@ -16,7 +16,7 @@ import { Location } from '@angular/common';
 export class QuizlerQuizComponent implements OnInit {
   // dependencies
   private quizSvc = inject(QuizService)
-  private fb = inject(FormBuilder)
+  // private fb = inject(FormBuilder)
   private quizStore = inject(QuizStore)
   private activatedRouter = inject(ActivatedRoute)
   private axiosSvc = inject(AxiosService)

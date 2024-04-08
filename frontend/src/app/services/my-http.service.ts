@@ -12,7 +12,6 @@ export class MyHttpService {
   constructor(private http: HttpClient) { }
 
   get(url: string): any {
-    console.log('auth url: ', url)
     return this.http.get("http://localhost:8080" + url);
   }
 

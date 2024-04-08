@@ -29,8 +29,13 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { CalendarModule } from 'primeng/calendar';
-import { DividerModule } from 'primeng/divider';
 import { ChipsModule } from 'primeng/chips';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { PaginatorModule } from 'primeng/paginator';
+import { DividerModule } from 'primeng/divider';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -43,7 +48,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './user-auth-components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+// import { SignupComponent } from './components/signup/signup.component';
 import { CallService } from './services/call.service';
 import { LandingpageComponent } from './components/landingpage/landingpage.component';
 import { QuizlerComponent } from './components/quizler/quizler.component';
@@ -56,6 +61,7 @@ import { QuizlerListComponent } from './components/quizler-list/quizler-list.com
 import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-attempts.component';
 import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.component';
 import { GoogleCalComponent } from './components/google-cal/google-cal.component';
+import { ViewAttemptComponent } from './components/view-attempt/view-attempt.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +70,7 @@ import { GoogleCalComponent } from './components/google-cal/google-cal.component
     CallinfoDialogComponent,
     HomepageComponent,
     LoginComponent,
-    SignupComponent,
+    // SignupComponent,
     LandingpageComponent,
     QuizlerComponent,
     ToolbarComponent,
@@ -75,7 +81,8 @@ import { GoogleCalComponent } from './components/google-cal/google-cal.component
     QuizlerListComponent,
     QuizlerAttemptsComponent,
     QuizlerTopicComponent,
-    GoogleCalComponent
+    GoogleCalComponent,
+    ViewAttemptComponent
   ],
   imports: [
     CommonModule,
@@ -106,12 +113,17 @@ import { GoogleCalComponent } from './components/google-cal/google-cal.component
     DropdownModule,
     SplitButtonModule,
     CalendarModule,
-    DividerModule,
-    ChipsModule
+    ChipsModule,
+    DialogModule,
+    ToastModule,
+    ProgressBarModule,
+    PaginatorModule,
+    DividerModule
   ],
   providers: [
     provideAnimationsAsync(),
-    CallService
+    CallService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

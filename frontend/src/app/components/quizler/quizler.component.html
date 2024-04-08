@@ -11,6 +11,8 @@
                 <div>
                     <input pInputText style="width:100%" type="text" placeholder="Enter Document Title"
                         formControlName="title">
+                    <small *ngIf="form.get('title')?.invalid && form.get('title')?.dirty" id="username-help"
+                        class="p-error">Document Title is required</small>
                 </div>
                 <br>
                 <div>
@@ -26,18 +28,19 @@
 
     <!-- CONTENT BASED -->
     <div class="container" *ngIf="isTopicBased">
-        <p-card header="Choose a topic">
+        <p-card class="topic-pcard" header="Choose a topic">
             <form [formGroup]="form" (submit)="generateTopicBasedQuiz()">
                 <div>
                     <label for="topic">Topic</label>
                 </div>
                 <br>
                 <div>
-                    <input pInputText style="width:100%" type="text" placeholder="Enter Topic"
-                        formControlName="topic">
+                    <input pInputText style="width:100%" type="text" placeholder="Enter Topic" formControlName="topic">
+                    <small *ngIf="form.get('topic')?.invalid && form.get('topic')?.dirty" id="username-help"
+                        class="p-error">Topic is required</small>
                 </div>
                 <br>
-                <button pButton type="submit">Next</button>
+                <button pButton type="submit" [disabled]="form.invalid">Next</button>
             </form>
         </p-card>
     </div>

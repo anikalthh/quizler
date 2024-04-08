@@ -28,15 +28,19 @@ export class QuizlerComponent implements OnInit {
   // lifecycle hooks
   ngOnInit(): void {
     // check query params: topic-based or content-based
-    this.baseType = this.activatedRoute.snapshot.queryParams['type']
-    
-    if (this.baseType === 'topicBased') {
-      this.form = this.createFormTopicBased()
-      this.isTopicBased = true
-    } else if (this.baseType === 'contentBased') {
-      this.form = this.createFormContentBased()
-      this.isTopicBased = false
-    }
+    this.activatedRoute.queryParams.subscribe(
+      (params) => {
+        this.baseType = params['type']
+        console.log('params changed: ', this.baseType)
+        if (this.baseType === 'topicBased') {
+          this.form = this.createFormTopicBased()
+          this.isTopicBased = true
+        } else if (this.baseType === 'contentBased') {
+          this.form = this.createFormContentBased()
+          this.isTopicBased = false
+        }
+      }
+    )
   }
 
   // methods

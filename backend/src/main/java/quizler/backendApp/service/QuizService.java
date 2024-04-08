@@ -3,6 +3,8 @@ package quizler.backendApp.service;
 import java.io.StringReader;
 import java.util.List;
 
+import javax.print.Doc;
+
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,6 +134,14 @@ public class QuizService {
         JsonArray jsonArray = jsonArrayBuilder.build();
 
         return jsonArray;
+    }
+
+    // Retrieve specific quiz attempt 
+    public JsonObject getQuizAttempt(String attemptId) {
+        Document attemptDoc = mongoRepo.getQuizAttempt(attemptId);
+        JsonObject jsonObj = Json.createReader(new StringReader(attemptDoc.toJson())).readObject();
+
+        return jsonObj;
     }
 
 }

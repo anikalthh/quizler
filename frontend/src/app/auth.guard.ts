@@ -10,10 +10,10 @@ export const canAccess: CanActivateFn =
         const router = inject(Router)
         
         if (axiosSvc.isAuthenticatedUser()) {
-            console.log('AUTHENTICATED: ', axiosSvc.isAuthenticatedUser)
+            // console.log('AUTHENTICATED: ', axiosSvc.isAuthenticatedUser)
             return true
         } else {
-            console.log('NOT AUTHENTICATED: ', axiosSvc.isAuthenticatedUser)
+            // console.log('NOT AUTHENTICATED: ', axiosSvc.isAuthenticatedUser)
             router.navigate(['/'])
             return false
         }

@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
         this.currRoute = event.url;
         console.log('CURR ROUTE:', this.currRoute);
         // console.log('init: ', this.axiosSvc.isAuthenticatedUser(), this.currRoute)
-        console.log('is user logged in check: ', this.isLoggedIn)
         if (this.axiosSvc.isAuthenticatedUser() && (this.currRoute === "/" || this.currRoute === "/login" || this.currRoute === "/signup")) {
           // If user is authenticated, navigate to the dashboard or home page
           this.isLoggedIn = true
@@ -32,7 +31,6 @@ export class AppComponent implements OnInit {
 
     this.axiosSvc.isLoggedIn().subscribe(
       (bool) => {
-        console.log('is logged in axios svc: ', bool)
         this.isLoggedIn = bool
       }
     )

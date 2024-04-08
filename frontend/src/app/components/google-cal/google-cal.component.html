@@ -1,6 +1,12 @@
+<div *ngIf="isGoogleAuthSuccessful" class="cal-container">
+    <p-messages [(value)]="successMsg" [enableService]="false"></p-messages>
+</div>
+<div *ngIf="!isGoogleAuthSuccessful && triedAuth" class="cal-container">
+    <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
+</div>
 <div class="cal-container">
     <div class="container">
-        <p-card header="Schedule a study session!">
+        <p-card header="Schedule a study session with friends!">
             <form [formGroup]="form" (submit)="scheduleStudySession()">
                 <div>
                     <label for="topic">Meeting Title</label>
@@ -9,27 +15,37 @@
                 <div>
                     <input pInputText style="width:100%" type="text" placeholder="Enter Meeting Title"
                         formControlName="meetingTitle">
+                    <small *ngIf="form.get('meetingTitle')?.invalid && form.get('meetingTitle')?.dirty" id="username-help"
+                        class="p-error">Meeting Title is required</small>
                 </div>
                 <br>
 
                 <div>
-                    <label for="topic">Start Date & Time</label>
-                </div>
-                <br>
-                <div>
-                    <p-calendar [showTime]="true" [showSeconds]="true" [inline]="true"
-                        formControlName="datetime"></p-calendar>
-                </div>
-                <br>
+                    <div class="inline-calendars">
+                        <div>
+                            <label for="topic">Start Date & Time</label>
+                        </div>
+                        <br>
+                        <div (click)="setStartDate()">
+                            <p-calendar [minDate]="currentDate()" [showTime]="true" [inline]="true"
+                                formControlName="startDatetime" class="start-date-calendar"></p-calendar>
+                        </div>
+                        <br>
+                    </div>
 
-                <div>
-                    <label for="duration">Hours</label>
+
+                    <div class="inline-calendars">
+                        <div>
+                            <label for="topic">End Date & Time</label>
+                        </div>
+                        <br>
+                        <div>
+                            <p-calendar [minDate]="formatMinDate()" [showTime]="true" [inline]="true"
+                                formControlName="endDatetime"></p-calendar>
+                        </div>
+                        <br>
+                    </div>
                 </div>
-                <br>
-                <div>
-                    <input type="number" name="duration" formControlName="duration">
-                </div>
-                <br>
 
                 <div>
                     <label for="topic">Your Email</label>
@@ -38,6 +54,8 @@
                 <div>
                     <input pInputText style="width:100%" type="text" placeholder="Enter Your Email"
                         formControlName="email">
+                    <small *ngIf="form.get('email')?.invalid && form.get('email')?.dirty" id="username-help"
+                        class="p-error">Invalid Email</small>
                 </div>
                 <br>
 
@@ -46,11 +64,10 @@
                 </div>
                 <br>
                 <div>
-                    <p-chips placeholder="Enter Your Attendees' Email(s)"
-                        formControlName="attendee"></p-chips>
+                    <p-chips placeholder="Enter Your Attendees' Email(s)" formControlName="attendee"></p-chips>
                 </div>
                 <br>
-                <button pButton type="submit">Schedule</button>
+                <button class="schedule-btn" pButton type="submit" [disabled]="form.invalid">Schedule</button>
             </form>
         </p-card>
     </div>

@@ -1,13 +1,19 @@
+<div *ngIf="registrationError" class="register-error">
+    <p-messages [(value)]="failureMsg" [enableService]="false" [closable]="false"></p-messages>
+</div>
 <div class="register-container">
     <div class="container">
         <p-card header="Sign up" [style]="{ width: '500px' }">
             <form [formGroup]="registerForm" (submit)="onSubmitRegister()">
+                <br>
                 <div>
                     <label for="username">Username</label>
                 </div>
                 <br>
                 <div>
-                    <input pInputText id="username" type="text" formControlName="username">
+                    <input pInputText id="username" type="text" placeholder="Enter a username" formControlName="username">
+                    <small *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.dirty" id="username-help"
+                        class="p-error">Username is required</small>
                 </div>
                 <br>
                 <div>
@@ -15,7 +21,9 @@
                 </div>
                 <br>
                 <div>
-                    <input pInputText id="firstname" type="text" formControlName="firstname">
+                    <input pInputText id="firstname" type="text" placeholder="Enter Your First Name" formControlName="firstname">
+                    <small *ngIf="registerForm.get('firstname')?.invalid && registerForm.get('firstname')?.dirty" id="username-help"
+                        class="p-error">First Name is required</small>
                 </div>
                 <br>
                 <div>
@@ -23,7 +31,9 @@
                 </div>
                 <br>
                 <div>
-                    <input pInputText id="lastname" type="text" formControlName="lastname">
+                    <input pInputText id="lastname" type="text" placeholder="Enter Your Last Name" formControlName="lastname">
+                    <small *ngIf="registerForm.get('lastname')?.invalid && registerForm.get('lastname')?.dirty" id="username-help"
+                        class="p-error">Last Name is required</small>
                 </div>
                 <br>
                 <div>
@@ -31,7 +41,9 @@
                 </div>
                 <br>
                 <div>
-                    <input pInputText id="email" type="text" formControlName="email">
+                    <input pInputText id="email" type="text" placeholder="Enter Your Email" formControlName="email">
+                    <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty" id="username-help"
+                        class="p-error">Email is invalid</small>
                 </div>
                 <br>
                 <div>
@@ -39,7 +51,9 @@
                 </div>
                 <br>
                 <div>
-                    <input pInputText id="password" type="password" formControlName="password">
+                    <input pInputText id="password" type="password" placeholder="Set Your Password" formControlName="password">
+                    <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.dirty" id="username-help"
+                        class="p-error">Password is required</small>
                 </div>
                 <!-- <br>
                     <div>
@@ -52,9 +66,10 @@
                 <br>
                 <br>
                 <div>
-                    <p-button type="submit">Sign Up</p-button>
                     <p-button label="Go Back" icon="pi pi-times" styleClass="p-button-secondary"
-                        [style]="{ 'margin-left': '.5em' }" [routerLink]="['/']"></p-button>
+                        [routerLink]="['/']"></p-button>
+                    <button [disabled]="registerForm.invalid" [style]="{'float': 'right'}" pButton icon="pi pi-id-card" type="submit" label="Sign Up"></button>
+                    
                 </div>
 
             </form>

@@ -1,4 +1,4 @@
-body, html {
+body {
     background-image: url('/assets/images/landing-page.png');
     background-size: cover;
     position: relative;
@@ -29,6 +29,13 @@ button {
     animation:
         typing 6s steps(36) infinite,
         cursor .4s step-end infinite alternate;
+}
+
+.secondary-title {
+    font-size: 13px; 
+    padding-top: 14px;
+    font-family: 'Lemonmilk', sans-serif;
+    letter-spacing: 3px;
 }
 
 ::ng-deep .mat-typography h1 {

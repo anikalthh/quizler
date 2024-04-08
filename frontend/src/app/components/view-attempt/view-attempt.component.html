@@ -1,0 +1,45 @@
+<div class="quiz-container">
+    <br>
+    <div class="qns-answered-score">
+        <p-card>
+            <p>Your Score</p>
+            <p>{{quizAttempt.score}}/<span>{{quizAttempt.answers.length}}</span></p>
+        </p-card>
+    </div>
+    <div class="container">
+        <div class="card-container">
+            <div *ngFor="let q of quizAttempt.answers; let i = index" class="card-wrapper">
+                <div class="flex flex-column align-items-center">
+                    <p-card header="{{i+1}}. {{q.question}}" class="card">
+                        <!-- <div *ngFor="let o of q.options; let j = index" class="field-checkbox {{q.id}}">
+                            <br>
+                            <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}"
+                                    [ngClass]="[btnStyle]" [disabled]=true >{{o}}</button></span>
+                        </div> -->
+                        <!-- SCORES -->
+                        
+                        <div>
+                            <p class="wrong-answer" *ngIf="!q.isCorrect">Your selected answer is wrong (っ- ᴖ - ς)<br>Don't give up, let's try again!</p>
+                            <!-- <p *ngIf="!allAnswers.at(i)?.isCorrect">{{allAnswers.at(i)?.correctAnswer}}</p> -->
+                            <p class="correct-answer" *ngIf="q.isCorrect">You got this question correct! Good work! ദ്ദി(・ᴗ・)✧</p>
+                        </div>
+                        <!-- SHOW ANSWERS -->
+                        <br>
+                        <div *ngIf="!q.isCorrect">
+                            <p>Your answer was: {{q.selectedOption}}</p>
+                            <p>The correct answer is: {{q.correctAnswer}}</p>
+                        </div>
+                        <div *ngIf="q.isCorrect">
+                            <p>Answer: {{q.correctAnswer}}</p>
+                        </div>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <p-button [routerLink]="['/quiz', quizId, 'attempts']" icon="pi pi-chevron-left" label="Back"></p-button>
+            <p-button [routerLink]="['/quiz', quizId]" label="Re-attempt" icon="pi pi-pencil" [style]="{ 'margin-left': '.5em' }"></p-button>
+        </div>
+    </div>
+</div>

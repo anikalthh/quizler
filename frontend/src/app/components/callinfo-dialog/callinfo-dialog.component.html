@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Call Info</h1>
+<!-- <h1 mat-dialog-title>Videocall Info</h1>
 <div mat-dialog-content>
   <mat-form-field [cdkCopyToClipboard]="data.peerId!" (click)="showCopiedSnackBar()">
     <mat-label>{{ data.joinCall ? 'INSERT REMOTE ID' : 'CLICK TO COPY YOUR ID' }}</mat-label>
@@ -6,5 +6,25 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="data.peerId">Ok</button>
+  <button pButton [style]="{width: '100%'}" [mat-dialog-close]="data.peerId">Ok</button>
+</div> -->
+
+<!-- <p-toast></p-toast>
+<p-dialog header="Videocall Info" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+  <div [cdkCopyToClipboard]="data.peerId!" (click)="showCopiedSnackBar()">
+    <label>{{ data.joinCall ? 'INSERT REMOTE ID' : 'CLICK TO COPY YOUR ID' }}</label>
+    <input pInputText type="text" [disabled]="!data.joinCall" [(ngModel)]="data.peerId">
+  </div>
+</p-dialog> -->
+<p-toast position="top-center" key="copied"></p-toast>
+
+<h1 mat-dialog-title>Videocall Info</h1>
+<div mat-dialog-content>
+  <mat-form-field [cdkCopyToClipboard]="data.peerId!" (click)="showCopiedSnackBar()">
+    <mat-label>{{ data.joinCall ? 'INSERT REMOTE ID' : 'CLICK TO COPY YOUR ID' }}</mat-label>
+    <input [disabled]="!data.joinCall" matInput [(ngModel)]="data.peerId">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button pButton [style]="{width: '100%'}" [mat-dialog-close]="data.peerId">Ok</button>
 </div>

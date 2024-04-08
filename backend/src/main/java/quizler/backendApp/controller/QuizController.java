@@ -88,4 +88,10 @@ public class QuizController {
         // JsonArray quizAttemptsJsonArray = quizSvc.getAllAttempts(quizId);
         return ResponseEntity.ok().body(quizSvc.getAllAttempts(quizId, typeBased).toString());
     }
+
+    @GetMapping("/attempt/{attemptId}")
+    public ResponseEntity<String> getQuizAttempt(@PathVariable("attemptId") String attemptId) {
+        // System.out.printf("quiz contr -- get quiz attempt: %s\n\n", quizSvc.getQuizAttempt(attemptId).toString());
+        return ResponseEntity.ok().body(quizSvc.getQuizAttempt(attemptId).toString());
+    }
 }

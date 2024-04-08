@@ -1,4 +1,4 @@
-<div class="questions-container">
+<div class="questions-container" *ngIf="!isLoading">
     <div class="container">
         <p-card header="Generate a new quiz!" class="card">
             <form [formGroup]="form" (submit)="generateQuiz()">
@@ -49,10 +49,19 @@
                         optionValue="value" placeholder="Select a Language"></p-dropdown>
                 </div>
                 <br>
-                <p-button type="submit" label="Generate Quiz" icon="pi pi-check"></p-button>
-                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
-                    [style]="{ 'margin-left': '.5em' }" (onClick)="backButton()"></p-button>
+
+                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" (onClick)="backButton()"></p-button>
+                <p-button type="submit" label="Generate Quiz" icon="pi pi-check" [style]="{ 'float': 'right' }" [loading]="isLoading" [disabled]="form.invalid"></p-button>
             </form>
         </p-card>
+    </div>
+</div>
+
+<div class="progress-container" *ngIf="isLoading">
+    <div>
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+        <div class="loading">
+            <h2 class="loading-words">Generating Your Quiz... Please Wait! .𖥔 ݁ ˖</h2>
+        </div>
     </div>
 </div>

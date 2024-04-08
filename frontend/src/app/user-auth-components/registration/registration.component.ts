@@ -19,6 +19,8 @@ export class RegistrationComponent implements OnInit {
 
   // vars
   registerForm !: FormGroup
+  registrationError : boolean = false
+  failureMsg = [{ severity: 'error', summary: 'Unable to register', detail: 'Try again with a different username and check that all your fields are valid!' }];
 
   // event emitters
   // @Output() onSubmitRegisterEvent = new EventEmitter();
@@ -55,6 +57,8 @@ export class RegistrationComponent implements OnInit {
       }).catch(
         error => {
           this.axiosSvc.setAuthToken(null);
+          console.log('register error: ', error)
+          this.registrationError= true
         }
       );
   }

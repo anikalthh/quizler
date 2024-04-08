@@ -13,8 +13,8 @@
     margin-top: 15px;
 }
 
-h2 {
-    font-family: 'Lemonmilk'
+h1 {
+    font-family: 'Junicat'
 }
 
 .card-container {
@@ -55,25 +55,4 @@ h2 {
 
 .correct-answer {
     color: green;
-}
-
-::ng-deep .progress-container {
-    display: flex;
-    justify-content: center;
-}
-
-::ng-deep .p-progressbar {
-    width: 60%;
-    margin: auto;
-    margin-top: 38vh;
-}
-
-.loading {
-    display: flex;
-    justify-content: center; /* Centers content horizontally */
-    margin-top: 14px;
-}
-
-.loading-words {
-    letter-spacing: 3px;;
 }

@@ -85,7 +85,8 @@ export interface login {
 // GOOGLE CAL
 export interface StudySession {
     meetingTitle: string
-    datetime: string 
+    startDatetime: string 
+    endDatetime: string 
     duration: number
     email: string
     attendee: string[]

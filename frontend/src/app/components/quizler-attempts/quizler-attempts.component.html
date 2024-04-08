@@ -12,6 +12,13 @@
                                 <h3>Attempt #{{j+1}}</h3>
                                 <p>Your Score : {{a.score}}/{{a.answers.length}}</p>
                                 <p>Submitted On : {{a.datetime | date: 'medium'}}</p>
+
+                                <div>
+                                    <button pButton icon="pi pi-eye"
+                                        class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
+                                        label="View Attempt"
+                                        [routerLink]="['/attempt', a.attemptId]"></button>
+                                </div>
                             </p-card>
                         </div>
                     </div>
@@ -20,8 +27,8 @@
         </div>
         <br>
         <div>
-            <button *ngIf="!!docId" pButton label="Back" [routerLink]="['/', docId, 'quizzes']"></button>
-            <button *ngIf="!docId" pButton label="Back" [routerLink]="['/home']"></button>
+            <button *ngIf="!!docId" pButton label="Back" icon="pi pi-chevron-left" [routerLink]="['/', docId, 'quizzes']"></button>
+            <button *ngIf="!docId" pButton label="Back" icon="pi pi-chevron-left" [routerLink]="['/home']"></button>
         </div>
     </div>
 </div>

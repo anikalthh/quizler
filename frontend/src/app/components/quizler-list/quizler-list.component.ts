@@ -18,6 +18,10 @@ export class QuizlerListComponent implements OnInit {
   S3Id !: string
   documentTitle !: string
   quizzes$ !: Promise<FullMCQQuizData[]>
+  isQuizDeleted: boolean = false
+  errorDeletingQuiz: boolean = false
+  successMsg = [{ severity: 'success', summary: 'Success', detail: `Quiz successfully deleted!` }];
+  failureMsg = [{ severity: 'error', summary: 'Failure', detail: 'Error occurred while deleting your quiz.' }];
 
   // lifecycle hooks
   ngOnInit(): void {
@@ -51,9 +55,14 @@ export class QuizlerListComponent implements OnInit {
 
   deleteQuiz(quizId: string) {
     this.quizSvc.deleteQuiz(quizId).then(
-      (val) => {
-        console.log('delete count: ', val)
+      (msg) => {
         this.loadQuizzes() // reload after deletion
+        console.log('check: ', JSON.parse(JSON.stringify(msg))['quizId'])
+        if (JSON.parse(JSON.stringify(msg))['quizId'] === 'error') {
+          this.errorDeletingQuiz = true
+        } else {
+          this.isQuizDeleted = true
+        }
       }
     )
   }

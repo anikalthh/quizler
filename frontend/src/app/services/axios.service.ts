@@ -54,7 +54,6 @@ export class AxiosService {
       if (token !== null) {
         const decodeToken: any = jwtDecode(token)
         this.userId = decodeToken.userid
-        console.log('get user id: ', this.userId)
         return this.userId
       } else {
         this.router.navigate(['/login'])
@@ -71,9 +70,7 @@ export class AxiosService {
       const token = this.getAuthToken()
       if (token !== null) {
         const decodeToken: any = jwtDecode(token)
-        console.log('decodedtoken: ', decodeToken)
         this.username = decodeToken.sub
-        console.log('get username: ', this.username)
         return this.username
       } else {
         this.router.navigate(['/login'])

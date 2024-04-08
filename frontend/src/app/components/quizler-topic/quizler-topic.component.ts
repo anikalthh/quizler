@@ -26,6 +26,7 @@ export class QuizlerTopicComponent {
   difficulty!: string
   topic : string = this.activateRoute.snapshot.queryParams['topic']
   typeBased = this.activateRoute.snapshot.queryParams['type']
+  isLoading = false
 
   // Option Vars
   difficultyOptions: any[] = [
@@ -68,9 +69,11 @@ export class QuizlerTopicComponent {
     console.log('>>> button clicked: ', info)
     this.qSvc.generateQuizTopicBased(info).then(
       (quizQuestions: GeneratedQuiz) => {
+        this.isLoading = true
+        this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
+
         console.log('>>> generated: ', quizQuestions)
         this.qSvc.updateQuizQuestions(quizQuestions)
-        this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
       }
     )
 

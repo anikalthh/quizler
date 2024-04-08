@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,7 +45,9 @@ import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonString;
 import jakarta.json.JsonValue;
+import jakarta.mail.MessagingException;
 import quizler.backendApp.dto.UrlDto;
+import quizler.backendApp.service.EmailService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -66,6 +69,9 @@ public class GoogleCalController {
     private final static Log logger = LogFactory.getLog(GoogleCalController.class);
     private static final String APPLICATION_NAME = "Quizler";
     private static HttpTransport httpTransport;
+
+    @Autowired
+    private EmailService emailSvc;
 
     // GOOGLE OAUTH2
     @GetMapping("/auth/url")
@@ -104,28 +110,29 @@ public class GoogleCalController {
                     + " Redirecting to google connection status page.");
             return new RedirectView("http://localhost:4200/#/calendar?auth=Failure");
         }
-
     }
 
     // Post Mapping to process event details sent from frontend and post data to
     // google calendar
     @PostMapping("/schedule/google/calendar")
-    public void insertGoogleCal(@RequestBody String payload) throws IOException {
+    public void insertGoogleCal(@RequestBody String payload) throws IOException, MessagingException {
         JsonObject jsonObj = Json.createReader(new StringReader(payload)).readObject();
         String meetingTitle = jsonObj.getString("meetingTitle");
-        String dateTime = jsonObj.getString("datetime");
-        int duration = jsonObj.getInt("duration");
+        String startDateTime = jsonObj.getString("startDatetime");
+        String endDateTime = jsonObj.getString("endDatetime");
+        System.out.printf("\nDATETIME FORMAT: %s\n", startDateTime);
         String email = jsonObj.getString("email");
         JsonArray attendees = jsonObj.getJsonArray("attendee");
         System.out.printf("\n\n attendess json array: %s\n\n", attendees);
 
         // Format Datetime
         // Convert the string into a DateTime object
-        DateTime formattedDateTime = new DateTime(dateTime);
+        DateTime startFormattedDateTime = new DateTime(startDateTime);
+        DateTime endFormattedDateTime = new DateTime(endDateTime);
 
         // Create an EventDateTime object and set the DateTime
-        EventDateTime eventDateTime = new EventDateTime()
-                .setDateTime(formattedDateTime);
+        EventDateTime start = new EventDateTime().setDateTime(startFormattedDateTime);
+        EventDateTime end = new EventDateTime().setDateTime(endFormattedDateTime);
 
         // attendees
         List<EventAttendee> listOfAttendees = new LinkedList<>();
@@ -134,6 +141,7 @@ public class GoogleCalController {
             EventAttendee eventAttendee = new EventAttendee();
             eventAttendee.setEmail(((JsonString) attendee).getString()); // Have to cast to JsonString before getString() to remove additional quotation marks around the email
             listOfAttendees.add(eventAttendee);
+            // System.out.printf("email???: %s\n\n", eventAttendee.get("email"));
         }
 
         Creator eventCreator = new Creator();
@@ -142,11 +150,19 @@ public class GoogleCalController {
         // Create Google Event Object
         Event googleEvent = new Event();
         googleEvent.setSummary(meetingTitle);
-        googleEvent.setStart(eventDateTime);
-        googleEvent.setEnd(eventDateTime);
+        googleEvent.setStart(start);
+        googleEvent.setEnd(end);
         googleEvent.setAttendees(listOfAttendees);
 
         System.out.printf("GOOGLE EVENT CREATED: %s\n\n", googleEvent);
+        
+        // INSERT CALENDAR EVENT INTO GOOGLE CALENDAR
         gCalClient.events().insert("primary", googleEvent).execute();
+
+        // SEND EMAIL TO ATTENDEES TO NOTIFY THEM TO ACCEPT INVITE
+        for (EventAttendee attendee : listOfAttendees) {
+            emailSvc.sendEmail(attendee.getEmail());
+            System.out.printf("\n\nsending email to: %s\n", attendee.getEmail());
+        }
     }
 }

@@ -58,7 +58,7 @@ export class QuizService {
 
   // Delete documents and all quizzes and attempts under it
   deleteDocument(docId: string) {
-    return firstValueFrom(this.http.delete(`http://localhost:8080/api/document/${docId}`))
+    return firstValueFrom(this.http.delete<any>(`http://localhost:8080/api/document/${docId}`))
   }
 
   // Get all quizzes generated from a document
@@ -75,5 +75,10 @@ export class QuizService {
   getAllQuizAttempts(quizId: string, typeBased: string) {
     console.log('exists in svc? : ', quizId)
     return firstValueFrom(this.http.get<QuizAttempt[]>(`http://localhost:8080/api/${typeBased}/${quizId}/attempts`))
+  }
+
+  // Get Quiz Attempt -> To review answers
+  getQuizAttempt(attemptId: string) {
+    return firstValueFrom(this.http.get<QuizAttempt>(`http://localhost:8080/api/attempt/${attemptId}`))
   }
 }

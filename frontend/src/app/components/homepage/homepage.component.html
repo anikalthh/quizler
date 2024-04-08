@@ -1,3 +1,10 @@
+<div *ngIf="isDocDeleted" class="content-container">
+    <p-messages [(value)]="successMsg" [enableService]="false"></p-messages>
+</div>
+<div *ngIf="errorDeletingDoc" class="content-container">
+    <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
+</div>
+
 <div class="homepage-container">
     <div class="container">
         <div class="header">
@@ -10,7 +17,7 @@
         <div>
             <h3>Review Uploaded Docs</h3>
             <div class="review-container" *ngIf="docs$ | async as docs">
-                <p-dataView #dv [value]="docs" [paginator]="true" [rows]="9" filterBy="name" layout="grid" emptyMessage="No Documents Uploaded Yet!">
+                <p-dataView #dv [value]="docs" [paginator]="true" [rows]="5" filterBy="name" layout="grid" emptyMessage="No Documents Uploaded Yet!">
         
                     <ng-template let-docs pTemplate="gridItem">
                         <div class="p-col-12 p-md-4">
@@ -40,23 +47,24 @@
     <div class="content-container">
         <h3>Review Topic-generated quizzes</h3>
         <div class="review-container" *ngIf="topicQuizzes$ | async as topicQuizzes">
-            <p-dataView #dv [value]="topicQuizzes" [paginator]="true" [rows]="9" filterBy="name" layout="grid" emptyMessage="No Documents Uploaded Yet!">
+            <p-dataView #dv [value]="topicQuizzes" [paginator]="true" [rows]="5" layout="grid" emptyMessage="No Documents Uploaded Yet!">
     
-                <ng-template let-docs pTemplate="gridItem">
+                <ng-template let-topicQuizzes pTemplate="gridItem">
                     <div class="p-col-12 p-md-4">
                         <div *ngFor="let t of topicQuizzes">
                             <p-card>
                                 <h3>{{t.quizTitle}}</h3>
                                 <p>Generated from the topic: {{t.topic}}</p>
                                 <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                    <button pButton icon="pi pi-folder-open" class="md:align-self-end mb-2 p-button-rounded quiz-btns" size="small" label="View Attempts" [routerLink]="['/quiz', t.quizId, 'attempts']"></button>
+                                    <button [style]="{'float': 'right'}" pButton icon="pi pi-folder-open" class="md:align-self-end mb-2 p-button-rounded quiz-btns" size="small" label="View Attempts" [routerLink]="['/quiz', t.quizId, 'attempts']"></button>
 
-                                    <button pButton icon="pi pi-delete-left"
+                                    <button [style]="{'float': 'right'}" pButton icon="pi pi-delete-left"
                                         class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
                                         label="Delete" (click)="deleteQuiz(t.quizId)"></button>
                                 </div>
-                            
+                                <br>
                             </p-card>
+                            <p-divider></p-divider>
                         </div>
                     </div>
                 </ng-template>

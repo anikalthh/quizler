@@ -87,7 +87,7 @@ public class FileUploadController {
             resp = builder.add("docId", "error")
                     .build();
         } else {
-            resp = builder.add("quizId", docId)
+            resp = builder.add("docId", docId)
                     .build();
         }
 

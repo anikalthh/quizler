@@ -134,7 +134,7 @@ export class CallService {
         track.stop();
       });
     }
-    this.snackBar.open('Call Ended', 'Close');
+    // this.snackBar.open('Call Ended', 'Close');
   }
 
   public closeMediaCall() {

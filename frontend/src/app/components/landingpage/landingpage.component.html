@@ -5,16 +5,19 @@
 <html lang="en">
 
 <body>
-    <div class="tagline">
-        <div class="title">
-            <h1>Enter the Era of Smart Study with AI</h1>
+        <div class="tagline">
+            <div class="title">
+                <h1>Enter the Era of Smart Study with AI</h1>
+            </div>
+            <div class="secondary-title">
+                <small>Study Smarter with Quick Quiz Generation</small>
+            </div>
+            <div>
+                <button pButton icon="pi pi-sign-in" label="Login" [routerLink]="['/login']"></button>
+                <button pButton icon="pi pi-id-card" label="Sign Up" [routerLink]="['/signup']"></button>
+            </div>
         </div>
-        <div>
-            <button pButton label="Login" [routerLink]="['/login']"></button>
-            <button pButton label="Sign Up" [routerLink]="['/signup']"></button>
-        </div>
-    </div>
-
+   
 </body>
 
 </html>

@@ -19,7 +19,7 @@ export class ToolbarComponent {
 
   constructor() {
     this.items = [
-      { label: 'Content-Based', icon: 'pi pi-pencil', routerLink: ['/quiz'], queryParams: {type: 'contentBased'} },
+      { label: 'Context-Based', icon: 'pi pi-pencil', routerLink: ['/quiz'], queryParams: {type: 'contextBased'} },
       { label: 'Topic-Based', icon: 'pi pi-pencil', routerLink: ['/quiz'], queryParams: {type: 'topicBased'} }
     ]
   }
