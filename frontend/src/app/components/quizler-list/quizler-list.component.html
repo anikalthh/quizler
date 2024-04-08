@@ -1,9 +1,11 @@
-<div *ngIf="isQuizDeleted" class="content-container">
+<!-- <div *ngIf="isQuizDeleted" class="content-container">
     <p-messages [(value)]="successMsg" [enableService]="false"></p-messages>
 </div>
 <div *ngIf="errorDeletingQuiz" class="content-container">
     <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
-</div>
+</div> -->
+
+<p-toast [style]="{'top': '80px'}" position="bottom-left" key="deleted"></p-toast>
 
 <div class="quiz-container">
     <div class="content-container">

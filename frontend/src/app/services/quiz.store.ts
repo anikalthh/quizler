@@ -64,4 +64,8 @@ export class QuizStore extends ComponentStore<AnswersSlice> implements OnStoreIn
         });
         return { ...state, answers: updatedAnswers };
     });
+
+    readonly clearStore = this.updater(
+        () => INIT_STORE
+    );
 }

@@ -1,5 +1,13 @@
-::ng-deep .p-toolbar {
+/* ::ng-deep .p-toolbar {
     padding: 0.5rem;
+} */
+
+:host ::ng-deep .p-toolbar {
+    padding: 0.5rem;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 10000; 
+    top: 0; 
 }
 
 .button-margin {

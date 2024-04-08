@@ -23,10 +23,14 @@
 
 .loading {
     display: flex;
-    justify-content: center; /* Centers content horizontally */
+    justify-content: center;
     margin-top: 14px;
 }
 
 .loading-words {
     letter-spacing: 3px;;
+}
+
+.topic-generate-card {
+    width: 50vw;
 }

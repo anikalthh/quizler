@@ -46,7 +46,7 @@ public class OpExamsAPI {
 
         ResponseEntity<String> resp = template.exchange(requestEntity, String.class);
 
-
+        System.out.printf("\n\nOP EXAMS RESPONSE:\n\n%s\n\n", resp.getBody());
         JsonObject qnsJson = Json.createReader(new StringReader(resp.getBody())).readObject();
 
         return qnsJson;

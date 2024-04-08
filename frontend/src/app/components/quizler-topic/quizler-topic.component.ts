@@ -42,8 +42,7 @@ export class QuizlerTopicComponent {
 
   qnTypeOptions: any[] = [
     { name: 'Multiple Choice Questions', value: 'MCQ' },
-    { name: 'True/False', value: 'TF' },
-    { name: 'Open-ended', value: 'open' }
+    { name: 'True/False', value: 'TF' }
   ]
 
   // lifecycle hooks
@@ -56,7 +55,7 @@ export class QuizlerTopicComponent {
     return this.fb.group({
       quizTitle: this.fb.control('', [Validators.required]),
       topic: this.fb.control(this.topic, [Validators.required]),
-      questionType: this.fb.control('', [Validators.required]),
+      questionType: this.fb.control('MCQ', [Validators.required]),
       difficulty: this.fb.control('', [Validators.required]),
       language: this.fb.control('', [Validators.required]),
       type: this.fb.control('topicBased'),
@@ -65,13 +64,12 @@ export class QuizlerTopicComponent {
   }
 
   generateQuiz() {
+    this.isLoading = true
     const info = this.form.value as quizinfo
     console.log('>>> button clicked: ', info)
     this.qSvc.generateQuizTopicBased(info).then(
       (quizQuestions: GeneratedQuiz) => {
-        this.isLoading = true
         this.router.navigate(['/quiz', `${quizQuestions.quizId}`])
-
         console.log('>>> generated: ', quizQuestions)
         this.qSvc.updateQuizQuestions(quizQuestions)
       }

@@ -1,9 +1,5 @@
-<div *ngIf="isDocDeleted" class="content-container">
-    <p-messages [(value)]="successMsg" [enableService]="false"></p-messages>
-</div>
-<div *ngIf="errorDeletingDoc" class="content-container">
-    <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
-</div>
+<p-toast [style]="{'top': '80px'}" position="bottom-left" key="deleted"></p-toast>
+
 
 <div class="homepage-container">
     <div class="container">
@@ -15,26 +11,29 @@
 
     <div class="content-container">
         <div>
-            <h3>Review Uploaded Docs</h3>
+            <h1>Review Uploaded Docs<span><p-button [style]="{'margin-left': '12px'}" [rounded]="true" [outlined]="true" icon="pi pi-plus" [routerLink]="['/quiz']" [queryParams]="{type: 'contextBased'}"></p-button></span></h1>
             <div class="review-container" *ngIf="docs$ | async as docs">
-                <p-dataView #dv [value]="docs" [paginator]="true" [rows]="5" filterBy="name" layout="grid" emptyMessage="No Documents Uploaded Yet!">
+                <p-dataView #dv [value]="docs" [paginator]="true" [rows]="5" filterBy="name" layout="list" emptyMessage="No Documents Uploaded Yet!">
         
-                    <ng-template let-docs pTemplate="gridItem">
+                    <ng-template let-docs pTemplate="list">
                         <div class="p-col-12 p-md-4">
-                            <div *ngFor="let d of docs">
+                            <div *ngFor="let d of docs; let j = index">
                                 <p-card>
                                     <h3>{{d.title}}</h3>
                                     <p>Text preview:</p>
                                     <p>{{d.extractedText | slice:0:575 }} . . .</p>
+                                    <br>
                                     <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                                         <button pButton icon="pi pi-folder-open" class="md:align-self-end mb-2 p-button-rounded quiz-btns" size="small" label="View Quizzes" (click)="getQuizzes(d.S3Id)"></button>
 
                                         <button pButton icon="pi pi-delete-left"
                                         class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
-                                        label="Delete" (click)="deleteDocument(d.S3Id)"></button>
+                                        label="Delete" (click)="deleteDocument(d.S3Id)" [style]="{'float': 'right'}"></button>
                                     </div>
                                     
                                 </p-card>
+                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != docs.length"></p-divider>
+
                             </div>
                         </div>
                     </ng-template>
@@ -45,26 +44,26 @@
     </div>
     <br>
     <div class="content-container">
-        <h3>Review Topic-generated quizzes</h3>
+        <h1>Review Topic-generated quizzes<span><p-button [style]="{'margin-left': '12px'}" [rounded]="true" [outlined]="true" icon="pi pi-plus" [routerLink]="['/quiz']" [queryParams]="{type: 'topicBased'}"></p-button></span></h1>
         <div class="review-container" *ngIf="topicQuizzes$ | async as topicQuizzes">
-            <p-dataView #dv [value]="topicQuizzes" [paginator]="true" [rows]="5" layout="grid" emptyMessage="No Documents Uploaded Yet!">
+            <p-dataView #dv [value]="topicQuizzes" [paginator]="true" [rows]="5" layout="list" emptyMessage="No Documents Uploaded Yet!">
     
-                <ng-template let-topicQuizzes pTemplate="gridItem">
+                <ng-template let-topicQuizzes pTemplate="list">
                     <div class="p-col-12 p-md-4">
-                        <div *ngFor="let t of topicQuizzes">
+                        <div *ngFor="let t of topicQuizzes; let j = index">
                             <p-card>
                                 <h3>{{t.quizTitle}}</h3>
                                 <p>Generated from the topic: {{t.topic}}</p>
+                                <br>
                                 <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                    <button [style]="{'float': 'right'}" pButton icon="pi pi-folder-open" class="md:align-self-end mb-2 p-button-rounded quiz-btns" size="small" label="View Attempts" [routerLink]="['/quiz', t.quizId, 'attempts']"></button>
+                                    <button pButton icon="pi pi-folder-open" class="md:align-self-end mb-2 p-button-rounded quiz-btns" size="small" label="View Attempts" [routerLink]="['/quiz', t.quizId, 'attempts']"></button>
 
                                     <button [style]="{'float': 'right'}" pButton icon="pi pi-delete-left"
                                         class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
                                         label="Delete" (click)="deleteQuiz(t.quizId)"></button>
                                 </div>
-                                <br>
                             </p-card>
-                            <p-divider></p-divider>
+                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != topicQuizzes.length"></p-divider>
                         </div>
                     </div>
                 </ng-template>
@@ -73,3 +72,4 @@
     </div>
 
 </div>
+

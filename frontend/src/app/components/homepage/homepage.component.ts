@@ -3,6 +3,7 @@ import { AxiosService } from '../../services/axios.service';
 import { QuizService } from '../../services/quiz.service';
 import { Router } from '@angular/router';
 import { FullMCQQuizData, S3Data } from '../../models';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-homepage',
@@ -15,6 +16,7 @@ export class HomepageComponent implements OnInit {
   private axiosSvc = inject(AxiosService)
   private quizSvc = inject(QuizService)
   private router = inject(Router)
+  private messageService = inject(MessageService)
 
   // vars
   userId = this.axiosSvc.getUserId()
@@ -22,11 +24,6 @@ export class HomepageComponent implements OnInit {
   username = this.axiosSvc.getUsername()
   docs$ !: Promise<S3Data[]>
   topicQuizzes$ !: Promise<FullMCQQuizData[]>
-  isDocDeleted : boolean = false
-  errorDeletingDoc : boolean = false
-  successMsg = [{ severity: 'success', summary: 'Success', detail: `Document successfully deleted!` }];
-  failureMsg = [{ severity: 'error', summary: 'Failure', detail: 'Error occurred while deleting your document.' }];
-
 
   // lifecycle hooks
   ngOnInit(): void {
@@ -73,9 +70,9 @@ export class HomepageComponent implements OnInit {
         console.log('delete count: ', msg)
         this.loadDocs() // reload after deletion
         if (JSON.parse(JSON.stringify(msg))['docId'] === 'error') {
-          this.errorDeletingDoc = true
+          this.messageService.add({ key: 'deleted', severity: 'error', summary: 'Error', detail: 'Unable to delete your document. Please try again!' });
         } else {
-          this.isDocDeleted = true
+          this.messageService.add({ key: 'deleted', severity: 'success', summary: 'Success!', detail: 'Your uploaded document and all of your quizzes and attempts of it have been deleted.' });
         }
       }
     )
@@ -83,10 +80,17 @@ export class HomepageComponent implements OnInit {
 
   deleteQuiz(quizId: string) {
     this.quizSvc.deleteQuiz(quizId).then(
-      (val) => {
-        console.log('delete count: ', val)
+      (msg) => {
+        console.log('delete count: ', msg)
         this.loadTopicQuizzes() // reload after deletion
+        if (JSON.parse(JSON.stringify(msg))['quizId'] === 'error') {
+          this.messageService.add({ key: 'deleted', severity: 'success', summary: 'Error', detail: 'Unable to delete your quiz. Please try again!' });
+
+        } else {
+          this.messageService.add({ key: 'deleted', severity: 'success', summary: 'Success!', detail: 'Your quiz and all of your attempts of it have been deleted.' });
+        }
       }
     )
   }
+
 }

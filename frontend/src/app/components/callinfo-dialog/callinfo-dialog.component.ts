@@ -20,7 +20,7 @@ export class CallinfoDialogComponent {
     ) { }
 
     public showCopiedSnackBar() {
-        this.messageService.add({ key: 'copied', severity: 'success', summary: 'Videocall ID copied', detail: 'You can now share it with your friend for them to join you in this call!' });
+        this.messageService.add({ key: 'copied', severity: 'success', summary: 'Videocall ID copied', detail: 'You can now share it with your friend for them to join you in this call!', sticky: true});
         // this._snackBar.open('Peer ID Copied!', 'Hurrah', {
         //     duration: 1000,
         //     horizontalPosition: 'center',

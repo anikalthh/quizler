@@ -21,6 +21,10 @@ p  {
     padding-bottom: 35px;
 }
 
+.notif-container {
+    margin: 25px;
+}
+
 .inline-calendars {
     display: inline-block;
 }

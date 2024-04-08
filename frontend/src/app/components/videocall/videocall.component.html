@@ -14,7 +14,7 @@
     </div>
   </div> -->
 
-<p-toast position="top-center" key="tc" (onClose)="reload()"></p-toast>
+<p-toast position="bottom-center" key="tc" (onClose)="reload()"></p-toast>
 
 <div class="call-container">
   <div class="container">
@@ -27,7 +27,7 @@
   <div class="container">
     <div class="video-wrapper">
       <video #localVideo id="local-video" autoplay playsinline [muted]=true></video>
-      <video *ngIf="hasPeerJoined" #remoteVideo id="remote-video" autoplay playsinline></video>
+      <video [style]="{'margin-left': '10px'}" *ngIf="hasPeerJoined" #remoteVideo id="remote-video" autoplay playsinline></video>
     </div>
   </div>
 </div>

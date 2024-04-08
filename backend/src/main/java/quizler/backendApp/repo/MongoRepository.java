@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.client.result.DeleteResult;
-import com.mongodb.internal.bulk.DeleteRequest;
 
 @Repository
 public class MongoRepository {

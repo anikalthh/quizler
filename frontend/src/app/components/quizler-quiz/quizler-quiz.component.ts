@@ -4,7 +4,7 @@ import { Answer, GeneratedQuiz, QuestionsMCQ } from '../../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuizStore } from '../../services/quiz.store';
 import { take } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AxiosService } from '../../services/axios.service';
 import { Location } from '@angular/common';
 
@@ -21,6 +21,7 @@ export class QuizlerQuizComponent implements OnInit {
   private activatedRouter = inject(ActivatedRoute)
   private axiosSvc = inject(AxiosService)
   private _location = inject(Location)
+  private router = inject(Router)
 
   // vars
   quizId !: string
@@ -42,12 +43,12 @@ export class QuizlerQuizComponent implements OnInit {
   // lifecycle hooks
   ngOnInit(): void {
     this.quizId = this.activatedRouter.snapshot.params['quizId']
-    console.log('QUIZ IDDD: ', this.quizId)
+    // console.log('QUIZ IDDD: ', this.quizId)
     // this.quizJson = this.quizSvc.generatedQuiz
     this.quizSvc.getGeneratedQuiz(this.quizId, this.typeBased).then(
       (generatedQuiz: GeneratedQuiz) => {
         this.quizJson = generatedQuiz
-        console.log("quiz", this.quizJson)
+        // console.log("quiz", this.quizJson)
         this.quiz = this.quizJson.data
         this.totalNumOfQns = this.quiz.length
         this.btnStyle = 'btn-unselected'
@@ -82,9 +83,9 @@ export class QuizlerQuizComponent implements OnInit {
     ).subscribe(
       (idxArray) => {
         answerExists = (idxArray.includes(qnIndex))
-        console.log('qnIndex: ', qnIndex)
-        console.log('INDEX ARRAY: ', idxArray)
-        console.log('answer exists or not: ', answerExists)
+        // console.log('qnIndex: ', qnIndex)
+        // console.log('INDEX ARRAY: ', idxArray)
+        // console.log('answer exists or not: ', answerExists)
         if (!answerExists) {
           this.quizStore.addAnswer({
             "index": qnIndex,
@@ -136,16 +137,21 @@ export class QuizlerQuizComponent implements OnInit {
       score: this.score,
       answers: this.allAnswers
     }
-    console.log('DATETIME FORMAT: ', Date.now())
+    // console.log('DATETIME FORMAT: ', Date.now())
     this.quizSvc.submitAnswersSvc(quizAttempt, this.typeBased).then(
       (quizAttemptId) => {
         this.submitted = true
       }
     )
+    
   }
 
   retryQuiz() {
     // this.submitted = false
+    // console.log('getting store b4: ', this.quizStore.getAllAnswers)
+
+    this.quizStore.clearStore()
+    // console.log('getting store after: ', this.quizStore.getAllAnswers)
     window.location.reload();
   }
 
@@ -154,6 +160,18 @@ export class QuizlerQuizComponent implements OnInit {
   }
 
   backButton() {
+    // console.log('getting store b4: ', this.quizStore.getAllAnswers)
+
+    this.quizStore.clearStore()
+    // console.log('getting store after: ', this.quizStore.getAllAnswers)
     this._location.back()
+  }
+
+  viewAllAttempts() {
+    console.log('getting store b4 view attempts btn: ', this.quizStore.getAllAnswers)
+
+    this.quizStore.clearStore()
+    console.log('getting store after view attempts btn: ', this.quizStore.getAllAnswers)
+    this.router.navigate(['/quiz', this.quizId, 'attempts'])
   }
 }

@@ -52,8 +52,7 @@ export class QuizlerGenerateComponent implements OnInit {
 
   qnTypeOptions: any[] = [
     { name: 'Multiple Choice Questions', value: 'MCQ' },
-    { name: 'True/False', value: 'TF' },
-    { name: 'Open-ended', value: 'open' }
+    { name: 'True/False', value: 'TF' }
   ]
 
   // lifecycle hooks
@@ -81,7 +80,7 @@ export class QuizlerGenerateComponent implements OnInit {
       quizTitle: this.fb.control('', [Validators.required]),
       extractedText: this.fb.control(this.extractedText, [Validators.required]),
       documentId: this.fb.control(this.docId),
-      questionType: this.fb.control('', [Validators.required]),
+      questionType: this.fb.control('MCQ', [Validators.required]),
       difficulty: this.fb.control('', [Validators.required]),
       language: this.fb.control('', [Validators.required]),
       type: this.fb.control('contextBased'),

@@ -1,23 +1,26 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MyHttpService } from '../../services/my-http.service';
 import { GcalService } from '../../services/gcal.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StudySession } from '../../models';
 import { formatDate } from '@angular/common';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-google-cal',
   templateUrl: './google-cal.component.html',
   styleUrl: './google-cal.component.css'
 })
-export class GoogleCalComponent implements OnInit {
+export class GoogleCalComponent implements OnInit, AfterViewInit {
 
   // dependencies
   private fb = inject(FormBuilder)
   private http = inject(MyHttpService)
   private gCalSvc = inject(GcalService)
   private activatedRoute = inject(ActivatedRoute)
+  private router = inject(Router)
+  private messageService = inject(MessageService)
 
   // vars
   form !: FormGroup
@@ -36,8 +39,7 @@ export class GoogleCalComponent implements OnInit {
   attendee !: string[]
   isGoogleAuthSuccessful: boolean = false
   triedAuth: boolean = false
-  successMsg = [{ severity: 'success', summary: 'Success', detail: 'Successfully created Google Calendar event!' },
-  { severity: 'success', summary: 'Success', detail: 'Successfully emailed all attendees!' }];
+  successMsg = [{ severity: 'success', summary: 'Success', detail: 'Successfully created Google Calendar event and emailed all attendees!' }];
   failureMsg = [{ severity: 'error', summary: 'Failure', detail: 'Error occurred while inserting session to your Google Calendar.' }];
 
 
@@ -71,17 +73,28 @@ export class GoogleCalComponent implements OnInit {
       this.gCalSvc.sendEventDetails(this.storedEventDetails)
       this.isGoogleAuthSuccessful = true
 
+      
+      console.log('does it reach here')
       // reset form
       this.form.reset()
 
     } else {
       this.isGoogleAuthSuccessful = false
+      
       this.meetingTitle = ''
       this.startDatetime = ''
       this.endDatetime = ''
       this.email = ''
       this.attendee = []
       this.form = this.createForm()
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.isGoogleAuthSuccessful && this.triedAuth) {
+      this.messageService.add({ key: 'googlecal', severity: 'error', summary: 'Error', detail: 'Unable to authenticate your Google account, study session has not been scheduled. Please try again!', sticky: true});
+    } else if (this.isGoogleAuthSuccessful) {
+      this.messageService.add({ key: 'googlecal', severity: 'success', summary: 'Success!', detail: 'Your Google account has been authenticated and your study session has been created!', sticky: true});
     }
   }
 
@@ -106,17 +119,21 @@ export class GoogleCalComponent implements OnInit {
     formatDate(this.startDatetime, this.datetimeFormat, this.locale);
   }
 
-  formatMinDate() : Date {
-    console.log('date check: ', new Date(this.startDatetime))
+  formatMinDate(): Date {
+    // console.log('date check: ', new Date(this.startDatetime))
     return new Date(this.startDatetime);
   }
 
-  currentDate() : Date {
+  currentDate(): Date {
     return new Date();
   }
 
   setStartDate() {
     this.startDatetime = this.form.value['startDatetime']
+  }
+
+  routeBack() {
+    this.router.navigate(['/calendar'])
   }
 }
 

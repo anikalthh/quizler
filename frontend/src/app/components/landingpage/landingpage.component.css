@@ -1,4 +1,6 @@
-body {
+
+
+html {
     background-image: url('/assets/images/landing-page.png');
     background-size: cover;
     position: relative;

@@ -1,9 +1,12 @@
-<div *ngIf="isGoogleAuthSuccessful" class="cal-container">
+<!-- <div *ngIf="isGoogleAuthSuccessful" class="notif-container">
     <p-messages [(value)]="successMsg" [enableService]="false"></p-messages>
 </div>
-<div *ngIf="!isGoogleAuthSuccessful && triedAuth" class="cal-container">
+<div *ngIf="!isGoogleAuthSuccessful && triedAuth" class="notif-container">
     <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
-</div>
+</div> -->
+
+<p-toast [style]="{'top': '80px'}" position="bottom-left" key="googlecal" (onClose)="routeBack()"></p-toast>
+
 <div class="cal-container">
     <div class="container">
         <p-card header="Schedule a study session with friends!">
@@ -15,8 +18,8 @@
                 <div>
                     <input pInputText style="width:100%" type="text" placeholder="Enter Meeting Title"
                         formControlName="meetingTitle">
-                    <small *ngIf="form.get('meetingTitle')?.invalid && form.get('meetingTitle')?.dirty" id="username-help"
-                        class="p-error">Meeting Title is required</small>
+                    <small *ngIf="form.get('meetingTitle')?.invalid && form.get('meetingTitle')?.dirty"
+                        id="username-help" class="p-error">Meeting Title is required</small>
                 </div>
                 <br>
 

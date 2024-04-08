@@ -18,15 +18,18 @@
                         <div *ngFor="let o of q.options; let j = index" class="field-checkbox {{q.id}}">
                             <br>
                             <span>{{getAlphabeticalOrder(j)}}. <button pButton id="{{q.id}}-{{j}}"
-                                    [ngClass]="[btnStyle]" [disabled]="submitted" (click)="selectOption(q, o, i, j)">{{o}}</button></span>
+                                    [ngClass]="[btnStyle]" [disabled]="submitted"
+                                    (click)="selectOption(q, o, i, j)">{{o}}</button></span>
                         </div>
                         <!-- SCORES -->
                         <br *ngIf="submitted">
                         <br *ngIf="submitted">
                         <div *ngIf="submitted">
-                            <p class="wrong-answer" *ngIf="!allAnswers.at(i)?.isCorrect">Your selected answer is wrong (っ- ᴖ - ς)<br>Don't give up, let's try again!</p>
+                            <p class="wrong-answer" *ngIf="!allAnswers.at(i)?.isCorrect">Your selected answer is wrong
+                                (っ- ᴖ - ς)<br>Don't give up, let's try again!</p>
                             <!-- <p *ngIf="!allAnswers.at(i)?.isCorrect">{{allAnswers.at(i)?.correctAnswer}}</p> -->
-                            <p class="correct-answer" *ngIf="allAnswers.at(i)?.isCorrect">You got this question correct! Good work! ദ്ദി(・ᴗ・)✧</p>
+                            <p class="correct-answer" *ngIf="allAnswers.at(i)?.isCorrect">You got this question correct!
+                                Good work! ദ്ദി(・ᴗ・)✧</p>
                         </div>
                         <!-- SHOW ANSWERS -->
                         <br *ngIf="showAnswers">
@@ -38,17 +41,17 @@
             </div>
         </div>
         <div class="buttons" *ngIf="!submitted">
+            <p-button (onClick)="backButton()" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-right': '.5em' }"></p-button>
             <p-button (onClick)="submitAnswers()" [disabled]="!allAnswered" label="Submit" icon="pi pi-check"></p-button>
-            <p-button (onClick)="backButton()" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
-                [style]="{ 'margin-left': '.5em' }"></p-button>
+
         </div>
         <div class="buttons" *ngIf="submitted">
             <p-button (onClick)="retryQuiz()" label="Retry" icon="pi pi-check"></p-button>
             <p-button *ngIf="!showAnswers" (onClick)="showAnswersBtn()" icon="pi pi-eye" label="Show Answers" [style]="{ 'margin-left': '.5em' }"></p-button>
-            <p-button *ngIf="showAnswers" [routerLink]="['/quiz', quizId, 'attempts']" icon="pi pi-eye" label="View All Attempts" [style]="{ 'margin-left': '.5em' }"></p-button>
+            <p-button *ngIf="showAnswers" icon="pi pi-eye" [style]="{'float': 'right'}" label="View All Attempts" [style]="{ 'margin-left': '.5em' }" (onClick)="viewAllAttempts()"></p-button>
         </div>
     </div>
-    
+
 </div>
 
 <div class="progress-container">
@@ -56,7 +59,7 @@
         <ng-template #loading>
             <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
             <div class="loading">
-                <h2 class="loading-words">Generating Your Quiz... Please Wait!  .𖥔 ݁ ˖</h2>
+                <h2 class="loading-words">Generating Your Quiz... Please Wait! .𖥔 ݁ ˖</h2>
             </div>
         </ng-template>
     </div>

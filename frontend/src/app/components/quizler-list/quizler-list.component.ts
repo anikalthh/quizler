@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
 import { ActivatedRoute } from '@angular/router';
 import { FullMCQQuizData } from '../../models';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-quizler-list',
@@ -13,6 +14,7 @@ export class QuizlerListComponent implements OnInit {
   // dependencies
   private quizSvc = inject(QuizService)
   private activatedRoute = inject(ActivatedRoute)
+  private messageService = inject(MessageService)
 
   // vars
   S3Id !: string
@@ -59,9 +61,11 @@ export class QuizlerListComponent implements OnInit {
         this.loadQuizzes() // reload after deletion
         console.log('check: ', JSON.parse(JSON.stringify(msg))['quizId'])
         if (JSON.parse(JSON.stringify(msg))['quizId'] === 'error') {
-          this.errorDeletingQuiz = true
+          // this.errorDeletingQuiz = true
+          this.messageService.add({ key: 'deleted', severity: 'success', summary: 'Error', detail: 'Unable to delete your quiz. Please try again!' });
         } else {
-          this.isQuizDeleted = true
+          // this.isQuizDeleted = true
+          this.messageService.add({ key: 'deleted', severity: 'success', summary: 'Success!', detail: 'Your quiz and all of your attempts of it have been deleted.' });
         }
       }
     )

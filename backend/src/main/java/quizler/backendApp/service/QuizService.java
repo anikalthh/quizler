@@ -3,8 +3,6 @@ package quizler.backendApp.service;
 import java.io.StringReader;
 import java.util.List;
 
-import javax.print.Doc;
-
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

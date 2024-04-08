@@ -3,7 +3,6 @@ package quizler.backendApp.controller;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.codec.language.bm.Rule.RPattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

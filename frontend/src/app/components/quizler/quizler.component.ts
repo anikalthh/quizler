@@ -35,7 +35,7 @@ export class QuizlerComponent implements OnInit {
         if (this.baseType === 'topicBased') {
           this.form = this.createFormTopicBased()
           this.isTopicBased = true
-        } else if (this.baseType === 'contentBased') {
+        } else if (this.baseType === 'contextBased') {
           this.form = this.createFormContentBased()
           this.isTopicBased = false
         }
