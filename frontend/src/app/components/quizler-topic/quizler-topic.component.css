@@ -34,3 +34,9 @@
 .topic-generate-card {
     width: 50vw;
 }
+
+::ng-deep .p-card-title {
+    font-family: 'Lemonmilk';
+    letter-spacing: 3px;
+    text-align: center;
+}

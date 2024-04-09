@@ -9,8 +9,9 @@
 
 <div class="quiz-container">
     <div class="content-container">
-        <h3>Quizzes generated from Document: {{documentTitle}} <span><button style="float: right;" pButton
-                    icon="pi pi-plus" label="Generate New Quiz" [routerLink]="['/generate', S3Id]"></button></span></h3>
+        <h1><span class="title-nugget">Quizzes generated from Document: {{documentTitle}}</span><span><button
+                    style="float: right;" pButton icon="pi pi-plus" label="Generate New Quiz"
+                    [routerLink]="['/generate', S3Id]"></button></span></h1>
         <br>
         <div class="review-container" *ngIf="quizzes$ | async as quizzes">
             <p-dataView #dv [value]="quizzes" [paginator]="true" [rows]="9" layout="grid"
@@ -20,26 +21,26 @@
                     <div class="p-col-12 p-md-4">
                         <div *ngFor="let q of quizzes">
                             <p-card>
-                                <h3 class="title-nugget">{{q.quizTitle}}</h3>
+                                <h3>{{q.quizTitle}}</h3>
                                 <!-- <h3>{{q.quizTitle}}</h3> -->
                                 <p>Question Type : <span class="info-nugget">{{q.questionType}}</span></p>
                                 <p>Language : <span class="info-nugget">{{q.language}}</span></p>
                                 <p>Content or Topic Based : <span class="info-nugget">{{q.type}}</span></p>
-
+                                <br>
                                 <div>
-                                    <button pButton icon="pi pi-pencil"
+                                    <button pButton icon="pi pi-eye"
                                         class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
-                                        label="Attempt" [routerLink]="['/quiz', q.quizId]"></button>
+                                        label="View Previous Attempts"
+                                        [routerLink]="['/quiz', q.quizId, 'attempts']"></button>
 
                                     <button pButton icon="pi pi-delete-left"
                                         class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
                                         [style]="{'float': 'right'}" label="Delete"
                                         (click)="deleteQuiz(q.quizId)"></button>
 
-                                    <button pButton icon="pi pi-eye"
+                                    <button pButton icon="pi pi-pencil" [style]="{'float': 'right'}"
                                         class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
-                                        label="View Previous Attempts" [style]="{'float': 'right'}"
-                                        [routerLink]="['/quiz', q.quizId, 'attempts']"></button>
+                                        label="Attempt" [routerLink]="['/quiz', q.quizId]"></button>
                                 </div>
 
                             </p-card>

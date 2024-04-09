@@ -1,7 +1,8 @@
 <div class="questions-container" *ngIf="!isLoading">
     <div class="container">
-        <p-card header="Generate a new quiz!" class="topic-generate-card">
+        <p-card header="⋆ .˚𖥔 Generate a new quiz! 𖥔˚. ⋆" class="topic-generate-card">
             <form [formGroup]="form" (submit)="generateQuiz()">
+                <br>
                 <div>
                     <label for="title">Quiz Title</label>
                 </div>
@@ -49,7 +50,7 @@
                         optionValue="value" placeholder="Select a Language"></p-dropdown>
                 </div>
                 <br>
-                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"></p-button>
+                <p-button (onClick)="backButton()" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"></p-button>
                 <p-button type="submit" label="Generate Quiz" icon="pi pi-check" [style]="{ 'float': 'right' }"></p-button>
             </form>
         </p-card>

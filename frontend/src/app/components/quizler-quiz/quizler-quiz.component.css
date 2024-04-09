@@ -68,6 +68,10 @@ h2 {
     margin-top: 38vh;
 }
 
+:host {
+    font-family: initial; /* or font-family: initial; */
+  }
+
 .loading {
     display: flex;
     justify-content: center; /* Centers content horizontally */

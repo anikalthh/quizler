@@ -9,7 +9,8 @@ import { Location } from '@angular/common';
   templateUrl: './quizler-attempts.component.html',
   styleUrl: './quizler-attempts.component.css'
 })
-export class QuizlerAttemptsComponent implements OnInit{
+
+export class QuizlerAttemptsComponent implements OnInit {
 
   // dependencies
   private activatedRoute = inject(ActivatedRoute)
@@ -23,6 +24,9 @@ export class QuizlerAttemptsComponent implements OnInit{
   attempts$ !: Promise<QuizAttempt[]>
   score !: number
   typeBased = this.activatedRoute.snapshot.queryParams['type']
+  // TEST VARS FOR CHART
+  data: any
+  options: any
 
   // lifecycle hooks
   ngOnInit(): void {
@@ -34,10 +38,57 @@ export class QuizlerAttemptsComponent implements OnInit{
         this.docId = quiz.documentId
       }
     )
+
+    // TESTTT CHART
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    this.data = {
+      labels: ['Correct', 'Wrong'],
+      datasets: [
+        {
+          data: [this.score,],
+          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
+          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+        }
+      ]
+    };
+
+
+    this.options = {
+      cutout: '60%',
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        }
+      }
+    };
   }
 
   // methods
   backButton() {
     this._location.back()
+  }
+
+  getChartData(attemptId: string | null) {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    console.log('what colour property is this: ', documentStyle.getPropertyValue('--blue-500'))
+    this.attempts$.then(
+      (attempts) => {
+        const foundAttempt = attempts.find((attempt) => attempt.attemptId === attemptId);
+        return {
+          labels: ['Correct', 'Wrong'],
+          datasets: [
+            {
+              data: [foundAttempt?.score, foundAttempt?.answers.length],
+              backgroundColor: [documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
+              hoverBackgroundColor: [documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+            }
+          ]
+        };
+      }
+    )
   }
 }

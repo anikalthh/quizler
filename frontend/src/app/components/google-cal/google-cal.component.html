@@ -5,12 +5,13 @@
     <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
 </div> -->
 
-<p-toast [style]="{'top': '80px'}" position="bottom-left" key="googlecal" (onClose)="routeBack()"></p-toast>
+<p-toast *ngIf="isGoogleAuthSuccessful && triedAuth" [style]="{'top': '80px'}" position="bottom-left" key="googlecal" (onClose)="routeBack()"></p-toast>
 
 <div class="cal-container">
     <div class="container">
-        <p-card header="Schedule a study session with friends!">
+        <p-card header="Schedule a study session with friends!" class="form-font">
             <form [formGroup]="form" (submit)="scheduleStudySession()">
+                <br>
                 <div>
                     <label for="topic">Meeting Title</label>
                 </div>

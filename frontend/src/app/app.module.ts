@@ -37,6 +37,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { PaginatorModule } from 'primeng/paginator';
 import { DividerModule } from 'primeng/divider';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ChartModule } from 'primeng/chart';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -92,13 +93,13 @@ import { ViewAttemptComponent } from './components/view-attempt/view-attempt.com
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatButtonModule,
+    // MatButtonModule,
     MatDialogModule,
-    MatFormFieldModule,
+    // MatFormFieldModule,
     MatInputModule,
     ClipboardModule,
-    MatSnackBarModule,
-    MatGridListModule,
+    // MatSnackBarModule,
+    // MatGridListModule,
     InputTextModule,
     CardModule,
     ButtonModule,
@@ -120,7 +121,8 @@ import { ViewAttemptComponent } from './components/view-attempt/view-attempt.com
     ProgressBarModule,
     PaginatorModule,
     DividerModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    ChartModule
   ],
   providers: [
     provideAnimationsAsync(),

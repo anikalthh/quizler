@@ -35,3 +35,9 @@
 .loading-words {
     letter-spacing: 3px;;
 }
+
+::ng-deep .p-card-title {
+    font-family: 'Lemonmilk';
+    letter-spacing: 3px;
+    text-align: center;
+}

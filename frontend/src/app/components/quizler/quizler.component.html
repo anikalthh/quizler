@@ -2,8 +2,9 @@
 
     <!-- TOPIC BASED -->
     <div class="container" *ngIf="!isTopicBased">
-        <p-card header="Upload">
+        <p-card header=".𖥔 ݁ ˖  Upload . 𖥔 ݁ ˖">
             <form [formGroup]="form">
+                <br>
                 <div>
                     <label for="title">Document Title</label>
                 </div>
@@ -32,10 +33,11 @@
 
     <!-- CONTENT BASED -->
     <div class="container" *ngIf="isTopicBased">
-        <p-card class="topic-pcard" header="Choose a topic">
+        <p-card header=".𖥔 ݁ ˖ Choose a topic .𖥔 ݁ ˖">
             <form [formGroup]="form" (submit)="generateTopicBasedQuiz()">
+                <br>
                 <div>
-                    <label for="topic">Topic</label>
+                    <label for="topic">Topic Name</label>
                 </div>
                 <br>
                 <div>
@@ -44,7 +46,8 @@
                         class="p-error">Topic is required</small>
                 </div>
                 <br>
-                <button pButton type="submit" [disabled]="form.invalid">Next</button>
+                <br>
+                <p-button  type="submit" [disabled]="form.invalid" [style]="{'width': '100%'}" label="Next"></p-button>
             </form>
         </p-card>
     </div>

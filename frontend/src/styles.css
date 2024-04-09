@@ -54,10 +54,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .title-nugget {
-    background-color: #D9D17A;
+    background-color: #dec983;
     color: #161D21;
     padding: 2px 5px;
     border-radius: 8px;
     width: fit-content;
 }
-

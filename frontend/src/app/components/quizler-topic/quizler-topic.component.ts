@@ -5,6 +5,7 @@ import { FileUploadService } from '../../services/file-upload.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../services/quiz.service';
 import { AxiosService } from '../../services/axios.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quizler-topic',
@@ -19,6 +20,7 @@ export class QuizlerTopicComponent {
   private qSvc = inject(QuizService)
   private router = inject(Router)
   private axiosSvc = inject(AxiosService)
+  private _location = inject(Location)
 
   // vars
   form !: FormGroup
@@ -74,6 +76,9 @@ export class QuizlerTopicComponent {
         this.qSvc.updateQuizQuestions(quizQuestions)
       }
     )
+  }
 
+  backButton() {
+    this._location.back()
   }
 }

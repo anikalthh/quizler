@@ -10,6 +10,8 @@
     margin-top: 0;
 }
 
-.topic-pcard {
-    width: 50%;
+::ng-deep .p-card-title {
+    font-family: 'Lemonmilk';
+    letter-spacing: 3px;
+    text-align: center;
 }
