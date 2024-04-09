@@ -16,12 +16,16 @@
                 </div>
                 <br>
                 <div>
-                    <label for="title">Upload your text documents</label>
+                    <label for="title">Upload your PDF text document</label>
                 </div>
                 <br>
-                <p-fileUpload class="file-upload-container" name="documents[]" mode="advanced"
+                <p-fileUpload [disabled]="form.invalid" class="file-upload-container" name="documents[]" accept="application/pdf" mode="advanced"
                     chooseStyleClass="p-button-rounded p-button-outlined" [customUpload]="true"
-                    (uploadHandler)="uploadFile($event)" #file></p-fileUpload>
+                    (uploadHandler)="uploadFile($event)" #file>
+                    <ng-template pTemplate="content" let-files>
+                        <div>You can also drag and drop your file here! ₊˚✩⊹</div>
+                    </ng-template>
+                </p-fileUpload>
             </form>
         </p-card>
     </div>

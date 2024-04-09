@@ -46,8 +46,17 @@ export class QuizlerGenerateComponent implements OnInit {
   ]
 
   languageOptions: any[] = [
+    { name: 'Auto-detect', value: 'Auto' },
     { name: 'English', value: 'English' },
-    { name: 'Auto-detect', value: 'Auto' }
+    { name: 'Chinese', value: 'Chinese' },
+    { name: 'Bahasa Melayu', value: 'Malay' },
+    { name: 'Tamil', value: 'Tamil' },
+    { name: 'Hindi', value: 'Hindi' },
+    { name: 'Thai', value: 'Thai' },
+    { name: 'Korean', value: 'Korean' },
+    { name: 'Japanese', value: 'Japanese' },
+    { name: 'Tagalog', value: 'Filipino' },
+    { name: 'Spanish', value: 'Spanish' }
   ]
 
   qnTypeOptions: any[] = [

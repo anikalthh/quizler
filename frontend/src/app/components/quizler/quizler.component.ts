@@ -70,7 +70,6 @@ export class QuizlerComponent implements OnInit {
       formData.set('title', this.form.get('title')?.value)
       formData.set('file', file)
       formData.set('userId', this.axiosSvc.getUserId() as unknown as string)
-      console.log('GET USER ID: FULL FORM DATA => ', formData)
 
     }
 
