@@ -14,7 +14,7 @@ p {
 }
 
 .content-container {
-    margin: 25px;
+    margin: 0 10vw;
     position: relative;
 }
 
@@ -24,14 +24,13 @@ p {
 
 .homepage-container {
     height: auto;
-    margin: 25px;
+    margin: 5vw;
     padding-bottom: 35px;
 }
 
-/* html,
-body {
-    height: auto;
-} */
+.header {
+   
+}
 
 .delete-notif {
     position: sticky;

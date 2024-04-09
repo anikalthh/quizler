@@ -4,16 +4,16 @@
 <div class="homepage-container">
     <div class="container">
         <div class="header">
-            <h1>Happy {{dayOfTheWeek | date: 'EEEE'}}, &#64;{{username}}!</h1>
-            <p>What would you like to do today?</p>
+            <h1 style="letter-spacing: 4px;">⊹ ˚₊⋆ Happy {{dayOfTheWeek | date: 'EEEE'}}, &#64;{{username}}! ⋆₊˚ ⊹ </h1>
+            <!-- <p>What would you like to do today?</p> -->
         </div>
     </div>
-
     <div class="content-container">
         <div>
-            <h1>Review Uploaded Docs<span><p-button [style]="{'margin-left': '12px'}" [rounded]="true" [outlined]="true" icon="pi pi-plus" [routerLink]="['/quiz']" [queryParams]="{type: 'contextBased'}"></p-button></span></h1>
+            <h1>Review Uploaded Docs<span><p-button [style]="{'float': 'right'}" [rounded]="true" [outlined]="true" icon="pi pi-plus" [routerLink]="['/quiz']" [queryParams]="{type: 'contextBased'}"></p-button></span></h1>
+            <br>
             <div class="review-container" *ngIf="docs$ | async as docs">
-                <p-dataView #dv [value]="docs" [paginator]="true" [rows]="5" filterBy="name" layout="list" emptyMessage="No Documents Uploaded Yet!">
+                <p-dataView #dv [value]="docs" [paginator]="true" [rows]="3" filterBy="name" layout="list" emptyMessage="No Documents Uploaded Yet!">
         
                     <ng-template let-docs pTemplate="list">
                         <div class="p-col-12 p-md-4">
@@ -43,8 +43,11 @@
 
     </div>
     <br>
+    <br>
+    <br>
     <div class="content-container">
-        <h1>Review Topic-generated quizzes<span><p-button [style]="{'margin-left': '12px'}" [rounded]="true" [outlined]="true" icon="pi pi-plus" [routerLink]="['/quiz']" [queryParams]="{type: 'topicBased'}"></p-button></span></h1>
+        <h1>Review Topic-generated quizzes<span><p-button [style]="{'float': 'right'}" [rounded]="true" [outlined]="true" icon="pi pi-plus" [routerLink]="['/quiz']" [queryParams]="{type: 'topicBased'}"></p-button></span></h1>
+        <br>
         <div class="review-container" *ngIf="topicQuizzes$ | async as topicQuizzes">
             <p-dataView #dv [value]="topicQuizzes" [paginator]="true" [rows]="5" layout="list" emptyMessage="No Documents Uploaded Yet!">
     

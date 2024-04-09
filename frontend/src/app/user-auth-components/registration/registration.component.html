@@ -2,10 +2,10 @@
     <p-messages [(value)]="failureMsg" [enableService]="false" [closable]="false"></p-messages>
 </div>
 <div class="register-container">
-    <div class="container">
-        <p-card header="Sign up" [style]="{ width: '500px' }">
+    <div>
+        <p-card header=". 𖥔 ݁ ˖ Sign up here! ݁ .𖥔 ݁ ˖" [style]="{ 'font-family': 'Lemonmilk', 'letter-spacing': '5px' }">
             <form [formGroup]="registerForm" (submit)="onSubmitRegister()">
-                <br>
+                <!-- <br> -->
                 <div>
                     <label for="username">Username</label>
                 </div>
@@ -64,15 +64,16 @@
                         <input pInputText id="confirmPassword" type="text" formControlName="confirmPassword">
                     </div> -->
                 <br>
-                <br>
+                <!-- <br> -->
                 <div>
                     <p-button label="Go Back" icon="pi pi-times" styleClass="p-button-secondary"
                         [routerLink]="['/']"></p-button>
                     <button [disabled]="registerForm.invalid" [style]="{'float': 'right'}" pButton icon="pi pi-id-card" type="submit" label="Sign Up"></button>
-                    
                 </div>
-
             </form>
         </p-card>
+    </div>
+    <div class="animation-png">
+        <img width="420vw" style="margin-left: 30px;" src="/assets/images/landing-page-animation-crop.png" alt="">
     </div>
 </div>
