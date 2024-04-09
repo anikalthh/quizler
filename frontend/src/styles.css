@@ -45,4 +45,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-top: 10%;
 }
 
+.info-nugget {
+    background-color: #525269;
+    padding: 5px 10px;
+    margin: 0 8px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.title-nugget {
+    background-color: #D9D17A;
+    color: #161D21;
+    padding: 2px 5px;
+    border-radius: 8px;
+    width: fit-content;
+}
 

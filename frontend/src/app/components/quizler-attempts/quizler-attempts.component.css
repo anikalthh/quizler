@@ -8,12 +8,12 @@ p  {
 }
 
 .content-container {
-    margin: 0 25px;
+    margin: 0 10vw;
     position: relative;
 }
 
 .attempts-container {
-    margin: 25px;
+    margin: 5vw;
     padding-bottom: 35px;
 }
 

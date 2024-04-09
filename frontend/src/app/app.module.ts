@@ -36,6 +36,7 @@ import { MessageService } from 'primeng/api';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { PaginatorModule } from 'primeng/paginator';
 import { DividerModule } from 'primeng/divider';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -118,7 +119,8 @@ import { ViewAttemptComponent } from './components/view-attempt/view-attempt.com
     ToastModule,
     ProgressBarModule,
     PaginatorModule,
-    DividerModule
+    DividerModule,
+    ScrollPanelModule
   ],
   providers: [
     provideAnimationsAsync(),

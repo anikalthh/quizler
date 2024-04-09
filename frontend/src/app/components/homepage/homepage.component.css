@@ -28,13 +28,21 @@ p {
     padding-bottom: 35px;
 }
 
-.header {
-   
-}
-
 .delete-notif {
     position: sticky;
     position: -webkit-sticky;
     top: 80px;
     padding: 10px 0px;
 }
+
+::ng-deep .p-scrollpanel {
+    border-radius: 10px;
+}
+
+/* .info-nugget {
+    background-color: #525269;
+    padding: 5px 10px;
+    margin: 0 8px;
+    border-radius: 8px;
+    width: fit-content;
+} */

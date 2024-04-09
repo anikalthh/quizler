@@ -9,13 +9,13 @@ p  {
 }
 
 .content-container {
-    margin: 0 25px;
+    margin: 0 10vw;
     position: relative;
     padding-bottom: 35px;
 }
 
 .quiz-container {
-    margin: 25px;
+    margin: 5vw;
 }
 
 .quiz-btns {
