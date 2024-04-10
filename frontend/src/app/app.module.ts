@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -64,6 +64,7 @@ import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-
 import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.component';
 import { GoogleCalComponent } from './components/google-cal/google-cal.component';
 import { ViewAttemptComponent } from './components/view-attempt/view-attempt.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,13 @@ import { ViewAttemptComponent } from './components/view-attempt/view-attempt.com
     PaginatorModule,
     DividerModule,
     ScrollPanelModule,
-    ChartModule
+    ChartModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     provideAnimationsAsync(),
