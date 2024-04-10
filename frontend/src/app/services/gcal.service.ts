@@ -11,6 +11,6 @@ export class GcalService {
   constructor(private http: HttpClient) { }
 
   sendEventDetails(eventDetails: StudySession | null) {
-    return firstValueFrom(this.http.post('http://localhost:8080/api/schedule/google/calendar', eventDetails))
+    return firstValueFrom(this.http.post('/api/schedule/google/calendar', eventDetails))
   }
 }

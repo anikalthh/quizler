@@ -15,11 +15,11 @@ export class QuizService {
 
   // Post quiz requirements / info data to SpringBoot to call OpExams API
   generateQuizContextBased(info: quizinfo) {
-    return firstValueFrom(this.http.post<GeneratedQuiz>('http://localhost:8080/api/generate', info))
+    return firstValueFrom(this.http.post<GeneratedQuiz>('/api/generate', info))
   }
 
   generateQuizTopicBased(info: quizinfo) {
-    return firstValueFrom(this.http.post<GeneratedQuiz>('http://localhost:8080/api/generate/topic', info))
+    return firstValueFrom(this.http.post<GeneratedQuiz>('/api/generate/topic', info))
   }
 
   // Pass data between quizler components via service
@@ -30,17 +30,17 @@ export class QuizService {
 
   // Get generated quiz
   getGeneratedQuiz(quizId: string, typeBased: string) {
-    return firstValueFrom(this.http.get<GeneratedQuiz>(`http://localhost:8080/api/quiz/${quizId}/${typeBased}`))
+    return firstValueFrom(this.http.get<GeneratedQuiz>(`/api/quiz/${quizId}/${typeBased}`))
   }
 
   // Delete Quiz
   deleteQuiz(quizId: string) {
-    return firstValueFrom(this.http.delete(`http://localhost:8080/api/quiz/${quizId}`))
+    return firstValueFrom(this.http.delete(`/api/quiz/${quizId}`))
   }
 
   // Post user's answers data to SpringBoot
   submitAnswersSvc(quizAttempt: QuizAttempt, typeBased: string) {
-    return firstValueFrom(this.http.post(`http://localhost:8080/api/submitquiz/${typeBased}`, quizAttempt))
+    return firstValueFrom(this.http.post(`/api/submitquiz/${typeBased}`, quizAttempt))
   }
 
   // Get all documents uploaded by a user
@@ -48,37 +48,37 @@ export class QuizService {
     if (userId === null ) {
       userId = ''
     }
-    return firstValueFrom(this.http.get<S3Data[]>(`http://localhost:8080/api/documents/${userId}`))
+    return firstValueFrom(this.http.get<S3Data[]>(`/api/documents/${userId}`))
   }
 
   // Get specific document via Document ID
   getDocument(docId: string) {
-    return firstValueFrom(this.http.get<S3Data>(`http://localhost:8080/api/document/${docId}`))
+    return firstValueFrom(this.http.get<S3Data>(`/api/document/${docId}`))
   }
 
   // Delete documents and all quizzes and attempts under it
   deleteDocument(docId: string) {
-    return firstValueFrom(this.http.delete<any>(`http://localhost:8080/api/document/${docId}`))
+    return firstValueFrom(this.http.delete<any>(`/api/document/${docId}`))
   }
 
   // Get all quizzes generated from a document
   getAllQuizzesByDocId(S3Id: string) : Promise<FullMCQQuizData[]> {
-    return firstValueFrom(this.http.get<FullMCQQuizData[]>(`http://localhost:8080/api/${S3Id}/quizzes`))
+    return firstValueFrom(this.http.get<FullMCQQuizData[]>(`/api/${S3Id}/quizzes`))
   }
 
   // Get all quizzes generated from a topic
   getAllTopicGeneratedQuizzes(userId: string | null) : Promise<FullMCQQuizData[]> {
-    return firstValueFrom(this.http.get<FullMCQQuizData[]>(`http://localhost:8080/api/topic/quizzes/${userId}`))
+    return firstValueFrom(this.http.get<FullMCQQuizData[]>(`/api/topic/quizzes/${userId}`))
   }
 
   // Get all quiz attempts of a generated quiz
   getAllQuizAttempts(quizId: string, typeBased: string) {
     console.log('exists in svc? : ', quizId)
-    return firstValueFrom(this.http.get<QuizAttempt[]>(`http://localhost:8080/api/${typeBased}/${quizId}/attempts`))
+    return firstValueFrom(this.http.get<QuizAttempt[]>(`/api/${typeBased}/${quizId}/attempts`))
   }
 
   // Get Quiz Attempt -> To review answers
   getQuizAttempt(attemptId: string) {
-    return firstValueFrom(this.http.get<QuizAttempt>(`http://localhost:8080/api/attempt/${attemptId}`))
+    return firstValueFrom(this.http.get<QuizAttempt>(`/api/attempt/${attemptId}`))
   }
 }

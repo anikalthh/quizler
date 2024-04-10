@@ -14,10 +14,10 @@
                     [routerLink]="['/generate', S3Id]"></button></span></h1>
         <br>
         <div class="review-container" *ngIf="quizzes$ | async as quizzes">
-            <p-dataView #dv [value]="quizzes" [paginator]="true" [rows]="9" layout="grid"
+            <p-dataView #dv [value]="quizzes" [paginator]="true" [rows]="5" layout="grid"
                 emptyMessage="No Quizzes Generated Yet!">
 
-                <ng-template let-docs pTemplate="gridItem">
+                <ng-template let-quizzes pTemplate="gridItem">
                     <div class="p-col-12 p-md-4">
                         <div *ngFor="let q of quizzes let j = index">
                             <p-card>
@@ -44,7 +44,7 @@
                                 </div>
 
                             </p-card>
-                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != docs.length"></p-divider>
+                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != quizzes.length"></p-divider>
 
                         </div>
 

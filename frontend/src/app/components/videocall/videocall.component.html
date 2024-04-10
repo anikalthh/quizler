@@ -1,33 +1,28 @@
-<!-- <div class="call-container">
-    <div class="container">
-      <button pButton color="primary" [disabled]="isCallStarted" (click)="showModal(false)">Start Call</button>
-      <button pButton [disabled]="isCallStarted" (click)="showModal(true)" [style]="{ 'margin-left': '.5em' }">Join Call</button>
-      <button pButton color="warn" *ngIf="isCallStarted" (click)="endCall()" [style]="{ 'margin-left': '.5em' }">End Call</button>
-    </div>
-    <div class="container">
-      <div class="">
-        <div id="video-wrapper">
-          <video #localVideo id="local-video" autoplay playsinline [muted]=true></video>
-          <video #remoteVideo id="remote-video" autoplay playsinline></video>          
-        </div>
-      </div>
-    </div>
-  </div> -->
-
 <p-toast position="bottom-center" key="tc" (onClose)="reload()"></p-toast>
 
 <div class="call-container">
   <div class="container">
-    <button pButton color="primary" [disabled]="isCallStarted" (click)="showModal(false)">Start Call</button>
-    <button pButton [disabled]="isCallStarted" (click)="showModal(true)" [style]="{ 'margin-left': '.5em' }">Join
-      Call</button>
-    <button pButton color="warn" *ngIf="isCallStarted" (click)="endCall()" [style]="{ 'margin-left': '.5em' }">End
-      Call</button>
+    <p-card header="Studying is better with friends.">
+      <div class="video-wrapper" style="margin: 5vh 0;" *ngIf="!isCallStarted">
+        <img width="300vw" style="margin-right: 12px;" src="/assets/images/videocall-icon.png" alt="">
+      </div>
+      <div class="container">
+        <button pButton color="primary" [disabled]="isCallStarted" (click)="showModal(false)">Start Call</button>
+        <button pButton [disabled]="isCallStarted" (click)="showModal(true)" [style]="{ 'margin-left': '.5em' }">Join
+          Call</button>
+        <button pButton color="warn" *ngIf="isCallStarted" (click)="endCall()" [style]="{ 'margin-left': '.5em' }">End
+          Call</button>
+      </div>
+      
+    </p-card>
+    
   </div>
-  <div class="container">
-    <div class="video-wrapper">
-      <video #localVideo id="local-video" autoplay playsinline [muted]=true></video>
-      <video [style]="{'margin-left': '10px'}" *ngIf="hasPeerJoined" #remoteVideo id="remote-video" autoplay playsinline></video>
-    </div>
+
+</div>
+
+<div class="container">
+  <div class="video-wrapper">
+    <video #localVideo id="local-video" autoplay playsinline [muted]=true></video>
+    <video [style]="{'margin-left': '10px'}" *ngIf="hasPeerJoined" #remoteVideo id="remote-video" autoplay playsinline></video>
   </div>
 </div>

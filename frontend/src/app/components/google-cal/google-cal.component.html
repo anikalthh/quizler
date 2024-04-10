@@ -5,7 +5,7 @@
     <p-messages [(value)]="failureMsg" [enableService]="false"></p-messages>
 </div> -->
 
-<p-toast *ngIf="isGoogleAuthSuccessful && triedAuth" [style]="{'top': '80px'}" position="bottom-left" key="googlecal" (onClose)="routeBack()"></p-toast>
+<p-toast *ngIf="triedAuth" [style]="{'top': '80px'}" position="bottom-left" key="googlecal" (onClose)="routeBack()"></p-toast>
 
 <div class="cal-container">
     <div class="container">

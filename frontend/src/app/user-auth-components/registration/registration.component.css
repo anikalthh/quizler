@@ -1,6 +1,6 @@
 .register-container {
     display: flex;
-    margin: 7vh 0 0 7vw;
+    margin: 15vh 0 0 7vw;
     /* padding-bottom: 35px; */
     justify-content: center;
     align-items: center;
@@ -26,4 +26,9 @@
 
 input {
     width: 100%;
+}
+
+::ng-deep .p-card-title {
+    font-family: 'Lemonmilk';
+    letter-spacing: 3px;
 }

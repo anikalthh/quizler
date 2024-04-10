@@ -24,7 +24,7 @@ export class AxiosService {
   username : string = ''
 
   constructor() {
-    axios.defaults.baseURL = "http://localhost:8080";
+    axios.defaults.baseURL = "/api";
     axios.defaults.headers.post["Content-Type"] = "application/json"
   }
 

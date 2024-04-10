@@ -4,10 +4,10 @@
                     icon="pi pi-pencil" label="Attempt Quiz" [routerLink]="['/quiz', quizId]"></button></span></h1>
         <br>
         <div class="review-container" *ngIf="attempts$ | async as attempts">
-            <p-dataView #dv [value]="attempts" [paginator]="true" [rows]="9" layout="grid"
+            <p-dataView #dv [value]="attempts" [paginator]="true" [rows]="5" layout="grid"
                 emptyMessage="You have not attempted this quiz yet!">
 
-                <ng-template let-docs pTemplate="gridItem">
+                <ng-template let-attempts pTemplate="gridItem">
                     <div class="p-col-12 p-md-4">
                         <div *ngFor="let a of attempts; let j = index">
                             <p-card>
@@ -32,7 +32,7 @@
                                 
 
                             </p-card>
-                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != docs.length"></p-divider>
+                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != attempts.length"></p-divider>
 
                         </div>
                     </div>

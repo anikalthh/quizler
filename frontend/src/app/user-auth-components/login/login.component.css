@@ -19,3 +19,8 @@ input {
     justify-content: center;
     margin-top: 0;
 }
+
+::ng-deep .p-card-title {
+    font-family: 'Lemonmilk';
+    letter-spacing: 3px;
+}

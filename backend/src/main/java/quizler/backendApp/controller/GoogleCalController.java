@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
@@ -46,6 +47,7 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonString;
 import jakarta.json.JsonValue;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import quizler.backendApp.dto.UrlDto;
 import quizler.backendApp.service.EmailService;
 
@@ -56,10 +58,17 @@ public class GoogleCalController {
 
     @Value("${google.client.client-id}")
     private String clientId;
+
     @Value("${google.client.client-secret}")
     private String clientSecret;
 
-    private String redirectURI = "http://localhost:8080/api/auth/callback";
+    @Value("${base.url}")
+    private String baseUrl;
+
+    @Value("${redirect.angular.url}")
+    private String redirectAngularUrl;
+
+    private String redirectURI = baseUrl + "/api/auth/callback";
 
     private static Calendar gCalClient;
     GoogleClientSecrets clientSecrets;
@@ -90,7 +99,8 @@ public class GoogleCalController {
             flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, new GsonFactory(), clientSecrets,
                     scopes).build();
         }
-        authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(redirectURI);
+        System.out.printf("\n\nwhy redirect uri wrongg: %s\n\n", baseUrl + "/api/auth/callback");
+        authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(baseUrl + "/api/auth/callback");
 
         return ResponseEntity.ok(new UrlDto(authorizationUrl.build()));
 
@@ -99,16 +109,20 @@ public class GoogleCalController {
     @GetMapping("/auth/callback")
     public RedirectView callback(@RequestParam("code") String code) throws URISyntaxException {
         try {
-            TokenResponse token = flow.newTokenRequest(code).setRedirectUri(redirectURI).execute();
+            TokenResponse token = flow.newTokenRequest(code).setRedirectUri(baseUrl + "/api/auth/callback").execute();
             credential = flow.createAndStoreCredential(token, "userID");
             gCalClient = new Calendar.Builder(httpTransport, new GsonFactory(),
                     credential)
                     .setApplicationName(APPLICATION_NAME).build();
-            return new RedirectView("http://localhost:4200/#/calendar?auth=Success");
+            return new RedirectView(redirectAngularUrl + "/#/calendar?auth=Success");
+            // return new RedirectView("/#/calendar?auth=Success");
+
         } catch (Exception e) {
             logger.warn("Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                     + " Redirecting to google connection status page.");
-            return new RedirectView("http://localhost:4200/#/calendar?auth=Failure");
+            return new RedirectView(redirectAngularUrl + "/#/calendar?auth=Failure");
+            // return new RedirectView("/#/calendar?auth=Failure");
+
         }
     }
 

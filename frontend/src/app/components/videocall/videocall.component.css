@@ -3,11 +3,33 @@
     width: fit-content;
 } */
 
+h1,
+h2,
+h3 {
+    font-family: 'Lemonmilk', sans-serif;
+}
+
+.call-container {
+    margin-top: 5vh;
+    padding-bottom: 35px;
+}
+
 .container {
-    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0;
 }
 
 .video-wrapper {
     display: flex;
     justify-content: center;
 }
+
+::ng-deep .p-card-title {
+    font-family: 'Lemonmilk';
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+

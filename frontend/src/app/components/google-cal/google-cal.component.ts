@@ -39,13 +39,14 @@ export class GoogleCalComponent implements OnInit, AfterViewInit {
   attendee !: string[]
   isGoogleAuthSuccessful: boolean = false
   triedAuth: boolean = false
-  successMsg = [{ severity: 'success', summary: 'Success', detail: 'Successfully created Google Calendar event and emailed all attendees!' }];
-  failureMsg = [{ severity: 'error', summary: 'Failure', detail: 'Error occurred while inserting session to your Google Calendar.' }];
+  // successMsg = [{ severity: 'success', summary: 'Success', detail: `Successfully created Google Calendar event  and emailed all attendees!` }];
+  // failureMsg = [{ severity: 'error', summary: 'Failure', detail: 'Error occurred while inserting session to your Google Calendar.' }];
 
 
   // lifecycle hooks
   ngOnInit(): void {
     this.http.get("/api/auth/url").subscribe((data: any) => {
+      console.log('going to 8080 authentication', data.authURL)
       this.url = data.authURL
     });
     this.auth = this.activatedRoute.snapshot.queryParams['auth']
@@ -91,10 +92,13 @@ export class GoogleCalComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    console.log('tried auth: ', this.triedAuth)
+    console.log('google auth: ', this.isGoogleAuthSuccessful)
+
     if (!this.isGoogleAuthSuccessful && this.triedAuth) {
-      this.messageService.add({ key: 'googlecal', severity: 'error', summary: 'Error', detail: 'Unable to authenticate your Google account, study session has not been scheduled. Please try again!', sticky: true});
+      this.messageService.add({ key: 'googlecal', severity: 'error', summary: 'Error', detail: `Unable to authenticate your Google account, study session <${this.meetingTitle}> has not been scheduled. Please try again!`, sticky: true});
     } else if (this.isGoogleAuthSuccessful) {
-      this.messageService.add({ key: 'googlecal', severity: 'success', summary: 'Success!', detail: 'Your Google account has been authenticated and your study session has been created!', sticky: true});
+      this.messageService.add({ key: 'googlecal', severity: 'success', summary: 'Success!', detail: `Your Google account has been authenticated and your study session <${this.meetingTitle}> has been created!`, sticky: true});
     }
   }
 
@@ -133,6 +137,7 @@ export class GoogleCalComponent implements OnInit, AfterViewInit {
   }
 
   routeBack() {
+    this.triedAuth = false
     this.router.navigate(['/calendar'])
   }
 }

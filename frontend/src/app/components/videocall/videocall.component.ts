@@ -6,6 +6,7 @@ import { CallService } from '../../services/call.service';
 import { CallinfoDialogComponent, DialogData } from '../callinfo-dialog/callinfo-dialog.component';
 import MediaStream from 'peerjs';
 import { MessageService } from 'primeng/api';
+import { AxiosService } from '../../services/axios.service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +17,14 @@ export class VideocallComponent implements OnInit, OnDestroy {
   isCallStarted!: boolean;
   hasPeerJoined: boolean = false
   private peerId: string;
+  username = this.axiosSvc.getUsername()
 
   @ViewChild('localVideo')
   localVideo!: ElementRef<HTMLVideoElement>;
   @ViewChild('remoteVideo')
   remoteVideo!: ElementRef<HTMLVideoElement>;
 
-  constructor(public dialog: MatDialog, private callService: CallService, private messageService: MessageService) {
+  constructor(public dialog: MatDialog, private callService: CallService, private messageService: MessageService, private axiosSvc: AxiosService) {
     this.callService.isCallStarted$.subscribe(
       (booleanVal) => this.isCallStarted = booleanVal
     );

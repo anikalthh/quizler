@@ -12,11 +12,6 @@ export class MyHttpService {
   constructor(private http: HttpClient) { }
 
   get(url: string): any {
-    return this.http.get("http://localhost:8080" + url);
+    return this.http.get(url);
   }
-
-  // getPrivate(url: string): any {
-  //   return this.http.get("http://localhost:8080" + url, {headers: new HttpHeaders({"Authorization": "Bearer " + this.token})});
-  // }
-
 }
