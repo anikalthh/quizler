@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from '../../services/quiz.service';
 import { GeneratedQuiz, QuizAttempt } from '../../models';
@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
   styleUrl: './quizler-attempts.component.css'
 })
 
-export class QuizlerAttemptsComponent implements OnInit {
+export class QuizlerAttemptsComponent implements OnInit, AfterViewInit {
 
   // dependencies
   private activatedRoute = inject(ActivatedRoute)
@@ -22,11 +22,13 @@ export class QuizlerAttemptsComponent implements OnInit {
   docId !: string
   quizTitle !: string
   attempts$ !: Promise<QuizAttempt[]>
+  attemptsArr !: QuizAttempt[]
   score !: number
   typeBased = this.activatedRoute.snapshot.queryParams['type']
   // TEST VARS FOR CHART
   data: any
   options: any
+  chartsReady = false
 
   // lifecycle hooks
   ngOnInit(): void {
@@ -40,6 +42,13 @@ export class QuizlerAttemptsComponent implements OnInit {
     )
 
     // TESTTT CHART
+    this.quizSvc.getAllQuizAttempts(this.quizId, this.typeBased).then(
+      (attempts) => {
+        this.attemptsArr = attempts
+        this.chartsReady = true
+      }
+    )
+
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     this.data = {
@@ -64,6 +73,12 @@ export class QuizlerAttemptsComponent implements OnInit {
         }
       }
     };
+
+    console.log('quizattempts missing??: ', this.attemptsArr)
+  }
+
+  ngAfterViewInit(): void {
+    this.chartsReady = true
   }
 
   // methods
@@ -75,20 +90,41 @@ export class QuizlerAttemptsComponent implements OnInit {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     console.log('what colour property is this: ', documentStyle.getPropertyValue('--blue-500'))
-    this.attempts$.then(
-      (attempts) => {
-        const foundAttempt = attempts.find((attempt) => attempt.attemptId === attemptId);
+
+    if(this.attemptsArr) {
+      const foundAttempt = this.attemptsArr.find((attempt) => attempt.attemptId === attemptId)
+      if (foundAttempt) {
         return {
           labels: ['Correct', 'Wrong'],
           datasets: [
             {
-              data: [foundAttempt?.score, foundAttempt?.answers.length],
-              backgroundColor: [documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-              hoverBackgroundColor: [documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+              data: [foundAttempt.score, (foundAttempt.answers.length-foundAttempt.score)],
+              backgroundColor: ['#30b840', '#de1818'],
+              hoverBackgroundColor: ['#27db3c', 'red']
             }
           ]
-        };
+        }
+      } else {
+        return null
       }
-    )
+    }
+    return null
+    // if (foundAttempt) {
+    //   return {
+    //     labels: ['Correct', 'Wrong'],
+    //     datasets: [
+    //       {
+    //         data: [foundAttempt.score, (foundAttempt.answers.length-foundAttempt.score)],
+    //         backgroundColor: ['#30b840', '#de1818'],
+    //         hoverBackgroundColor: ['#27db3c', 'red']
+    //       }
+    //     ]
+    //   }
+    // } else {
+    //   return null
+    // }
   }
+
 }
+
+

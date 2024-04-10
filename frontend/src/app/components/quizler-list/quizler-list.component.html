@@ -19,7 +19,7 @@
 
                 <ng-template let-docs pTemplate="gridItem">
                     <div class="p-col-12 p-md-4">
-                        <div *ngFor="let q of quizzes">
+                        <div *ngFor="let q of quizzes let j = index">
                             <p-card>
                                 <h3>{{q.quizTitle}}</h3>
                                 <!-- <h3>{{q.quizTitle}}</h3> -->
@@ -44,6 +44,8 @@
                                 </div>
 
                             </p-card>
+                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != docs.length"></p-divider>
+
                         </div>
 
                     </div>

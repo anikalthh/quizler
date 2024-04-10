@@ -14,8 +14,8 @@
                                 <div [style]="{'display': 'inline-flex'}">
                                     <div>
                                         <h3>Attempt #{{j+1}}</h3>
-                                        <p>Your Score : {{a.score}}/{{a.answers.length}}</p>
-                                        <p>Submitted On : {{a.datetime | date: 'medium'}}</p>
+                                        <p>Your Score : <span class="info-nugget">{{a.score}} / {{a.answers.length}}</span></p>
+                                        <p>Submitted On : <span class="info-nugget">{{a.datetime | date: 'medium'}}</span></p>
                                         <div>
                                             <button pButton icon="pi pi-eye"
                                                 class="md:align-self-end m-2 p-button-rounded quiz-btns" size="small"
@@ -23,15 +23,17 @@
                                         </div>
                                     </div>
 
-                                    <div class="card flex justify-content-center" [style]="{'right': '0', 'position': 'absolute'}">
-                                        <p-chart  height="200" width="200" type="doughnut"
-                                            [data]="data" [options]="options"></p-chart>
+                                    <div class="card flex justify-content-center" [style]="{'right': '17px', 'position': 'absolute'}">
+                                        <p-chart *ngIf="chartsReady" height="200" width="200" type="doughnut"
+                                            [data]="getChartData(a.attemptId)" [options]="options"></p-chart>
                                     </div>
 
                                 </div>
-
+                                
 
                             </p-card>
+                            <p-divider [style]="{'margin': '0'}" *ngIf="j+1 != docs.length"></p-divider>
+
                         </div>
                     </div>
                 </ng-template>
