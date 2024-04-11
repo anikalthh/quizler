@@ -15,19 +15,12 @@ export class CallinfoDialogComponent {
         public dialogRef: MatDialogRef<CallinfoDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
         private _snackBar: MatSnackBar,
-        // private _toast: Toast,
         private messageService: MessageService
     ) { }
 
     public showCopiedSnackBar() {
         this.messageService.add({ key: 'copied', severity: 'success', summary: 'Videocall ID copied', detail: 'You can now share it with your friend for them to join you in this call!', sticky: true});
-        // this._snackBar.open('Peer ID Copied!', 'Hurrah', {
-        //     duration: 1000,
-        //     horizontalPosition: 'center',
-        //     verticalPosition: 'top'
-        // });
     }
-
 }
 
 export interface DialogData {

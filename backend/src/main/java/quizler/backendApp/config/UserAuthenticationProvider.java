@@ -25,7 +25,7 @@ import quizler.backendApp.service.UsersService;
 @RequiredArgsConstructor
 @Component
 public class UserAuthenticationProvider {
-    @Value("${security.jwt.token.secret-key}")
+    @Value("${security.jwt.token.secret.key}")
     private String secretKey;
 
     @Autowired

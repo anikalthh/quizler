@@ -24,7 +24,11 @@ export class VideocallComponent implements OnInit, OnDestroy {
   @ViewChild('remoteVideo')
   remoteVideo!: ElementRef<HTMLVideoElement>;
 
-  constructor(public dialog: MatDialog, private callService: CallService, private messageService: MessageService, private axiosSvc: AxiosService) {
+  constructor(public dialog: MatDialog,
+    private callService: CallService,
+    private messageService: MessageService,
+    private axiosSvc: AxiosService) {
+      
     this.callService.isCallStarted$.subscribe(
       (booleanVal) => this.isCallStarted = booleanVal
     );
@@ -54,7 +58,7 @@ export class VideocallComponent implements OnInit, OnDestroy {
   }
 
   public showModal(joinCall: boolean): void {
-    console.log('videocall.component -- showModel()')
+    console.log('start call')
 
     let dialogData: DialogData = joinCall ? ({ peerId: undefined, joinCall: true }) : ({ peerId: this.peerId, joinCall: false });
     const dialogRef = this.dialog.open(CallinfoDialogComponent, {

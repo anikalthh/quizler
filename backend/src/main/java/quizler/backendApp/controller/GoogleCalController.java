@@ -56,10 +56,10 @@ import quizler.backendApp.service.EmailService;
 @RequestMapping(path = "/api")
 public class GoogleCalController {
 
-    @Value("${google.client.client-id}")
+    @Value("${google.client.client.id}")
     private String clientId;
 
-    @Value("${google.client.client-secret}")
+    @Value("${google.client.client.secret}")
     private String clientSecret;
 
     @Value("${base.url}")

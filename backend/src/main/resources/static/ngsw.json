@@ -1,0 +1,127 @@
+{
+  "configVersion": 1,
+  "timestamp": 1712803833329,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/chunk-CZPZC24X.js",
+        "/chunk-NACUK6OL.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-M667PPCU.js",
+        "/manifest.webmanifest",
+        "/polyfills-RT5I6R6G.js",
+        "/styles-42C3JCD7.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/fonts/Junicat.otf",
+        "/assets/fonts/Junicat.ttf",
+        "/assets/fonts/LEMONMILK-LightItalic.otf",
+        "/assets/fonts/LEMONMILK-Regular.otf",
+        "/assets/fonts/nokiafc22.ttf",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/images/landing-page 2.png",
+        "/assets/images/landing-page-animation-crop.png",
+        "/assets/images/landing-page.png",
+        "/assets/images/quizler-logo.png",
+        "/assets/images/videocall-icon.png",
+        "/media/poppins-v15-latin-ext_latin-300-GTK2M3R3.woff2",
+        "/media/poppins-v15-latin-ext_latin-300-WGYTE4ZW.woff",
+        "/media/poppins-v15-latin-ext_latin-600-7I63INQO.woff",
+        "/media/poppins-v15-latin-ext_latin-600-Q577V2ZR.woff2",
+        "/media/poppins-v15-latin-ext_latin-700-WS4RGHGW.woff",
+        "/media/poppins-v15-latin-ext_latin-700-XQ7643EZ.woff2",
+        "/media/poppins-v15-latin-ext_latin-regular-I6LXRLMQ.woff2",
+        "/media/poppins-v15-latin-ext_latin-regular-MJKNTMSQ.woff",
+        "/media/primeicons-7C46RJHE.woff",
+        "/media/primeicons-AEJFRHCW.ttf",
+        "/media/primeicons-SQ5LETCD.svg",
+        "/media/primeicons-XI7ZC3P3.woff2"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/fonts/Junicat.otf": "6b3e578d2edd82ecbc907e9bdf37fa5c6e2ae8d2",
+    "/assets/fonts/Junicat.ttf": "91f033ead7aeef55b19d511949d360da62cecd97",
+    "/assets/fonts/LEMONMILK-LightItalic.otf": "e8902730a911b0f7f1937c49b806a9d0b066e961",
+    "/assets/fonts/LEMONMILK-Regular.otf": "1f660845f7fe40ee482aa7ccda7d101d20d870fa",
+    "/assets/fonts/nokiafc22.ttf": "223d31131fb96bdf50eb47bbf6725f689852a00a",
+    "/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/assets/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/assets/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/assets/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/assets/images/landing-page 2.png": "992d175802963b91e0ed8c0e84745591092cd7ed",
+    "/assets/images/landing-page-animation-crop.png": "c7f12e26d2deb29af9c5832400142b6192c4fa9f",
+    "/assets/images/landing-page.png": "992d175802963b91e0ed8c0e84745591092cd7ed",
+    "/assets/images/quizler-logo.png": "978bcb4579d5ef4f756a3db334b8b2c8657222ef",
+    "/assets/images/videocall-icon.png": "6b15e2db15821afe4d4e9d4d19a6a25cedca9d41",
+    "/chunk-CZPZC24X.js": "d129b7edc68752c0f91610a177b8d34673abaf5f",
+    "/chunk-NACUK6OL.js": "ced4acef7eacbc7b6be7c35554632118bdc627f5",
+    "/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/index.html": "f2ae3da00484a4d927a2dd2567d3169b01978855",
+    "/main-M667PPCU.js": "fde897a9120a1a061c755dc19f43ef7da8c0bdb3",
+    "/manifest.webmanifest": "63b272452f7323ec09705c84044faa394ce82a79",
+    "/media/poppins-v15-latin-ext_latin-300-GTK2M3R3.woff2": "b9951360a6d55d2c53bbe99972be08b6a50f3ed9",
+    "/media/poppins-v15-latin-ext_latin-300-WGYTE4ZW.woff": "d3e93964f93296cc98e36eed4f7eed1590715a15",
+    "/media/poppins-v15-latin-ext_latin-600-7I63INQO.woff": "22e7f510a5910927222afe0caff4757e6f96cb70",
+    "/media/poppins-v15-latin-ext_latin-600-Q577V2ZR.woff2": "0a59206ff73d89803991176c04636ec12adc46db",
+    "/media/poppins-v15-latin-ext_latin-700-WS4RGHGW.woff": "149848496f95b16e581da855b83387fb2999618b",
+    "/media/poppins-v15-latin-ext_latin-700-XQ7643EZ.woff2": "c269580d83bb6407aacc0ca32fe9ba271b943987",
+    "/media/poppins-v15-latin-ext_latin-regular-I6LXRLMQ.woff2": "27b6c45976faf3a8959e0eb33a62f5620b103c94",
+    "/media/poppins-v15-latin-ext_latin-regular-MJKNTMSQ.woff": "0563157a95394d35f55b1cbd90cf50c0e106bd7d",
+    "/media/primeicons-7C46RJHE.woff": "b1648b50be13350fde8b5d9a6fe78354ddcc43e4",
+    "/media/primeicons-AEJFRHCW.ttf": "ceeb46d594fde5cc507cdf8b70e38e78fe47653c",
+    "/media/primeicons-SQ5LETCD.svg": "d3332a45242b8f6edbf3f3c7176a280e7edcd961",
+    "/media/primeicons-XI7ZC3P3.woff2": "55a4b2a5f02e362405d8d874903af0b5f6a6c15d",
+    "/polyfills-RT5I6R6G.js": "fe9f024576f21ff6314cf8f8332cde58b9a12416",
+    "/styles-42C3JCD7.css": "d197af9e433b909f869f17a74a6ba9437c55cc52"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

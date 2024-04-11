@@ -45,20 +45,19 @@ export class CallService {
         this.peer = new Peer(id, peerJsOptions);
         return id;
       } catch (error) {
-        console.error(error);
+        console.error('error: ', error);
       }
     }
   }
 
-  public async establishMediaCall(remotePeerId: string) {
+  public async establishMediaCall(remotePeerId: string) { // for user to join call
     console.log('call.service -- establishMediaCall()')
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
-      const connection = this.peer.connect(remotePeerId);
+      const connection = this.peer.connect(remotePeerId); // connects to the first user via peer id
       connection.on('error', err => {
         console.error(err);
-        // this.snackBar.open(err, 'Close');
       });
 
       this.mediaCall = this.peer.call(remotePeerId, stream);
@@ -90,7 +89,7 @@ export class CallService {
     }
   }
 
-  public async enableCallAnswer() {
+  public async enableCallAnswer() { // to start a call
     console.log('call.service -- enableCallAnswer()')
     this.isCallStartedBs.next(true);
     try {
@@ -104,6 +103,8 @@ export class CallService {
 
         this.mediaCall.answer(stream);
         this.mediaCall.on('stream', (remoteStream: MediaStream) => {
+          console.log('should get 2 videos here')
+          this.hasPeerJoinedBs.next(true);
           this.remoteStreamBs.next(remoteStream);
         });
         this.mediaCall.on('error', (error: PeerError<"negotiation-failed" | "connection-closed">) => {

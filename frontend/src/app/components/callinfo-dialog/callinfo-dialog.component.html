@@ -20,8 +20,13 @@
 
 <h1 mat-dialog-title>Videocall Info</h1>
 <div mat-dialog-content>
-  <mat-form-field [cdkCopyToClipboard]="data.peerId!" (click)="showCopiedSnackBar()">
-    <mat-label>{{ data.joinCall ? 'INSERT REMOTE ID' : 'CLICK TO COPY YOUR ID' }}</mat-label>
+  <mat-form-field *ngIf="data.joinCall">
+    <mat-label>{{'INSERT REMOTE ID'}}</mat-label>
+    <input [disabled]="!data.joinCall" matInput [(ngModel)]="data.peerId">
+  </mat-form-field>
+
+  <mat-form-field [cdkCopyToClipboard]="data.peerId!" *ngIf="!data.joinCall" (click)="showCopiedSnackBar()">
+    <mat-label>{{'CLICK TO COPY YOUR ID'}}</mat-label>
     <input [disabled]="!data.joinCall" matInput [(ngModel)]="data.peerId">
   </mat-form-field>
 </div>
