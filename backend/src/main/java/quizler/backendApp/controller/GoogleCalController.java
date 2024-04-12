@@ -13,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonString;
 import jakarta.json.JsonValue;
 import jakarta.mail.MessagingException;
@@ -68,12 +70,11 @@ public class GoogleCalController {
     @Value("${redirect.angular.url}")
     private String redirectAngularUrl;
 
-    private String redirectURI = baseUrl + "/api/auth/callback";
-
     private static Calendar gCalClient;
     GoogleClientSecrets clientSecrets;
     GoogleAuthorizationCodeFlow flow;
     Credential credential;
+    String authStatus = "undefined";
 
     private final static Log logger = LogFactory.getLog(GoogleCalController.class);
     private static final String APPLICATION_NAME = "Quizler";
@@ -99,7 +100,7 @@ public class GoogleCalController {
             flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, new GsonFactory(), clientSecrets,
                     scopes).build();
         }
-        System.out.printf("\n\nwhy redirect uri wrongg: %s\n\n", baseUrl + "/api/auth/callback");
+        System.out.printf("\nredirect uri: %s\n\n", baseUrl + "/api/auth/callback");
         authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(baseUrl + "/api/auth/callback");
 
         return ResponseEntity.ok(new UrlDto(authorizationUrl.build()));
@@ -114,16 +115,33 @@ public class GoogleCalController {
             gCalClient = new Calendar.Builder(httpTransport, new GsonFactory(),
                     credential)
                     .setApplicationName(APPLICATION_NAME).build();
-            return new RedirectView(redirectAngularUrl + "/#/calendar?auth=Success");
-            // return new RedirectView("/#/calendar?auth=Success");
+            // return new RedirectView(redirectAngularUrl + "/#/calendar?auth=Success");
+            authStatus = "Success";
+            return new RedirectView(baseUrl + "/#/google/calendar/?auth=Success");
 
         } catch (Exception e) {
             logger.warn("Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                     + " Redirecting to google connection status page.");
-            return new RedirectView(redirectAngularUrl + "/#/calendar?auth=Failure");
-            // return new RedirectView("/#/calendar?auth=Failure");
+
+            authStatus = "Failure";
+            return new RedirectView(baseUrl + "/#/google/calendar/?auth=Failure");
 
         }
+    }
+
+    // Get Mapping to retrieve auth status
+    @GetMapping("/google/auth/status")
+    public ResponseEntity<String> getStatus() {
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("status", authStatus);
+
+        if (authStatus == "undefined") {
+            return ResponseEntity.ok().body(builder.build().toString());
+        }
+
+        return ResponseEntity.status(authStatus == "Success" ? HttpStatusCode.valueOf(200) : HttpStatusCode.valueOf(400))
+                .body(builder.build().toString());
     }
 
     // Post Mapping to process event details sent from frontend and post data to
@@ -153,7 +171,9 @@ public class GoogleCalController {
 
         for (JsonValue attendee : attendees) {
             EventAttendee eventAttendee = new EventAttendee();
-            eventAttendee.setEmail(((JsonString) attendee).getString()); // Have to cast to JsonString before getString() to remove additional quotation marks around the email
+            eventAttendee.setEmail(((JsonString) attendee).getString()); // Have to cast to JsonString before
+                                                                         // getString() to remove additional quotation
+                                                                         // marks around the email
             listOfAttendees.add(eventAttendee);
             // System.out.printf("email???: %s\n\n", eventAttendee.get("email"));
         }
@@ -169,7 +189,7 @@ public class GoogleCalController {
         googleEvent.setAttendees(listOfAttendees);
 
         System.out.printf("GOOGLE EVENT CREATED: %s\n\n", googleEvent);
-        
+
         // INSERT CALENDAR EVENT INTO GOOGLE CALENDAR
         gCalClient.events().insert("primary", googleEvent).execute();
 

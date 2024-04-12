@@ -16,6 +16,7 @@ import { QuizlerAttemptsComponent } from './components/quizler-attempts/quizler-
 import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.component';
 import { GoogleCalComponent } from './components/google-cal/google-cal.component';
 import { ViewAttemptComponent } from './components/view-attempt/view-attempt.component';
+import { AuthNotifComponent } from './components/auth-notif/auth-notif.component';
 
 const routes: Routes = [
   {path: '', component: LandingpageComponent},
@@ -33,7 +34,8 @@ const routes: Routes = [
       {path: 'attempt/:attemptId', component: ViewAttemptComponent}, // view specific quiz attempt
       {path: 'quiz/:quizId', component: QuizlerQuizComponent},
       {path: 'videocall', component: VideocallComponent},
-      {path: 'calendar', component: GoogleCalComponent}
+      {path: 'calendar', component: GoogleCalComponent},
+      {path: 'google/calendar', component: AuthNotifComponent}
   ]},
   {path: '**', redirectTo: '/', pathMatch:'full'}
 ];

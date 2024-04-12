@@ -65,6 +65,7 @@ import { QuizlerTopicComponent } from './components/quizler-topic/quizler-topic.
 import { GoogleCalComponent } from './components/google-cal/google-cal.component';
 import { ViewAttemptComponent } from './components/view-attempt/view-attempt.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AuthNotifComponent } from './components/auth-notif/auth-notif.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     QuizlerAttemptsComponent,
     QuizlerTopicComponent,
     GoogleCalComponent,
-    ViewAttemptComponent
+    ViewAttemptComponent,
+    AuthNotifComponent
   ],
   imports: [
     CommonModule,

@@ -25,7 +25,7 @@ public class OpExamsAPI {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("api-key", apiKey);
-        httpHeaders.add("request-type", "test");
+        // httpHeaders.add("request-type", "test");
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         JsonObject requestJson = Json.createObjectBuilder()
@@ -56,7 +56,7 @@ public class OpExamsAPI {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("api-key", apiKey);
-        httpHeaders.add("request-type", "test");
+        // httpHeaders.add("request-type", "test");
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         JsonObject requestJson = Json.createObjectBuilder()

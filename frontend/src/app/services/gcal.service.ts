@@ -13,4 +13,8 @@ export class GcalService {
   sendEventDetails(eventDetails: StudySession | null) {
     return firstValueFrom(this.http.post('/api/schedule/google/calendar', eventDetails))
   }
+
+  getAuthenticationStatus() {
+    return firstValueFrom(this.http.get('/api/google/auth/status'))
+  }
 }

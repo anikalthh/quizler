@@ -6,13 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StudySession } from '../../models';
 import { formatDate } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-google-cal',
   templateUrl: './google-cal.component.html',
   styleUrl: './google-cal.component.css'
 })
-export class GoogleCalComponent implements OnInit, AfterViewInit {
+export class GoogleCalComponent implements OnInit {
 
   // dependencies
   private fb = inject(FormBuilder)
@@ -37,69 +38,49 @@ export class GoogleCalComponent implements OnInit, AfterViewInit {
   duration !: number
   email !: string
   attendee !: string[]
-  isGoogleAuthSuccessful: boolean = false
+  isGoogleAuthSuccessful: string = 'undefined'
   triedAuth: boolean = false
-  // successMsg = [{ severity: 'success', summary: 'Success', detail: `Successfully created Google Calendar event  and emailed all attendees!` }];
-  // failureMsg = [{ severity: 'error', summary: 'Failure', detail: 'Error occurred while inserting session to your Google Calendar.' }];
-
 
   // lifecycle hooks
   ngOnInit(): void {
+    this.form = this.createForm()
     this.http.get("/api/auth/url").subscribe((data: any) => {
       console.log('going to 8080 authentication', data.authURL)
       this.url = data.authURL
     });
-    this.auth = this.activatedRoute.snapshot.queryParams['auth']
-
-    if (this.auth !== undefined) {
-      this.triedAuth = true
-    } else {
-      this.triedAuth = false
-    }
 
     // check if localstorage has prev form data
     this.storedEventDetails = JSON.parse(window.localStorage.getItem('eventDetails') || '{}') as StudySession
 
     // this.storedEventDetails = window.localStorage.getItem('eventDetails') 
-    if (this.auth === 'Success' && this.storedEventDetails !== undefined) {
-      console.log('auth success, sending details now')
-      this.meetingTitle = this.storedEventDetails['meetingTitle']
-      this.startDatetime = this.storedEventDetails['startDatetime']
-      console.log('datetime format?: ', this.storedEventDetails['startDatetime'])
-      this.endDatetime = this.storedEventDetails['endDatetime']
-      this.duration = this.storedEventDetails['duration']
-      this.email = this.storedEventDetails['email']
-      this.attendee = this.storedEventDetails['attendee']
-      this.form = this.createForm()
-      this.gCalSvc.sendEventDetails(this.storedEventDetails)
-      this.isGoogleAuthSuccessful = true
+    // if (this.auth === 'Success' && this.storedEventDetails !== undefined) {
+    //   console.log('auth success, sending details now')
+    //   this.meetingTitle = this.storedEventDetails['meetingTitle']
+    //   this.startDatetime = this.storedEventDetails['startDatetime']
+    //   console.log('datetime format?: ', this.storedEventDetails['startDatetime'])
+    //   this.endDatetime = this.storedEventDetails['endDatetime']
+    //   this.duration = this.storedEventDetails['duration']
+    //   this.email = this.storedEventDetails['email']
+    //   this.attendee = this.storedEventDetails['attendee']
+    //   this.form = this.createForm()
+    //   this.gCalSvc.sendEventDetails(this.storedEventDetails)
+    //   // this.isGoogleAuthSuccessful = true
 
-      
-      console.log('does it reach here')
-      // reset form
-      this.form.reset()
 
-    } else {
-      this.isGoogleAuthSuccessful = false
-      
-      this.meetingTitle = ''
-      this.startDatetime = ''
-      this.endDatetime = ''
-      this.email = ''
-      this.attendee = []
-      this.form = this.createForm()
-    }
-  }
+    //   console.log('does it reach here')
+    //   // reset form
+    //   this.form.reset()
 
-  ngAfterViewInit(): void {
-    console.log('tried auth: ', this.triedAuth)
-    console.log('google auth: ', this.isGoogleAuthSuccessful)
+    // } else {
+    //   // this.isGoogleAuthSuccessful = false
 
-    if (!this.isGoogleAuthSuccessful && this.triedAuth) {
-      this.messageService.add({ key: 'googlecal', severity: 'error', summary: 'Error', detail: `Unable to authenticate your Google account, study session <${this.meetingTitle}> has not been scheduled. Please try again!`, sticky: true});
-    } else if (this.isGoogleAuthSuccessful) {
-      this.messageService.add({ key: 'googlecal', severity: 'success', summary: 'Success!', detail: `Your Google account has been authenticated and your study session <${this.meetingTitle}> has been created!`, sticky: true});
-    }
+    //   this.meetingTitle = ''
+    //   this.startDatetime = ''
+    //   this.endDatetime = ''
+    //   this.email = ''
+    //   this.attendee = []
+    //   this.form = this.createForm()
+    // }
   }
 
   // methods
@@ -116,7 +97,32 @@ export class GoogleCalComponent implements OnInit, AfterViewInit {
   scheduleStudySession() {
     const eventDetails = this.form.value
     window.localStorage.setItem('eventDetails', JSON.stringify(eventDetails))
-    window.location.href = this.url
+    window.open(this.url, "_blank");
+    // window.location.href = this.url
+
+    const interval = setInterval(() => {
+      let status = this.getAuthStatus()
+      console.log('getting statuss: ', status)
+      if (status === 'Success') {
+        console.log('getting statuss inside if else block: ', status)
+        this.triedAuth = true
+
+        this.gCalSvc.sendEventDetails(this.form.value).then(() => {
+          this.messageService.add({ key: 'googlecal', severity: 'success', summary: 'Success!', detail: `Your study session <${this.form.value['meetingTitle']}> has been created and e-invites have been sent to all attendees!`, sticky: true });
+          }
+        )
+        clearInterval(interval); // Stop the interval if the method returns true
+        // this.router.navigate(['/calendar'], { queryParams: { auth: 'Success' } })
+      } else if (status === 'undefined') {
+        // do nothing
+      } else {
+        this.triedAuth = true
+        console.log('getting statuss inside if else block: ', status)
+        this.messageService.add({ key: 'googlecal', severity: 'error', summary: 'Error', detail: `Unable to authenticate your Google account, study session <${this.form.value['meetingTitle']}> has not been scheduled. Please try again!`, sticky: true });
+
+        clearInterval(interval); 
+      }
+    }, 500);
   }
 
   dateValidation() {
@@ -139,6 +145,27 @@ export class GoogleCalComponent implements OnInit, AfterViewInit {
   routeBack() {
     this.triedAuth = false
     this.router.navigate(['/calendar'])
+    this.form.reset()
+  }
+
+  getAuthStatus() {
+    this.gCalSvc.getAuthenticationStatus().then(
+      (bool) => {
+        const auth = JSON.parse(JSON.stringify(bool))
+        console.log('BOOL ', auth['status'])
+        this.isGoogleAuthSuccessful = auth['status']
+      }
+    ).catch(
+      (bool) => {
+        console.log('failure bool: ', bool)
+
+        const auth = JSON.parse(JSON.stringify(bool))
+        this.isGoogleAuthSuccessful = auth['status']
+        console.log('google auth set to failure: ', auth['status'])
+      }
+    )
+    console.log('is 400 datatype same? : ', typeof(this.isGoogleAuthSuccessful))
+    return this.isGoogleAuthSuccessful
   }
 }
 
