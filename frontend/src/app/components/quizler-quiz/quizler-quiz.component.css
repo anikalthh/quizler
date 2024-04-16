@@ -81,3 +81,8 @@ h2 {
 .loading-words {
     letter-spacing: 3px;;
 }
+
+/* P CARD HEADER */
+::ng-deep .p-card .p-card-title {
+    line-height: 4vh;
+}
